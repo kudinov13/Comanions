@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ёлки-Палки — глэмпинг в Кумертау: зимняя сказка, которую можно забронировать</title>
+<meta name="description" content="Глэмпинг «Ёлки-Палки» в Кумертау (Башкирия): A-frame домики в соснах, чан на дровах, баня на берегу, пляж и сапы. Письмо с поляны — открыты с декабря 2024.">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root{
+    --night:#0E1B14;
+    --night-2:#0B1510;
+    --amber:#E8A33D;
+    --amber-line:rgba(232,163,61,.45);
+    --paper:#F1EBDD;
+    --paper-2:#FBF6EA;
+    --ink:#1A241C;
+    --ink-soft:#4A5548;
+    --ink-amber:#8A5A14;
+    --ink-line:rgba(26,36,28,.22);
+    --cream:#F2ECDD;
+    --muted:#9DAF9C;
+    --line-d:rgba(242,236,221,.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  html,body{overflow-x:hidden}
+  body{
+    background:var(--night);
+    color:var(--cream);
+    font-family:'Golos Text',system-ui,sans-serif;
+    font-weight:400;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--amber);color:#161109}
+
+  .mono{font-family:'JetBrains Mono',monospace;font-weight:400;letter-spacing:.08em;text-transform:uppercase;font-size:12px}
+  .wrap{max-width:1340px;margin:0 auto}
+  .sec{padding:clamp(64px,10vw,124px) clamp(20px,5vw,72px)}
+  h2{
+    font-family:'Cormorant',serif;font-weight:600;
+    font-size:clamp(38px,5.2vw,74px);line-height:1.02;letter-spacing:-.01em;
+  }
+
+  /* ---------- кнопки: один класс, одна высота ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    height:54px;padding:0 30px;border-radius:999px;
+    font-family:'Golos Text',sans-serif;font-weight:500;font-size:15px;
+    background:var(--amber);color:#161109;
+    border:1px solid var(--amber);
+    transition:transform .25s,box-shadow .25s,border-color .25s,color .25s;
+    white-space:nowrap;cursor:pointer;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(232,163,61,.35)}
+
+  /* =========================================================
+     ЗОНА 1 — ОТКРЫТКА: full-viewport фото + письмо поверх края
+     ========================================================= */
+  .hero{
+    position:relative;min-height:100svh;overflow:hidden;
+    display:flex;align-items:flex-end;
+    padding:clamp(96px,13vh,150px) clamp(20px,5vw,88px) clamp(56px,9vh,104px);
+  }
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;filter:saturate(.95) contrast(1.05)}
+  .hero-bg::after{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(115% 90% at 55% 42%,transparent 42%,rgba(8,16,11,.52) 100%),
+      linear-gradient(180deg,rgba(8,16,11,.55),transparent 24%),
+      linear-gradient(0deg,rgba(8,16,11,.6),transparent 46%),
+      linear-gradient(90deg,rgba(8,16,11,.32),transparent 42%);
+  }
+  .note{
+    position:absolute;z-index:2;color:rgba(242,236,221,.92);
+    text-shadow:0 1px 12px rgba(0,0,0,.5);line-height:1.75;
+  }
+  .note--tl{top:clamp(20px,4vw,44px);left:clamp(20px,5vw,88px)}
+  .note--tr{top:clamp(20px,4vw,44px);right:clamp(20px,5vw,88px);text-align:right}
+
+  /* бумажная карточка-письмо, смещена в левый нижний угол */
+  .letter{
+    position:relative;z-index:3;
+    width:min(760px,100%);
+    background:linear-gradient(180deg,var(--paper-2),var(--paper));
+    color:var(--ink);
+    padding:clamp(26px,3.4vw,46px) clamp(22px,3.6vw,56px) clamp(30px,3.6vw,50px);
+    box-shadow:0 34px 90px rgba(0,0,0,.5);
+    transform:rotate(-.7deg);
+  }
+  .letter-head{
+    display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+    padding-bottom:16px;margin-bottom:clamp(20px,2.6vw,30px);
+    border-bottom:1px solid var(--ink-line);
+  }
+  .letter-brand{font-family:'Cormorant',serif;font-weight:700;font-size:26px;letter-spacing:.02em}
+  .letter-brand em{font-style:italic;color:var(--ink-amber)}
+  .letter-tag{color:var(--ink-amber);white-space:nowrap}
+  h1{
+    font-family:'Cormorant',serif;font-weight:600;
+    font-size:clamp(40px,6.1vw,90px);
+    line-height:1;letter-spacing:-.01em;color:var(--ink);
+  }
+  h1 .row{display:block}
+  .hl{
+    background:var(--amber);color:#161109;
+    padding:0 .14em .05em;
+    -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  }
+  .letter-text{
+    margin-top:clamp(18px,2.4vw,26px);max-width:32em;
+    font-size:clamp(15.5px,1.3vw,18px);color:var(--ink-soft);
+  }
+  .letter-text strong{color:var(--ink);font-weight:500}
+  .letter-actions{display:flex;align-items:center;gap:22px;margin-top:clamp(24px,3vw,36px);flex-wrap:wrap}
+  .txtlink{
+    font-weight:500;font-size:15px;color:var(--ink-amber);
+    border-bottom:1px solid rgba(138,90,20,.45);padding-bottom:2px;
+    transition:color .25s,border-color .25s;
+  }
+  .txtlink:hover{color:var(--ink);border-color:var(--ink)}
+
+  /* марка + круглый постмарк на углу письма */
+  .letter-stamp{
+    position:absolute;top:0;right:clamp(18px,4vw,40px);z-index:4;
+    display:flex;align-items:flex-start;
+    transform:translateY(-56%);
+  }
+  .stamp{
+    width:82px;background:var(--paper-2);padding:5px;
+    box-shadow:0 10px 24px rgba(0,0,0,.3);
+    transform:rotate(-5deg);
+  }
+  .stamp img{width:100%;aspect-ratio:1;object-fit:cover;filter:saturate(.9) contrast(1.05)}
+  .postmark{
+    position:relative;width:106px;height:106px;flex:none;
+    margin-left:-26px;margin-top:12px;
+    border-radius:50%;border:1.6px dashed rgba(26,36,28,.6);
+    background:rgba(241,235,221,.9);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    transform:rotate(9deg);
+  }
+  .postmark::before{
+    content:"";position:absolute;inset:5px;border-radius:50%;
+    border:1px solid rgba(26,36,28,.35);
+  }
+  .postmark span{
+    font-family:'JetBrains Mono',monospace;font-size:9.5px;
+    letter-spacing:.14em;text-transform:uppercase;line-height:1.8;
+    color:var(--ink-soft);
+  }
+
+  /* =========================================================
+     ЗОНА 2 — ДНЕВНИК ПОЛЯНЫ: записи + вплетённые фото
+     ========================================================= */
+  .diary{background:var(--paper);color:var(--ink)}
+  .d-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(44px,6vw,84px)}
+  .d-head h2{color:var(--ink)}
+  .kicker-ink{color:var(--ink-amber);display:block;margin-bottom:18px}
+  .d-head .kicker-ink{margin-bottom:6px}
+
+  .d-grid{
+    display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
+    column-gap:clamp(20px,3vw,44px);row-gap:clamp(56px,7vw,104px);
+  }
+  /* вклеенные фото: бумажная рамка, как в альбоме */
+  .ph{
+    background:var(--paper-2);padding:10px 10px 12px;
+    border:1px solid rgba(26,36,28,.08);
+    box-shadow:0 16px 40px rgba(26,36,28,.16);
+  }
+  .ph img{width:100%;object-fit:cover;filter:saturate(.92) contrast(1.05)}
+  .ph figcaption{
+    margin-top:10px;display:flex;justify-content:space-between;gap:12px;
+    color:var(--ink-soft);font-size:11px;letter-spacing:.1em;
+  }
+  .ph--chan{grid-column:1/8;grid-row:1/3;align-self:start}
+  .ph--chan img{aspect-ratio:4/5}
+  .ph--int{grid-column:8/12;grid-row:3;align-self:start;transform:translateY(clamp(24px,3vw,48px))}
+  .ph--int img{aspect-ratio:4/3}
+  .ph--wide{grid-column:1/13;grid-row:4}
+  .ph--wide img{aspect-ratio:21/8}
+
+  .entry{align-self:start}
+  .e-1{grid-column:9/13;grid-row:1;align-self:end;padding-bottom:6px}
+  .e-2{grid-column:9/13;grid-row:2}
+  .e-3{grid-column:1/7;grid-row:3}
+  .e-4{grid-column:1/7;grid-row:5}
+  .e-5{grid-column:8/13;grid-row:5}
+  .elabel{color:var(--ink-amber);display:block;margin-bottom:14px}
+  .eline{
+    font-family:'Cormorant',serif;font-weight:500;font-style:italic;
+    font-size:clamp(21px,2.3vw,30px);line-height:1.28;color:var(--ink);
+  }
+  .esub{margin-top:14px;font-size:14.5px;color:var(--ink-soft);max-width:26em}
+
+  /* строка-подпись на открытке (один короткий marquee) */
+  .mq{
+    background:var(--paper);overflow:hidden;
+    border-top:1px solid var(--ink-line);border-bottom:1px solid var(--ink-line);
+  }
+  .mq-track{display:flex;width:max-content;animation:mq 28s linear infinite}
+  .mq-group{display:flex;align-items:center;padding:15px 0}
+  .mq-group span{
+    font-family:'Cormorant',serif;font-style:italic;font-weight:600;
+    font-size:clamp(19px,2.1vw,27px);color:var(--ink);white-space:nowrap;padding:0 20px;
+  }
+  .mq-group i{width:6px;height:6px;border-radius:50%;background:var(--ink-amber);flex:none}
+  @keyframes mq{to{transform:translateX(-50%)}}
+
+  /* =========================================================
+     ЗОНА 3 — ОТКРЫТКА С МАРКОЙ: рейтинг на обороте
+     ========================================================= */
+  .rating{
+    background:
+      radial-gradient(900px 540px at 24% 50%,rgba(232,163,61,.08),transparent 65%),
+      var(--night);
+    border-top:1px solid var(--line-d);
+    overflow:hidden;
+  }
+  .r-cap{color:var(--amber);display:block;text-align:center;margin-bottom:clamp(40px,6vw,72px)}
+  .pcard{
+    position:relative;max-width:960px;margin:0 auto;
+    background:linear-gradient(180deg,var(--paper-2),var(--paper));
+    color:var(--ink);
+    display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+    gap:clamp(24px,4vw,56px);
+    padding:clamp(30px,4vw,54px) clamp(24px,4.5vw,60px);
+    box-shadow:0 42px 110px rgba(0,0,0,.55);
+    transform:rotate(-1.2deg);
+  }
+  .pc-msg{align-self:center}
+  .pc-kicker{color:var(--ink-amber);display:block;margin-bottom:18px}
+  .pc-line{
+    font-family:'Cormorant',serif;font-style:italic;font-weight:500;
+    font-size:clamp(21px,2.3vw,30px);line-height:1.3;
+  }
+  .pc-sign{
+    margin-top:20px;font-family:'Cormorant',serif;font-style:italic;
+    font-size:19px;color:var(--ink-soft);
+  }
+  .pc-num{
+    border-left:1px solid var(--ink-line);
+    padding-left:clamp(24px,4vw,56px);
+    display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  }
+  .pc-big{
+    font-family:'Cormorant',serif;font-weight:700;color:var(--ink);
+    font-size:clamp(96px,13vw,188px);line-height:.9;letter-spacing:-.02em;
+  }
+  .pc-big span{font-size:.32em;color:var(--ink-amber);font-weight:600}
+  .pc-src{color:var(--ink-amber);margin-top:10px}
+  .pc-addr{color:var(--ink-soft);margin-top:18px;font-size:11px}
+  .postmark--r{
+    position:absolute;top:0;right:clamp(18px,5vw,64px);z-index:2;
+    margin:0;transform:translateY(-48%) rotate(10deg);
+    width:112px;height:112px;
+  }
+
+  /* =========================================================
+     ЗОНА 4 — ТРОПА К CTA: пунктирная янтарная линия-путь
+     ========================================================= */
+  .trailsec{background:var(--night-2);border-top:1px solid var(--line-d)}
+  .t-kicker{color:var(--amber);display:block;margin-bottom:20px}
+  .trail{
+    margin-top:clamp(44px,6vw,80px);margin-left:9px;
+    padding-left:clamp(26px,5vw,72px);
+    border-left:2px dashed var(--amber-line);
+    max-width:760px;
+  }
+  .t-stop{position:relative;padding:clamp(14px,2.2vw,24px) 0}
+  .t-stop::before{
+    content:"";position:absolute;
+    top:calc(clamp(14px,2.2vw,24px) + .62em);
+    left:calc(-1 * clamp(26px,5vw,72px) - 7px);
+    width:11px;height:11px;border-radius:50%;
+    background:var(--night-2);border:2px solid var(--amber);
+  }
+  .t-stop--final::before{background:var(--amber);box-shadow:0 0 18px rgba(232,163,61,.6)}
+  .t-label{color:var(--amber);display:block;margin-bottom:10px}
+  .t-text{color:var(--muted);font-size:16px;max-width:32em}
+  .t-text strong{color:var(--cream);font-weight:500}
+  .t-final-line{
+    font-family:'Cormorant',serif;font-weight:600;color:var(--cream);
+    font-size:clamp(30px,4vw,54px);line-height:1.05;margin:6px 0 24px;
+  }
+  .t-alt{margin-top:24px;font-size:14.5px;color:var(--muted)}
+  .t-alt a{color:var(--amber);border-bottom:1px solid rgba(232,163,61,.4);padding-bottom:2px}
+  .t-alt a:hover{border-color:var(--amber)}
+
+  footer{
+    padding:30px clamp(20px,5vw,72px);
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    border-top:1px solid var(--line-d);background:var(--night-2);
+    color:var(--muted);font-size:13px;
+  }
+  footer a{color:var(--cream)}
+  footer a:hover{color:var(--amber)}
+
+  [data-rise]{will-change:transform,opacity}
+
+  /* ---------- 1024 ---------- */
+  @media (max-width:1024px){
+    .d-grid{grid-template-columns:1fr;row-gap:clamp(44px,6vw,64px)}
+    .ph--chan,.ph--int,.ph--wide,.e-1,.e-2,.e-3,.e-4,.e-5{grid-column:1/-1;grid-row:auto;transform:none;padding-bottom:0}
+    .ph--chan{max-width:560px}
+    .ph--int{max-width:440px}
+    .ph--wide{max-width:none}
+    .ph--wide img{aspect-ratio:16/9}
+    .pcard{grid-template-columns:1fr;max-width:620px;transform:rotate(-.9deg)}
+    .pc-num{border-left:none;border-top:1px solid var(--ink-line);padding-left:0;padding-top:clamp(24px,4vw,36px)}
+    .postmark--r{width:96px;height:96px;right:22px}
+    .d-head{flex-direction:column;align-items:flex-start;gap:14px}
+  }
+
+  /* ---------- 640 / 375 ---------- */
+  @media (max-width:640px){
+    body{font-size:16px}
+    .hero{padding:108px 20px 44px}
+    .note--tr{display:none}
+    .letter{transform:rotate(-.5deg);padding:64px 20px 30px}
+    h1{font-size:clamp(38px,10.6vw,44px)}
+    .letter-head{padding-bottom:12px;margin-bottom:18px}
+    .letter-brand{font-size:23px}
+    .letter-actions{gap:16px}
+    .letter-actions .btn{width:100%}
+    .letter-stamp{right:14px}
+    .stamp{width:62px}
+    .postmark{width:84px;height:84px;margin-left:-18px;margin-top:8px}
+    .postmark span{font-size:8px;letter-spacing:.1em}
+    .ph{padding:8px 8px 10px}
+    .ph--wide img{aspect-ratio:16/10}
+    .pcard{padding:56px 22px 32px}
+    .postmark--r{width:80px;height:80px;right:14px}
+    .trail{margin-left:6px;padding-left:26px}
+    .t-stop::before{left:calc(-26px - 7px)}
+    footer{flex-direction:column;gap:8px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .mq-track{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ ЗОНА 1 · ОТКРЫТКА ============ -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="img/aframe-night.jpg" alt="">
+  </div>
+
+  <p class="note note--tl mono">глэмпинг «Ёлки-Палки»<br>Кумертау · Башкирия</p>
+  <p class="note note--tr mono">поляна в соснах<br>открыто · дек 2024</p>
+
+  <article class="letter" data-letter>
+    <div class="letter-stamp" aria-hidden="true">
+      <div class="stamp"><img src="img/aframe-snow.jpg" alt=""></div>
+      <div class="postmark"><span>Кумертау<br>дек 2024</span></div>
+    </div>
+
+    <header class="letter-head">
+      <span class="letter-brand">Ёлки<em>-</em>Палки</span>
+      <span class="mono letter-tag">письмо с поляны</span>
+    </header>
+
+    <h1>
+      <span class="row">Зимняя сказка,</span>
+      <span class="row">которую можно</span>
+      <span class="row"><span class="hl">забронировать</span></span>
+    </h1>
+
+    <p class="letter-text">A-frame домики в соснах, <strong>чан на дровах</strong>, баня у самой воды и гирлянды до темна. Мы на поляне под Кумертау — пишем честно, без агрегаторов.</p>
+
+    <div class="letter-actions">
+      <a class="btn" href="https://wa.me/79377808090" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <a class="txtlink" href="#diary">что там есть ↓</a>
+    </div>
+  </article>
+</section>
+
+<!-- ============ ЗОНА 2 · ДНЕВНИК ПОЛЯНЫ ============ -->
+<section class="sec diary" id="diary">
+  <div class="wrap">
+    <div class="d-head" data-rise>
+      <h2>Дневник поляны</h2>
+      <p class="mono kicker-ink">записки · от первого лица места</p>
+    </div>
+
+    <div class="d-grid">
+      <figure class="ph ph--chan" data-rise>
+        <img src="img/chan.jpg" alt="Фирменный чан «Ёлки-Палки» на дровах: табличка на борту, домик с гирляндами на фоне">
+        <figcaption class="mono"><span>чан на дровах</span><span>вечер</span></figcaption>
+      </figure>
+
+      <div class="entry e-1" data-rise>
+        <span class="mono elabel">вечер</span>
+        <p class="eline">«С темнотой я топлю чан и зажигаю гирлянды. Пар над водой — и поляна горит, как ёлка.»</p>
+        <p class="esub">Чан греется дровами, табличка на борту — настоящая, наша.</p>
+      </div>
+
+      <div class="entry e-2" data-rise>
+        <span class="mono elabel">утро</span>
+        <p class="eline">«Утро в A-frame пахнет деревом. В треугольном окне — снег и сосны. Будильник не нужен.»</p>
+        <p class="esub">Домики-шалаши: тёплый свет, спальня наверху.</p>
+      </div>
+
+      <div class="entry e-3" data-rise>
+        <span class="mono elabel">у воды</span>
+        <p class="eline">«Баня стоит на берегу: попарились — и сразу к воде. Летом здесь пляж и сапы.»</p>
+        <p class="esub">Парилка у самой кромки берега.</p>
+      </div>
+
+      <figure class="ph ph--int" data-rise>
+        <img src="img/interior.jpg" alt="Интерьер A-frame домика: дерево, диван, антресоль-спальня" loading="lazy">
+        <figcaption class="mono"><span>внутри a-frame</span><span>утро</span></figcaption>
+      </figure>
+
+      <figure class="ph ph--wide" data-rise>
+        <img src="img/cabins-snow.jpg" alt="Ряд A-frame домиков в снегу на поляне" loading="lazy">
+        <figcaption class="mono"><span>поляна зимой</span><span>декабрь</span></figcaption>
+      </figure>
+
+      <div class="entry e-4" data-rise>
+        <span class="mono elabel">днём</span>
+        <p class="eline">«Днём сосны держат тишину. Кому тихо слишком долго — у меня есть батут.»</p>
+        <p class="esub">Батут на территории — детям и взрослым.</p>
+      </div>
+
+      <div class="entry e-5" data-rise>
+        <span class="mono elabel">ночь</span>
+        <p class="eline">«Ночью остаются только огоньки и звёзды. Темно ровно настолько, чтобы было красиво.»</p>
+        <p class="esub">Гирлянды и подсветка — главный вечерний сценарий.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- строка-подпись на обороте открытки -->
+<div class="mq" aria-hidden="true">
+  <div class="mq-track">
+    <div class="mq-group">
+      <span>поляна ждёт</span><i></i>
+      <span>чан уже топится</span><i></i>
+      <span>гирлянды включены</span><i></i>
+      <span>письмо доставлено</span><i></i>
+    </div>
+    <div class="mq-group">
+      <span>поляна ждёт</span><i></i>
+      <span>чан уже топится</span><i></i>
+      <span>гирлянды включены</span><i></i>
+      <span>письмо доставлено</span><i></i>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ЗОНА 3 · ОТКРЫТКА С МАРКОЙ ============ -->
+<section class="sec rating">
+  <div class="wrap">
+    <span class="r-cap mono" data-rise>оборот открытки · оценка гостей</span>
+    <article class="pcard" data-rise>
+      <div class="postmark postmark--r" aria-hidden="true"><span>Кумертау<br>дек 2024</span></div>
+
+      <div class="pc-msg">
+        <span class="pc-kicker mono">привет с поляны</span>
+        <p class="pc-line">«Открылись в декабре 2024 — а гости уже ставят нам почти максимум. Заезжайте, проверьте сами.»</p>
+        <p class="pc-sign">— поляна «Ёлки-Палки»</p>
+      </div>
+
+      <div class="pc-num">
+        <div class="pc-big">9,6<span>/10</span></div>
+        <span class="pc-src mono">по Яндекс.Картам</span>
+        <span class="pc-addr mono">Кумертау · Республика Башкортостан</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ЗОНА 4 · ТРОПА К CTA ============ -->
+<section class="sec trailsec" id="go">
+  <div class="wrap">
+    <span class="t-kicker mono" data-rise>тропа от города к поляне</span>
+    <h2 data-rise>До леса —<br>одно сообщение</h2>
+
+    <div class="trail">
+      <div class="t-stop" data-rise>
+        <span class="t-label mono">остановка 01 · вы</span>
+        <p class="t-text">Пишете в WhatsApp: <strong>+7 937 780-80-90</strong> — расскажите, когда и кто едет.</p>
+      </div>
+      <div class="t-stop" data-rise>
+        <span class="t-label mono">остановка 02 · мы</span>
+        <p class="t-text">Отвечаем, подсказываем по домикам и держим для вас даты.</p>
+      </div>
+      <div class="t-stop" data-rise>
+        <span class="t-label mono">остановка 03 · поляна</span>
+        <p class="t-text">Встречаем: A-frame в соснах, чан на дровах, баня у воды, гирлянды.</p>
+      </div>
+      <div class="t-stop t-stop--final" data-rise>
+        <span class="t-label mono">конец тропы</span>
+        <p class="t-final-line">Написать в WhatsApp</p>
+        <a class="btn" href="https://wa.me/79377808090" target="_blank" rel="noopener">wa.me/79377808090</a>
+        <p class="t-alt">Или сразу звоните: <a href="tel:+79377808090">+7 937 780-80-90</a> · владелец во ВКонтакте: <a href="https://vk.com/id869865907" target="_blank" rel="noopener">vk.com/id869865907</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="mono">Ёлки-Палки · глэмпинг</span>
+  <span>Кумертау, Башкирия · открыт в декабре 2024</span>
+  <span><a href="https://wa.me/79377808090" target="_blank" rel="noopener">wa.me/79377808090</a> · <a href="https://vk.com/id869865907" target="_blank" rel="noopener">vk.com/id869865907</a></span>
+</footer>
+
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce || !window.gsap || !window.ScrollTrigger){ return; }
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from('.letter',{y:56,opacity:0,rotation:-2.4,duration:1.05,ease:'power2.out',delay:.15});
+  gsap.from('.letter-stamp',{scale:.5,opacity:0,rotation:-18,duration:.8,ease:'back.out(1.6)',delay:.7});
+  gsap.from('.note',{opacity:0,y:-12,duration:.9,stagger:.15,ease:'power2.out',delay:.5});
+
+  gsap.utils.toArray('[data-rise]').forEach(function(el){
+    gsap.from(el,{
+      y:34,opacity:0,duration:.9,ease:'power2.out',
+      scrollTrigger:{trigger:el,start:'top 87%',once:true}
+    });
+  });
+})();
+</script>
+</body>
+</html>

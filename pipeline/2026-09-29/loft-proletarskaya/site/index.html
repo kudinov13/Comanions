@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F4F1EC">
+<title>LOFT на Пролетарской — фотостудия с циклорамой в центре Симферополя</title>
+<meta name="description" content="Почасовая аренда фотостудии LOFT на Пролетарской: белая циклорама 42 м² (7×6 м) с тёплым полом, зал 80 м², оборудование включено. Летний тариф 950 ₽/час, стандарт 1800 ₽/час. Симферополь, Караимская 22. Бронь: +7 978 784-63-05.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231B1B1B'/%3E%3Crect x='14' y='38' width='24' height='12' fill='%23D8FF3E'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{
+  --paper:#F4F1EC;
+  --paper-2:#ECE7DD;
+  --ink:#1B1B1B;
+  --ink-soft:#51514A;
+  --volt:#D8FF3E;
+  --hair:#D9D2C3;
+  --serif:'Playfair Display', Georgia, serif;
+  --sans:'IBM Plex Sans', system-ui, 'Segoe UI', Arial, sans-serif;
+  --mono:'JetBrains Mono', 'Courier New', monospace;
+  --pad:clamp(18px, 4vw, 48px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--volt);color:var(--ink)}
+img{display:block;max-width:100%}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.wrap{max-width:1280px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.mono{font-family:var(--mono)}
+.ph{filter:grayscale(.18) contrast(1.04) brightness(1.01)}
+section{scroll-margin-top:80px}
+
+/* хайлайт — ровная заливка, никогда не косая; inline-block: не вылезает на строку выше */
+.hl{
+  display:inline-block;
+  background:var(--volt);color:var(--ink);
+  padding:.03em .16em .07em;
+}
+
+/* ---------- masthead ---------- */
+.masthead{
+  position:sticky;top:0;z-index:60;
+  background:var(--paper);
+  border-bottom:2px solid var(--ink);
+}
+.masthead__row{display:flex;align-items:center;gap:26px;min-height:64px}
+.masthead__brand{
+  font-family:var(--sans);font-weight:600;font-size:23px;
+  letter-spacing:-.01em;text-decoration:none;line-height:1;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.masthead__brand::after{content:"";width:9px;height:9px;background:var(--volt);flex:none}
+.masthead__meta{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;
+}
+.masthead__nav{margin-left:auto;display:flex;gap:22px}
+.masthead__nav a{
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;color:var(--ink-soft);padding:4px 0;
+  border-bottom:2px solid transparent;transition:color .2s,border-color .2s;
+}
+.masthead__nav a:hover{color:var(--ink);border-bottom-color:var(--volt)}
+.masthead__tel{
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;
+  text-decoration:none;background:var(--ink);color:var(--paper);
+  padding:10px 14px;white-space:nowrap;transition:background .2s,color .2s;
+}
+.masthead__tel:hover{background:var(--volt);color:var(--ink)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(36px,6vw,80px) 0 clamp(40px,5vw,64px)}
+.hero__kicker{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--mono);font-size:12px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+}
+.hero__kicker::after{content:"";flex:1;height:1px;background:var(--ink);min-width:40px}
+.hero h1{
+  font-family:var(--serif);font-weight:800;
+  font-size:clamp(44px,8vw,124px);
+  line-height:.98;letter-spacing:-.02em;
+  margin-top:26px;
+}
+.hero h1 .row{display:block}
+.hero__grid{
+  margin-top:clamp(32px,4.5vw,60px);
+  display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);
+  gap:clamp(36px,5vw,84px);align-items:start;
+}
+.hero__lead{font-size:clamp(17px,1.4vw,20px);line-height:1.55;max-width:44ch}
+.hero__lead b{font-weight:600}
+.hero__cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:56px;padding:0 26px;
+  font-family:var(--mono);font-size:12px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;border:1px solid var(--ink);
+  transition:background .2s,color .2s,border-color .2s;
+}
+.btn--ink{background:var(--ink);color:var(--paper)}
+.btn--ink:hover{background:var(--volt);color:var(--ink)}
+.btn--ghost{background:transparent;color:var(--ink)}
+.btn--ghost:hover{background:var(--ink);color:var(--paper)}
+.btn--volt{background:var(--volt);color:var(--ink);border-color:var(--volt)}
+.btn--volt:hover{background:var(--paper);border-color:var(--paper)}
+.btn--ghost-l{background:transparent;color:var(--paper);border-color:var(--paper)}
+.btn--ghost-l:hover{background:var(--paper);color:var(--ink)}
+.hero__facts{
+  list-style:none;margin-top:34px;padding-top:18px;border-top:1px solid var(--hair);
+  display:flex;flex-wrap:wrap;row-gap:10px;column-gap:26px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--ink-soft);
+}
+
+/* ---------- signature: размерная рамка (один раз, геометрия фиксирована) ---------- */
+.plate{padding-top:46px;padding-right:60px}
+.plate__frame{position:relative}
+.plate__img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center;border:1px solid var(--ink)}
+.dim{position:absolute;font-family:var(--mono);color:var(--ink)}
+.dim b{
+  font-weight:500;font-size:12px;letter-spacing:.1em;white-space:nowrap;
+  background:var(--volt);padding:4px 8px;line-height:1;
+}
+.dim-x{
+  top:16px;left:0;right:60px;height:12px;
+  display:flex;align-items:center;
+}
+.dim-x::before,.dim-x::after{content:"";flex:1;height:1px;background:var(--ink)}
+.dim-x b{margin:0 10px}
+.dim-y{
+  top:46px;bottom:0;right:18px;width:12px;
+  display:flex;flex-direction:column;align-items:center;
+}
+.dim-y::before,.dim-y::after{content:"";flex:1;width:1px;background:var(--ink)}
+.dim-y b{margin:10px 0;writing-mode:vertical-rl;padding:10px 4px}
+.plate figcaption{
+  margin-top:12px;padding-right:60px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-soft);
+}
+
+/* ---------- чёрная лента (единственная marquee) ---------- */
+.tape{background:var(--ink);color:var(--paper);overflow:hidden;padding:13px 0}
+.tape__track{display:flex;width:max-content;animation:tape 30s linear infinite}
+.tape__group{display:flex;align-items:center}
+.tape__group span{
+  font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  white-space:nowrap;padding-right:18px;
+}
+.tape__group i{width:7px;height:7px;background:var(--volt);flex:none}
+@keyframes tape{to{transform:translateX(-50%)}}
+
+/* ---------- рубрики ---------- */
+.sec{padding:clamp(56px,8vw,108px) 0}
+.sec--tint{background:var(--paper-2)}
+.sec-head{
+  display:flex;align-items:center;gap:18px;
+  border-bottom:2px solid var(--ink);
+  padding-bottom:20px;margin-bottom:clamp(36px,5vw,64px);
+}
+.sec-head h2{
+  font-family:var(--serif);font-weight:800;
+  font-size:clamp(34px,4.6vw,64px);line-height:1;letter-spacing:-.015em;
+}
+.sec-head .no{
+  font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.1em;
+  background:var(--volt);padding:5px 9px;line-height:1;flex:none;
+}
+.sec-head__tag{
+  margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+
+/* 01: факты плакатом + разворот */
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:2px solid var(--ink);border-bottom:1px solid var(--hair);
+}
+.stat{padding:clamp(24px,3vw,40px) clamp(16px,2vw,32px) clamp(24px,3vw,36px)}
+.stat + .stat{border-left:1px solid var(--hair)}
+.stat b{
+  display:block;font-family:var(--serif);font-weight:800;
+  font-size:clamp(60px,8vw,140px);line-height:.9;letter-spacing:-.03em;
+}
+.stat span{
+  display:block;margin-top:14px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.spread{
+  margin-top:clamp(40px,5vw,72px);
+  display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);
+  gap:clamp(36px,5vw,84px);align-items:start;
+}
+.spread figure img{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--ink)}
+.spread figcaption{
+  margin-top:12px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.06em;color:var(--ink-soft);
+}
+.article .drop{
+  font-family:var(--serif);font-style:italic;font-weight:500;
+  font-size:clamp(22px,2.2vw,30px);line-height:1.35;
+  margin-bottom:26px;max-width:26ch;
+}
+.article .drop b{font-style:normal;font-weight:700}
+.article p{color:var(--ink-soft);margin-bottom:18px;max-width:50ch}
+.article p:first-of-type{color:var(--ink)}
+
+/* 02: паспорт */
+.passport{
+  display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+  gap:clamp(36px,5vw,84px);align-items:start;
+}
+.specs{border-top:2px solid var(--ink)}
+.spec{
+  display:grid;grid-template-columns:190px 1fr;gap:24px;
+  padding:17px 0;border-bottom:1px solid var(--hair);align-items:baseline;
+}
+.spec dt{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.spec dd{font-size:16.5px;line-height:1.5}
+.spec dd b{font-weight:600}
+.passport__aside figure img{width:100%;aspect-ratio:3/4;object-fit:cover;border:1px solid var(--ink)}
+.passport__aside figcaption{
+  margin-top:12px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.06em;color:var(--ink-soft);
+}
+.passport__note{
+  margin-top:22px;padding:16px 18px;border:1px solid var(--ink);
+  font-family:var(--mono);font-size:12px;line-height:1.7;letter-spacing:.03em;
+}
+
+/* 03: тарифная ведомость */
+.tariff{
+  display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);
+  gap:clamp(40px,6vw,96px);align-items:start;
+}
+.poster__old{
+  font-family:var(--mono);font-size:clamp(15px,1.5vw,19px);letter-spacing:.04em;
+  color:var(--ink-soft);display:block;margin:18px 0 6px;
+}
+.poster__old s{text-decoration-thickness:2px}
+.poster__old em{font-style:normal;margin-left:6px}
+.poster__new{
+  font-family:var(--serif);font-weight:800;
+  font-size:clamp(88px,13vw,208px);line-height:.85;letter-spacing:-.03em;
+  display:block;
+}
+.poster__new small{
+  font-family:var(--mono);font-weight:500;font-size:clamp(15px,1.5vw,20px);
+  letter-spacing:.08em;margin-left:14px;vertical-align:baseline;
+}
+.poster__foot{
+  margin-top:26px;padding-top:16px;border-top:1px solid var(--hair);
+  font-family:var(--mono);font-size:11.5px;line-height:1.7;letter-spacing:.04em;
+  color:var(--ink-soft);max-width:40ch;
+}
+.ledger{width:100%;border-collapse:collapse;border-top:2px solid var(--ink)}
+.ledger th,.ledger td{
+  padding:15px 4px;border-bottom:1px solid var(--hair);
+  font-family:var(--mono);font-weight:400;text-align:left;
+  font-size:13px;letter-spacing:.04em;vertical-align:middle;
+}
+.ledger td{text-align:right;white-space:nowrap;font-weight:500}
+.ledger thead th{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
+  padding-top:14px;
+}
+
+/* 04: бронь */
+.steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,4vw,56px)}
+.steps li{border-top:2px solid var(--ink);padding-top:20px}
+.steps h3{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(22px,2.2vw,30px);line-height:1.15;margin:16px 0 12px;
+}
+.steps p{color:var(--ink-soft);font-size:15.5px;max-width:34ch;margin-bottom:14px}
+.steps a{
+  font-family:var(--mono);font-size:13px;letter-spacing:.04em;
+  text-underline-offset:4px;
+}
+.steps a:hover{text-decoration-color:var(--volt);text-decoration-thickness:3px}
+.steps__note{
+  margin-top:clamp(36px,4vw,52px);padding-top:20px;border-top:1px solid var(--hair);
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--ink-soft);
+}
+
+/* 05: финал (тёмный) + колофон */
+.finale{background:var(--ink);color:var(--paper);padding:clamp(64px,9vw,128px) 0 clamp(48px,6vw,80px)}
+.finale .sec-head{border-bottom-color:var(--paper)}
+.finale .sec-head .no{color:var(--ink)}
+.finale h2{font-size:clamp(40px,6.6vw,96px);max-width:16ch}
+.finale h2 em{font-style:italic;font-weight:700;color:var(--volt)}
+.finale .sec-head__tag{color:#B9B6AE}
+.finale__lead{
+  font-size:clamp(17px,1.5vw,21px);line-height:1.55;max-width:44ch;
+  color:#DEDBD4;margin:clamp(28px,4vw,44px) 0 36px;
+}
+.finale__cta{display:flex;gap:14px;flex-wrap:wrap}
+.colophon{background:var(--ink);color:#B9B6AE;border-top:1px solid #3A3A38}
+.colophon__row{
+  display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;
+  padding-top:26px;padding-bottom:30px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;line-height:1.8;
+}
+.colophon a{color:#DEDBD4;text-underline-offset:4px}
+.colophon a:hover{color:var(--volt)}
+.colophon__links{list-style:none;display:flex;flex-wrap:wrap;gap:8px 28px}
+
+/* ---------- анимации ---------- */
+@media (prefers-reduced-motion:reduce){
+  .tape__track{animation:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- адаптив ---------- */
+@media (max-width:1024px){
+  .masthead__meta{display:none}
+}
+@media (max-width:900px){
+  .hero__grid,.spread,.passport,.tariff{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .plate{padding-right:52px;max-width:560px}
+  .dim-x{right:52px}
+  .sec-head__tag{margin-left:0}
+}
+@media (max-width:720px){
+  .masthead__nav{display:none}
+  .stats{grid-template-columns:1fr}
+  .stat + .stat{border-left:none;border-top:1px solid var(--hair)}
+  .spec{grid-template-columns:1fr;gap:6px;padding:15px 0}
+  .ledger th,.ledger td{font-size:12px}
+  .poster__new{font-size:clamp(84px,24vw,120px)}
+  .plate{padding-right:44px}
+  .dim-x{right:44px}
+  .dim-y{right:14px}
+  .finale__cta .btn{flex:1 1 auto}
+}
+</style>
+</head>
+<body id="top">
+
+<header class="masthead">
+  <div class="wrap masthead__row">
+    <a class="masthead__brand" href="#top" aria-label="LOFT на Пролетарской — наверх">LOFT</a>
+    <span class="masthead__meta">Симферополь · выпуск №1</span>
+    <nav class="masthead__nav" aria-label="Рубрики">
+      <a href="#scene">01 Сцена</a>
+      <a href="#passport">02 Паспорт</a>
+      <a href="#rates">03 Тарифы</a>
+      <a href="#book">04 Бронь</a>
+    </nav>
+    <a class="masthead__tel" href="tel:+79787846305">+7 978 784-63-05</a>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="hero__kicker">Фотостудия почасовой аренды · центр города</p>
+    <h1><span class="row">Белая сцена 7×6.</span><span class="row">Дальше —</span><span class="row"><span class="hl">ваш&nbsp;кадр.</span></span></h1>
+    <div class="hero__grid">
+      <div>
+        <p class="hero__lead">
+          Циклорама <b>42 м²</b> с тёплым полом и зал <b>80 м²</b> в центре Симферополя.
+          Оборудование включено в стоимость, гримёрка — за стеной.
+          От <b>950 ₽/час</b>, минимальная бронь — один час.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--ink" href="tel:+79787846305">Забронировать час</a>
+          <a class="btn btn--ghost" href="https://loftnaproletrskoy.taplink.ws" target="_blank" rel="noopener">Календарь занятости ↗</a>
+        </div>
+        <ul class="hero__facts">
+          <li>летний тариф — 950 ₽/час</li>
+          <li>оборудование включено</li>
+          <li>мин. бронь — 1 час</li>
+        </ul>
+      </div>
+      <figure class="plate">
+        <div class="plate__frame">
+          <div class="dim dim-x" aria-hidden="true"><b>7,0 м</b></div>
+          <div class="dim dim-y" aria-hidden="true"><b>6,0 м</b></div>
+          <img class="plate__img ph" src="img/studio-cyclorama.jpg" alt="Белая циклорама фотостудии со вспышкой Godox на стойке" width="1600" height="1067">
+        </div>
+        <figcaption>Fig. 01 — белая циклорама, зал LOFT на Пролетарской</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="tape" aria-label="циклорама 42 м², зал 80 м², тёплый пол, оборудование включено">
+  <div class="tape__track">
+    <div class="tape__group">
+      <span>циклорама 42 м²</span><i></i><span>зал 80 м²</span><i></i><span>тёплый пол</span><i></i><span>оборудование включено</span><i></i>
+      <span>циклорама 42 м²</span><i></i><span>зал 80 м²</span><i></i><span>тёплый пол</span><i></i><span>оборудование включено</span><i></i>
+      <span>циклорама 42 м²</span><i></i><span>зал 80 м²</span><i></i><span>тёплый пол</span><i></i><span>оборудование включено</span><i></i>
+    </div>
+    <div class="tape__group">
+      <span>циклорама 42 м²</span><i></i><span>зал 80 м²</span><i></i><span>тёплый пол</span><i></i><span>оборудование включено</span><i></i>
+      <span>циклорама 42 м²</span><i></i><span>зал 80 м²</span><i></i><span>тёплый пол</span><i></i><span>оборудование включено</span><i></i>
+      <span>циклорама 42 м²</span><i></i><span>зал 80 м²</span><i></i><span>тёплый пол</span><i></i><span>оборудование включено</span><i></i>
+    </div>
+  </div>
+</div>
+
+<section class="sec" id="scene">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="no">01</span>
+      <h2>Сцена и зал</h2>
+      <span class="sec-head__tag">42 м² + 80 м²</span>
+    </header>
+    <div class="stats">
+      <div class="stat"><b>42</b><span>м² — циклорама</span></div>
+      <div class="stat"><b>80</b><span>м² — весь зал</span></div>
+      <div class="stat"><b>7×6</b><span>м — габариты сцены</span></div>
+    </div>
+    <div class="spread">
+      <figure>
+        <img class="ph" src="img/studio-white.jpg" alt="Белая циклорама: кривой переход стена–пол" width="1600" height="1067" loading="lazy">
+        <figcaption>Fig. 02 — белая сцена: кривой переход стена–пол</figcaption>
+      </figure>
+      <div class="article">
+        <p class="drop">Самая большая <b>тёплая циклорама</b> в центре города — клиенты называют её главной причиной приехать.</p>
+        <p>Белая сцена 7×6 метров с тёплым полом — для предметки, ростовых кадров и съёмок в большом масштабе. Дальше — зал 80 м²: пространство для декораций, дистанции и работы с командой.</p>
+        <p>Постоянный свет, вспышки, насадки, флаги и фрост включены в стоимость часа. Гримёрное место с зеркалом и столом для визажиста — за стеной, +200 ₽/час.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--tint" id="passport">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="no">02</span>
+      <h2>Паспорт зала</h2>
+      <span class="sec-head__tag">технические данные</span>
+    </header>
+    <div class="passport">
+      <div>
+        <dl class="specs">
+          <div class="spec"><dt>Циклорама</dt><dd><b>42 м²</b>, 7×6 м, тёплый пол</dd></div>
+          <div class="spec"><dt>Зал</dt><dd><b>80 м²</b>, большие окна, дневной свет</dd></div>
+          <div class="spec"><dt>Свет</dt><dd>постоянный (Aputure Amaran 300c RGB, PavoTube), вспышки Godox, споты</dd></div>
+          <div class="spec"><dt>Аксессуары</dt><dd>насадки, флаги, фрост — включены</dd></div>
+          <div class="spec"><dt>Гримёрка</dt><dd>зеркало, свет, стол визажиста — <b>+200 ₽/час</b></dd></div>
+          <div class="spec"><dt>Мин. бронь</dt><dd><b>1 час</b></dd></div>
+        </dl>
+        <p class="passport__note">Точный список доступного оборудования подтверждается при бронировании: набор обновляется.</p>
+      </div>
+      <aside class="passport__aside">
+        <figure>
+          <img class="ph" src="img/studio-gear.jpg" alt="Софтбокс и стойки в рабочем зале студии" width="1600" height="2844" loading="lazy">
+          <figcaption>Fig. 03 — световая схема зала в работе</figcaption>
+        </figure>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="rates">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="no">03</span>
+      <h2>Тарифы</h2>
+      <span class="sec-head__tag">почасовая ведомость</span>
+    </header>
+    <div class="tariff">
+      <div>
+        <span class="poster__old">стандарт <s>1 800 ₽</s> <em>вне акции</em></span>
+        <span class="poster__new">950 ₽<small>/час</small></span>
+        <p class="poster__foot">Летний тариф по данным группы студии. Условия и актуальные часы подтверждаются при бронировании. Отмена и перенос — по договорённости, честно предупреждайте.</p>
+      </div>
+      <table class="ledger">
+        <thead>
+          <tr><th>Позиция</th><th>Цена</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Аренда зала, летний тариф</th><td>950 ₽/час</td></tr>
+          <tr><th>Аренда зала, стандарт</th><td>1 800 ₽/час</td></tr>
+          <tr><th>Гримёрное место</th><td>+200 ₽/час</td></tr>
+          <tr><th>Оборудование</th><td>включено</td></tr>
+          <tr><th>Минимальная бронь</th><td>1 час</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--tint" id="book">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="no">04</span>
+      <h2>Как забронировать</h2>
+      <span class="sec-head__tag">три шага</span>
+    </header>
+    <ol class="steps">
+      <li>
+        <h3>Выбрать дату и часы</h3>
+        <p>Откройте календарь занятости — свободные окна видны сразу. Минимальная бронь — один час.</p>
+        <a href="https://loftnaproletrskoy.taplink.ws" target="_blank" rel="noopener">Календарь занятости ↗</a>
+      </li>
+      <li>
+        <h3>Позвонить или написать</h3>
+        <p>Назовите дату, часы и формат съёмки — подскажут по свету и залу и зафиксируют бронь.</p>
+        <a href="tel:+79787846305">+7 978 784-63-05</a>
+      </li>
+      <li>
+        <h3>Приехать по адресу</h3>
+        <p>Симферополь, Караимская, 22 — основной зал на Пролетарской. Ориентиры: ост. «Улица Крылова», к/т «Родина».</p>
+        <a href="https://yandex.ru/maps/?text=Симферополь, Караимская 22" target="_blank" rel="noopener">Открыть на карте ↗</a>
+      </li>
+    </ol>
+    <p class="steps__note">Группа студии: <a href="https://vk.com/club226220735" target="_blank" rel="noopener">vk.com/club226220735</a> · Первая студия команды: LOFT на Самокиша, 20 — <a href="https://vk.com/loft_crimea" target="_blank" rel="noopener">vk.com/loft_crimea</a></p>
+  </div>
+</section>
+
+<section class="finale" id="finale">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="no">05</span>
+      <h2>Сцена свободна — <em>займите её</em></h2>
+      <span class="sec-head__tag">бронь</span>
+    </header>
+    <p class="finale__lead">Час на белой сцене стоит меньше, чем пересъёмка. Позвоните — подберём окно под ваш график и формат.</p>
+    <div class="finale__cta">
+      <a class="btn btn--volt" href="tel:+79787846305">+7 978 784-63-05</a>
+      <a class="btn btn--ghost-l" href="https://loftnaproletrskoy.taplink.ws" target="_blank" rel="noopener">Календарь занятости ↗</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="wrap colophon__row">
+    <div>LOFT на Пролетарской · фотостудия почасовой аренды<br>Симферополь, Караимская, 22</div>
+    <ul class="colophon__links">
+      <li><a href="https://vk.com/club226220735" target="_blank" rel="noopener">Группа ВК</a></li>
+      <li><a href="https://loftnaproletrskoy.taplink.ws" target="_blank" rel="noopener">Календарь занятости</a></li>
+      <li><a href="tel:+79787846305">+7 978 784-63-05</a></li>
+    </ul>
+    <div>Набрано шрифтами Playfair Display, IBM Plex Sans и JetBrains Mono.<br>Цены — по данным группы студии.</div>
+  </div>
+</footer>
+
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || reduce) return;
+  gsap.registerPlugin(ScrollTrigger);
+  var els = document.querySelectorAll('.sec-head, .stat, .spread > *, .spec, .passport__note, .tariff > *, .steps li, .steps__note, .finale__lead, .finale__cta, .plate, .hero__lead, .hero__cta, .hero__facts');
+  els.forEach(function(el){
+    gsap.from(el, {opacity:0, y:26, duration:.8, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 90%', once:true}});
+  });
+})();
+</script>
+</body>
+</html>

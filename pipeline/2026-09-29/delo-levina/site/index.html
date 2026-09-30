@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дело Левина №196 — барбершоп одного мастера в Березовском</title>
+<meta name="description" content="Моно-барбершоп Германа Левина в ЖК Уют-Сити, Березовский. Одно кресло, один мастер, 5.0 на Яндекс Картах. Запись через VK.">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{
+  --night:#0E0D0B;
+  --night2:#161411;
+  --paper:#EAE3D4;
+  --paper-dim:#B3AB9A;
+  --stamp:#BC3A26;
+  --line:rgba(234,227,212,.16);
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'IBM Plex Sans',sans-serif;
+  --disp:'Oswald',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--night);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.65;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--stamp);color:var(--paper)}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,60px)}
+.mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--paper-dim)}
+/* плёночное зерно */
+body::before{
+  content:"";position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* корешок дела */
+.edge{
+  position:fixed;left:14px;top:0;bottom:0;z-index:40;pointer-events:none;
+  display:flex;align-items:center;
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.34em;
+  text-transform:uppercase;color:rgba(234,227,212,.32);
+}
+@media(max-width:960px){.edge{display:none}}
+
+/* ---------- HERO: обложка дела ---------- */
+.hero{min-height:96svh;display:flex;flex-direction:column;padding-top:20px;position:relative}
+.hero-meta{
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:11px 0;
+}
+.hero-body{flex:1;display:grid;grid-template-columns:1.25fr .9fr;gap:clamp(36px,5vw,84px);align-items:center;padding:clamp(44px,7vh,90px) 0}
+.kicker{font-family:var(--mono);font-size:.76rem;letter-spacing:.3em;text-transform:uppercase;color:var(--stamp);margin-bottom:20px}
+h1{font-family:var(--disp);font-weight:700;text-transform:uppercase;line-height:.9;position:relative}
+h1 .l1{display:block;font-size:clamp(2.5rem,6.4vw,5.6rem);color:var(--paper-dim);font-weight:500}
+h1 .l2{display:block;font-size:clamp(4rem,11vw,10.5rem);letter-spacing:.005em}
+h1 .no{
+  position:absolute;right:0;top:-4px;
+  font-family:var(--mono);font-weight:500;color:var(--stamp);
+  font-size:clamp(1.3rem,3vw,2.7rem);letter-spacing:.06em;
+  transform:rotate(-6deg);
+  border:2px solid var(--stamp);padding:.14em .42em;
+  background:rgba(14,13,11,.9);
+}
+.hero-sub{max-width:540px;margin-top:32px;font-size:clamp(1rem,1.35vw,1.18rem);color:var(--paper-dim)}
+.hero-sub em{font-style:normal;color:var(--paper);border-bottom:1px solid var(--stamp)}
+.dossier-grid{
+  margin-top:44px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);
+}
+.dossier-grid>div{background:var(--night);padding:15px 17px}
+.dossier-grid dt{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--paper-dim);margin-bottom:5px}
+.dossier-grid dd{font-family:var(--sans);font-weight:500;font-size:.94rem}
+.hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+.btn{
+  font-family:var(--mono);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;
+  text-decoration:none;padding:0 26px;height:54px;display:inline-flex;align-items:center;
+  border:1px solid var(--paper);color:var(--paper);
+  transition:background .25s,color .25s,border-color .25s;
+}
+.btn:hover{background:var(--paper);color:var(--night)}
+.btn.red{background:var(--stamp);border-color:var(--stamp);color:var(--paper)}
+.btn.red:hover{background:#A02F1E;border-color:#A02F1E}
+/* фото-улика в hero */
+.hero-fig{position:relative;margin:0}
+.hero-fig .ph{aspect-ratio:4/5;object-fit:cover;width:100%;filter:brightness(.78) contrast(1.06) sepia(.14)}
+.hero-fig figcaption{margin-top:12px;display:flex;justify-content:space-between;gap:10px}
+/* штамп */
+.stamp{
+  position:absolute;right:-14px;bottom:52px;z-index:3;
+  transform:rotate(-9deg);pointer-events:none;
+  border:3px double var(--stamp);color:var(--stamp);
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:.22em;
+  font-size:.78rem;padding:13px 18px;text-align:center;line-height:1.75;
+  border-radius:4px;background:rgba(14,13,11,.82);
+}
+.stamp b{display:block;font-size:1rem;letter-spacing:.3em}
+
+/* лента дела */
+.tape-zone{overflow:hidden;padding:26px 0}
+.tape{
+  background:var(--stamp);color:var(--night);
+  transform:rotate(-1.1deg);margin:0 -4vw;padding:10px 0;overflow:hidden;
+}
+.tape-track{display:flex;width:max-content;animation:tape 26s linear infinite}
+.tape-track span{
+  font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:.26em;
+  text-transform:uppercase;white-space:nowrap;padding:0 13px;
+}
+@keyframes tape{to{transform:translateX(-50%)}}
+
+/* ---------- секции ---------- */
+section.block{padding:clamp(84px,12vh,150px) 0;position:relative}
+.sec-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:22px;
+  border-top:1px solid var(--line);padding-top:16px;margin-bottom:clamp(40px,6vw,72px);
+}
+.sec-head .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;color:var(--stamp)}
+.sec-head h2{font-family:var(--disp);font-weight:600;text-transform:uppercase;font-size:clamp(1.7rem,3.6vw,2.9rem);line-height:1;letter-spacing:.02em}
+
+/* ФИГУРАНТ */
+.fig-grid{display:grid;grid-template-columns:1.2fr .85fr;gap:clamp(40px,6vw,100px);align-items:start}
+.fig-lead{font-family:var(--disp);font-weight:500;text-transform:uppercase;font-size:clamp(1.55rem,3.2vw,2.8rem);line-height:1.14}
+.fig-lead .red{color:var(--stamp)}
+.fig-text{margin-top:30px;max-width:54ch;color:var(--paper-dim)}
+.fig-text p+p{margin-top:1em}
+.fig-text strong{color:var(--paper);font-weight:600}
+.fig-photo{border:1px solid var(--line);padding:11px;background:var(--night2);margin:0}
+.fig-photo img{filter:brightness(.8) contrast(1.05) sepia(.12)}
+.fig-photo figcaption{padding:11px 2px 2px;display:flex;justify-content:space-between;gap:10px}
+.fig-stats{display:flex;margin-top:42px;border:1px solid var(--line)}
+.fig-stats div{flex:1;padding:19px 17px;border-right:1px solid var(--line)}
+.fig-stats div:last-child{border-right:none}
+.fig-stats .v{font-family:var(--disp);font-weight:600;font-size:clamp(1.6rem,2.8vw,2.4rem);line-height:1}
+.fig-stats .k{margin-top:5px}
+
+/* УЛИКИ */
+.uliki{background:var(--night2)}
+.uliki-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(18px,2.4vw,32px)}
+.ulika{margin:0}
+.ulika:nth-child(1){grid-column:1/6}
+.ulika:nth-child(2){grid-column:7/13;margin-top:clamp(48px,8vw,130px)}
+.ulika:nth-child(3){grid-column:3/9;margin-top:clamp(28px,4vw,64px)}
+.frame{position:relative;overflow:hidden;border:1px solid var(--line);cursor:crosshair}
+.frame img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:brightness(.84) contrast(1.07) sepia(.12);transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.ulika:hover .frame img{transform:scale(1.03)}
+.frame::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%),
+    rgba(14,13,11,0) 0%,rgba(14,13,11,.22) 36%,rgba(14,13,11,.94) 80%);
+}
+.ulika figcaption{display:flex;justify-content:space-between;gap:12px;padding-top:11px}
+@media(hover:none){.frame::after{opacity:0}}
+
+/* ПРОТОКОЛ */
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:60px 1fr auto;gap:18px;align-items:baseline;padding:23px 4px;border-bottom:1px solid var(--line);transition:background .25s,padding-left .25s}
+.row:hover{background:rgba(234,227,212,.04);padding-left:12px}
+.row .n{font-family:var(--mono);font-size:.78rem;color:var(--stamp)}
+.row h3{font-family:var(--disp);font-weight:500;text-transform:uppercase;font-size:clamp(1.25rem,2.2vw,1.8rem);line-height:1.1}
+.row .note{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-dim)}
+.prot-note{margin-top:26px;max-width:60ch;color:var(--paper-dim)}
+.prot-note a{color:var(--stamp);text-decoration:none;border-bottom:1px solid rgba(188,58,38,.5)}
+.prot-note a:hover{border-bottom-color:var(--stamp)}
+
+/* ПОКАЗАНИЯ */
+.svid-grid{display:grid;grid-template-columns:auto 1fr;gap:clamp(40px,6vw,100px);align-items:center}
+.score{font-family:var(--disp);font-weight:700;font-size:clamp(9rem,22vw,20rem);line-height:.85;color:var(--stamp);letter-spacing:-.02em}
+.score-cap{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--paper-dim);margin-top:14px}
+.svid-txt p{color:var(--paper-dim);max-width:50ch;margin-bottom:16px}
+.svid-txt strong{color:var(--paper);font-weight:600}
+.svid-txt a.map{color:var(--paper);text-decoration:none;border-bottom:1px solid var(--stamp);font-weight:500}
+.svid-txt a.map:hover{color:var(--stamp)}
+
+/* ЯВКА — светлая секция-переворот */
+.yavka{background:var(--paper);color:var(--night)}
+.yavka .sec-head{border-top-color:rgba(14,13,11,.35)}
+.yavka .sec-head .num{color:var(--stamp)}
+.yavka .addr{font-family:var(--disp);font-weight:600;text-transform:uppercase;line-height:1.02;font-size:clamp(2rem,4.6vw,3.9rem);margin-bottom:18px}
+.yavka .addr em{font-style:normal;color:var(--stamp)}
+.yavka .how{color:#57503F;max-width:52ch;margin-bottom:40px}
+.yavka .btn{border-color:var(--night);color:var(--night)}
+.yavka .btn:hover{background:var(--night);color:var(--paper)}
+.yavka .btn.red{border-color:var(--stamp)}
+.yavka .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.yavka .mono{color:#57503F}
+
+footer.site{border-top:1px solid var(--line);padding:26px 0 34px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(30px)}
+
+/* ---------- адаптив ---------- */
+@media(max-width:1400px){.hero-fig{max-width:440px;justify-self:end}}
+@media(max-width:1080px){
+  .hero-body{grid-template-columns:1fr;gap:44px}
+  .hero-fig{max-width:520px;justify-self:start}
+  .fig-grid,.svid-grid{grid-template-columns:1fr;gap:48px}
+  .score{font-size:clamp(7rem,24vw,11rem)}
+  .ulika:nth-child(1),.ulika:nth-child(2),.ulika:nth-child(3){grid-column:1/13;margin-top:0}
+  .uliki-grid{gap:40px}
+  .dossier-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .dossier-grid{grid-template-columns:1fr}
+  .fig-stats{flex-direction:column}
+  .fig-stats div{border-right:none;border-bottom:1px solid var(--line)}
+  .fig-stats div:last-child{border-bottom:none}
+  .row{grid-template-columns:44px 1fr}
+  .row .note{grid-column:2;margin-top:4px}
+  h1 .no{position:static;display:inline-block;margin-top:14px;transform:rotate(-4deg)}
+  .stamp{right:6px;bottom:30px}
+  .sec-head{flex-direction:column;gap:8px;align-items:flex-start}
+  .yavka .cta-row .btn{flex:1 1 auto;justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){
+  .tape-track{animation:none}
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="edge" aria-hidden="true">личное дело № 196 · березовский · архив</div>
+
+<!-- ============ HERO: ОБЛОЖКА ДЕЛА ============ -->
+<header class="hero">
+  <div class="wrap hero-meta mono">
+    <span>личное дело</span>
+    <span>заведено <b>28.02.2026</b></span>
+    <span>гр. березовский</span>
+    <span>подшивка <b>1 том</b></span>
+  </div>
+  <div class="wrap hero-body">
+    <div>
+      <p class="kicker">барбершоп одного мастера</p>
+      <h1>
+        <span class="l1">Дело</span>
+        <span class="l2">Левина</span>
+        <span class="no">№ 196</span>
+      </h1>
+      <p class="hero-sub">Один мастер. Одно кресло. Одна ответственность. Герман Левин сам стрижёт, сам бреет и сам отвечает за результат — <em>стрижка не «повезёт / не повезёт», она повторяемая</em>.</p>
+      <dl class="dossier-grid">
+        <div><dt>Город</dt><dd>Березовский</dd></div>
+        <div><dt>Адрес</dt><dd>ул. Победы, 3</dd></div>
+        <div><dt>ЖК</dt><dd>Уют-Сити</dd></div>
+        <div><dt>Рейтинг</dt><dd>5.0 · Яндекс</dd></div>
+      </dl>
+      <div class="hero-cta">
+        <a class="btn red" href="https://vk.com/club234633280" target="_blank" rel="noopener">Записаться в VK</a>
+        <a class="btn" href="#yavka">Как найти</a>
+      </div>
+    </div>
+    <figure class="hero-fig">
+      <img class="ph" src="img/real-hall.jpg" alt="Зал «Дела Левина»: кресло, зеркала, красная подсветка">
+      <div class="stamp" aria-hidden="true"><b>Запись</b>открыта</div>
+      <figcaption class="mono"><span>улика № 1</span><span>зал: кресло и красная подсветка</span></figcaption>
+    </figure>
+  </div>
+</header>
+
+<!-- лента -->
+<div class="tape-zone" aria-hidden="true">
+  <div class="tape">
+    <div class="tape-track">
+      <span>один мастер — одно кресло — одна ответственность — ЖК Уют-Сити — Березовский —&nbsp;</span>
+      <span>один мастер — одно кресло — одна ответственность — ЖК Уют-Сити — Березовский —&nbsp;</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ФИГУРАНТ ============ -->
+<section class="block" id="master">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">Раздел 01</span><h2>Фигурант</h2></div>
+    <div class="fig-grid">
+      <div>
+        <p class="fig-lead">Не сеть. Не салон.<br><span class="red">Один мастер</span>, который помнит вашу голову.</p>
+        <div class="fig-text">
+          <p>«Дело Левина №196» — это моно-барбершоп: всё делает один человек. Вы приходите не «к свободному мастеру», а к Герману Левину — он ведёт вас от первой стрижки, знает, как ложится волос и что сделать, чтобы форма держалась до следующего визита.</p>
+          <p>Семь месяцев работы — <strong>5.0 на Яндекс Картах и 74 оценки</strong>. Это не накрутка и не акция: это люди из Уют-Сити и Березовского, которые вернулись и написали сами.</p>
+        </div>
+        <div class="fig-stats">
+          <div><div class="v">1</div><div class="k mono">мастер</div></div>
+          <div><div class="v">5.0</div><div class="k mono">рейтинг</div></div>
+          <div><div class="v">74</div><div class="k mono">оценки</div></div>
+          <div><div class="v">02.26</div><div class="k mono">с марта</div></div>
+        </div>
+      </div>
+      <figure class="fig-photo">
+        <img src="img/real-master.jpg" alt="Мастер в зале «Дела Левина», Уют-Сити" loading="lazy">
+        <figcaption class="mono"><span>улика № 2</span><span>мастер в своём зале</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ УЛИКИ ============ -->
+<section class="block uliki" id="materials">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">Раздел 02</span><h2>Улики</h2></div>
+    <div class="uliki-grid">
+      <figure class="ulika">
+        <div class="frame"><img src="img/real-bw.jpg" alt="Зал «Дела Левина», документальный кадр с клиентами" loading="lazy"></div>
+        <figcaption class="mono"><span>улика № 3</span><span>зал, документальный кадр</span></figcaption>
+      </figure>
+      <figure class="ulika">
+        <div class="frame"><img src="img/real-poster.jpg" alt="Постер КИНО «Легенда» на стене барбершопа" loading="lazy"></div>
+        <figcaption class="mono"><span>улика № 4</span><span>стена: КИНО «Легенда»</span></figcaption>
+      </figure>
+      <figure class="ulika">
+        <div class="frame"><img src="img/real-tools.jpg" alt="Стойка с ножницами и инструментом мастера" loading="lazy"></div>
+        <figcaption class="mono"><span>улика № 5</span><span>инструмент</span></figcaption>
+      </figure>
+    </div>
+    <p class="mono" style="margin-top:26px">— проведите курсором по фото: прожектор следователя включается в темноте</p>
+  </div>
+</section>
+
+<!-- ============ ПРОТОКОЛ ============ -->
+<section class="block" id="services">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">Раздел 03</span><h2>Протокол услуг</h2></div>
+    <div class="rows">
+      <div class="row"><span class="n">01</span><h3>Мужская стрижка</h3><span class="note">по форме головы</span></div>
+      <div class="row"><span class="n">02</span><h3>Бритьё и работа с бородой</h3><span class="note">контур + уход</span></div>
+      <div class="row"><span class="n">03</span><h3>Повторный визит</h3><span class="note">форма уже известна</span></div>
+    </div>
+    <p class="prot-note">Точный прайс и состав услуг — <a href="https://vk.com/club234633280" target="_blank" rel="noopener">при записи в группе VK</a>: Герман отвечает лично.</p>
+  </div>
+</section>
+
+<!-- ============ ПОКАЗАНИЯ ============ -->
+<section class="block" id="reviews">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">Раздел 04</span><h2>Показания</h2></div>
+    <div class="svid-grid">
+      <div>
+        <div class="score">5.0</div>
+        <div class="score-cap">яндекс карты · 74 оценки · 65 отзывов</div>
+      </div>
+      <div class="svid-txt">
+        <p>За семь месяцев работы — <strong>идеальный рейтинг на Яндекс Картах</strong>. Каждый отзыв написан реальным клиентом: соседи по ЖК, отцы с сыновьями, те, кто приехал через полгорода и остался.</p>
+        <p>Лучший отзыв — цифра: <strong>65 человек написали сами</strong>, никого не просили.</p>
+        <a class="map" href="https://yandex.ru/maps/org/delo_levina_196/73669744949/" target="_blank" rel="noopener">Читать все 65 отзывов на Яндекс Картах →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ЯВКА ============ -->
+<section class="block yavka" id="yavka">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">Раздел 05</span><h2>Явка</h2></div>
+    <p class="addr">ул. Победы, 3<br>ЖК «Уют-Сити» — <em>вход с Малахитового бульвара</em></p>
+    <p class="how">Березовский, Свердловская область. Парковка — во дворе ЖК. Запись ведётся в группе VK: там актуальные окна, там отвечает сам Герман.</p>
+    <div class="cta-row">
+      <a class="btn red" href="https://vk.com/club234633280" target="_blank" rel="noopener">Записаться в VK</a>
+      <a class="btn" href="https://yandex.ru/maps/org/delo_levina_196/73669744949/" target="_blank" rel="noopener">Построить маршрут</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap" style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;width:100%">
+    <span class="mono">Дело Левина №196 · барбершоп одного мастера</span>
+    <span class="mono">Березовский · ул. Победы, 3 · ЖК Уют-Сити</span>
+  </div>
+</footer>
+
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script>
+// прожектор следователя: координаты курсора -> CSS-переменные рамки
+var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+if (fine && !reduce) {
+  document.querySelectorAll('.frame').forEach(function(f){
+    f.addEventListener('pointermove', function(e){
+      var r = f.getBoundingClientRect();
+      f.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      f.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+}
+// reveal
+if (window.gsap && !reduce) {
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.rv, .sec-head, .row, .ulika, .fig-photo, .fig-stats div, .fig-lead, .fig-text p, .score, .svid-txt p, .addr, .how, .yavka .cta-row').forEach(function(el){
+    el.classList.add('rv');
+    gsap.to(el, {opacity:1, y:0, duration:.9, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 88%'}});
+  });
+} else {
+  document.querySelectorAll('.rv').forEach(function(el){ el.style.opacity=1; el.style.transform='none'; });
+}
+</script>
+</body>
+</html>

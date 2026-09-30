@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЧОМПИ — бургер-бар в Курске | ул. Радищева, 40</title>
+<meta name="description" content="ЧОМПИ — дерзкий бургер-бар в Курске на улице Радищева, 40. Открылись в 2025. Рейтинг 4.8 на Яндекс.Картах.">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{
+  --cream:#F6EEE2;
+  --paper:#FFF8EC;
+  --ink:#1A1410;
+  --red:#E2401F;
+  --red-deep:#C02A0E;
+  --red-bright:#FF6B47;
+  --tape:rgba(233,210,160,.88);
+  --disp:'Unbounded',sans-serif;
+  --body:'Manrope',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--body);
+  font-weight:400;
+  font-size:17px;
+  line-height:1.55;
+  overflow-x:clip;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+::selection{background:var(--red-deep);color:var(--cream)}
+
+/* ---------- полоса улицы (вместо topbar) ---------- */
+.street{
+  background:var(--ink);color:var(--cream);
+  font-family:var(--mono);font-weight:500;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+}
+.street-in{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:10px clamp(16px,4vw,44px);
+}
+.street .sep{color:var(--red-bright);padding:0 .4em}
+.street a{
+  color:var(--cream);text-decoration:none;
+  border-bottom:1px solid rgba(246,238,226,.45);padding-bottom:1px;
+}
+.street a:hover{color:var(--red-bright);border-bottom-color:var(--red-bright)}
+
+/* ---------- ЗОНА 1: ПОСТЕР ---------- */
+.poster{
+  position:relative;text-align:center;
+  padding:clamp(44px,6vw,84px) 0 clamp(56px,8vw,110px);
+}
+.pin{
+  width:16px;height:16px;border-radius:50%;
+  background:var(--red-deep);border:2px solid var(--ink);
+  margin:0 auto;box-shadow:0 4px 0 rgba(26,20,16,.28);
+}
+.poster-meta{
+  margin-top:clamp(14px,2vw,22px);
+  font-family:var(--mono);font-weight:500;font-size:12px;
+  letter-spacing:.3em;text-transform:uppercase;
+}
+/* гигантское слово, края съедены стеной */
+.wordbox{overflow:hidden;margin-top:clamp(4px,1vw,14px)}
+.word{
+  display:block;white-space:nowrap;
+  font-family:var(--disp);font-weight:900;
+  font-size:clamp(80px,22.5vw,330px);
+  line-height:1;letter-spacing:-.02em;
+  color:var(--ink);text-align:center;
+  user-select:none;
+}
+/* красная плашка-стикер поверх нижней кромки слова */
+.plate-wrap{
+  position:relative;z-index:3;
+  margin-top:calc(clamp(18px,3.2vw,50px) * -1);
+}
+.plate{
+  display:inline-block;
+  background:var(--red-deep);color:var(--cream);
+  font-family:var(--disp);font-weight:700;
+  font-size:clamp(13px,1.9vw,22px);
+  letter-spacing:.22em;text-transform:uppercase;
+  padding:.55em 1.2em .6em;
+  border:3px solid var(--ink);
+  box-shadow:6px 6px 0 var(--ink);
+  transform:rotate(-2deg);
+}
+/* фото-лента под словом */
+.strip{
+  display:flex;justify-content:center;align-items:flex-start;
+  gap:clamp(18px,3.4vw,44px);
+  margin-top:clamp(44px,6vw,80px);
+  padding:0 clamp(20px,5vw,60px);
+}
+.ph{
+  position:relative;background:#fff;
+  border:3px solid var(--ink);
+  box-shadow:8px 8px 0 rgba(26,20,16,.9);
+  padding:9px 9px 0;
+}
+.ph img{width:100%;object-fit:cover;filter:contrast(1.05) saturate(1.05)}
+.ph figcaption{
+  font-family:var(--mono);font-weight:400;font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:11px 3px;text-align:left;
+}
+.ph::before,.ph::after{
+  content:"";position:absolute;top:-12px;z-index:2;
+  width:70px;height:22px;background:var(--tape);
+  box-shadow:0 1px 2px rgba(26,20,16,.18);
+}
+.ph::before{left:-20px;transform:rotate(-40deg)}
+.ph::after{right:-20px;transform:rotate(40deg)}
+.strip .ph--a{width:clamp(150px,24vw,310px);transform:rotate(-2.2deg);margin-top:clamp(10px,2vw,26px)}
+.strip .ph--a img{aspect-ratio:3/4}
+.strip .ph--b{width:clamp(128px,19vw,240px);transform:rotate(1.8deg)}
+.strip .ph--b img{aspect-ratio:1/1}
+.strip .ph--c{width:clamp(142px,22vw,280px);transform:rotate(-1.6deg);margin-top:clamp(22px,3.4vw,48px)}
+.strip .ph--c img{aspect-ratio:4/5}
+.strip-cap{
+  margin-top:clamp(24px,3.6vw,42px);
+  font-family:var(--mono);font-weight:400;font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:0 20px;
+}
+.poster-facts{
+  display:flex;justify-content:center;flex-wrap:wrap;
+  gap:8px 26px;margin-top:clamp(16px,2.4vw,26px);
+  padding:0 20px;
+  font-family:var(--mono);font-weight:500;font-size:13px;
+  letter-spacing:.08em;text-transform:uppercase;
+}
+.poster-facts b{color:var(--red-deep);font-weight:500}
+
+/* ---------- ЗОНА 2: МЕНЮ-БОРД (чернильная доска) ---------- */
+.board{
+  background:var(--ink);color:var(--cream);
+  padding:clamp(56px,9vw,120px) 0;
+}
+.board-in{max-width:960px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+.board-tag{
+  text-align:center;
+  font-family:var(--mono);font-weight:500;font-size:12px;
+  letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(246,238,226,.55);
+}
+.board-title{
+  margin-top:14px;text-align:center;
+  font-family:var(--disp);font-weight:900;
+  font-size:clamp(28px,4.6vw,56px);line-height:1.05;
+  color:var(--red-bright);
+}
+.board-list{margin-top:clamp(30px,5vw,54px);border-top:2px solid rgba(246,238,226,.25)}
+.brow{
+  display:flex;align-items:baseline;gap:14px;
+  padding:clamp(16px,2.6vw,26px) 0;
+  border-bottom:2px solid rgba(246,238,226,.18);
+}
+.brow .name{
+  font-family:var(--disp);font-weight:700;
+  font-size:clamp(14px,2.5vw,29px);line-height:1.15;
+  white-space:nowrap;
+}
+.brow .lead{
+  flex:1 1 auto;min-width:12px;
+  border-bottom:3px dotted rgba(246,238,226,.42);
+  transform:translateY(-5px);
+}
+.brow .note{
+  font-family:var(--mono);font-weight:500;
+  font-size:clamp(10px,1.3vw,14px);
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--red-bright);white-space:nowrap;text-align:right;
+}
+.brow .note a{
+  color:var(--red-bright);text-decoration:none;
+  border-bottom:1px solid rgba(255,107,71,.5);
+}
+.brow .note a:hover{color:var(--cream);border-bottom-color:var(--cream)}
+.board-foot{
+  margin-top:clamp(26px,4vw,44px);text-align:center;
+  font-family:var(--mono);font-weight:400;font-size:13px;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(246,238,226,.75);
+}
+.board-foot a{
+  color:var(--cream);text-decoration:none;
+  border-bottom:2px solid var(--red);padding-bottom:2px;
+}
+.board-foot a:hover{color:var(--red-bright);border-bottom-color:var(--red-bright)}
+
+/* ---------- ЗОНА 3: СТЕНА ФОТО ---------- */
+.wall{padding:clamp(56px,9vw,120px) 0}
+.wall-in{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+.tag{
+  font-family:var(--mono);font-weight:500;font-size:12px;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--red-deep);
+  margin-bottom:clamp(24px,4vw,44px);
+}
+.tag::before{content:"— "}
+.wall-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  gap:clamp(16px,2.6vw,34px);align-items:start;
+}
+.wall-grid .w1{grid-column:1/8;grid-row:1/3;transform:rotate(-1.6deg)}
+.wall-grid .w1 img{aspect-ratio:4/3}
+.wall-grid .w2{grid-column:9/13;grid-row:1;transform:rotate(2deg);margin-top:clamp(12px,3vw,44px)}
+.wall-grid .w2 img{aspect-ratio:1/1}
+.wall-grid .w3{grid-column:8/12;grid-row:2;transform:rotate(-1.8deg);margin-top:clamp(10px,2.4vw,36px)}
+.wall-grid .w3 img{aspect-ratio:4/3}
+
+/* ---------- ЗОНА 4: ТИКЕТ ---------- */
+.ticket-zone{padding-bottom:clamp(64px,9vw,120px)}
+.ticket{
+  position:relative;max-width:980px;margin:0 auto;
+  display:flex;align-items:stretch;
+  background:var(--red-deep);color:var(--cream);
+  border:3px solid var(--ink);
+  box-shadow:10px 10px 0 var(--ink);
+  transform:rotate(-.8deg);
+}
+.ticket-main{flex:1.45;padding:clamp(24px,4.4vw,46px)}
+.ticket-no{
+  font-family:var(--mono);font-weight:400;font-size:11px;
+  letter-spacing:.26em;text-transform:uppercase;
+  color:var(--cream);
+}
+.ticket-big{
+  margin-top:10px;
+  font-family:var(--disp);font-weight:900;
+  font-size:clamp(30px,5.6vw,66px);line-height:1.02;
+}
+.ticket-addr{
+  margin-top:14px;
+  font-family:var(--mono);font-weight:500;
+  font-size:clamp(13px,1.7vw,18px);
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.ticket-addr b{color:var(--ink);background:var(--cream);padding:.1em .4em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.ticket-hint{
+  margin-top:14px;font-size:14px;font-weight:600;
+  max-width:34ch;color:var(--cream);
+}
+.ticket-stub{
+  position:relative;flex:1;
+  display:flex;flex-direction:column;justify-content:center;gap:10px;
+  padding:clamp(24px,4.4vw,46px);
+  border-left:3px dashed rgba(246,238,226,.7);
+}
+.ticket-stub::before,.ticket-stub::after{
+  content:"";position:absolute;left:-16px;z-index:2;
+  width:26px;height:26px;border-radius:50%;
+  background:var(--cream);border:3px solid var(--ink);
+}
+.ticket-stub::before{top:-15px}
+.ticket-stub::after{bottom:-15px}
+.stub-label{
+  font-family:var(--mono);font-weight:400;font-size:10px;
+  letter-spacing:.24em;text-transform:uppercase;
+  color:var(--cream);
+}
+.stub-tel{
+  font-family:var(--disp);font-weight:700;
+  font-size:clamp(19px,2.6vw,30px);line-height:1.1;
+  color:var(--cream);text-decoration:none;
+}
+.stub-tel:hover{color:var(--ink)}
+.stub-note{
+  font-family:var(--mono);font-weight:400;font-size:11px;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--cream);
+}
+.linkrow{
+  margin-top:clamp(30px,4.6vw,50px);
+  display:flex;justify-content:center;flex-wrap:wrap;gap:12px 30px;
+}
+.linkrow a{
+  font-family:var(--mono);font-weight:500;font-size:13px;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;
+  border-bottom:2px solid var(--red);padding-bottom:3px;
+}
+.linkrow a:hover{color:var(--red-deep)}
+
+/* ---------- footer: одна тонкая строка ---------- */
+.footer{border-top:2px solid var(--ink)}
+.foot-in{
+  padding:14px clamp(16px,4vw,44px);
+  text-align:center;
+  font-family:var(--mono);font-weight:400;font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:1024px){
+  .wall-grid .w1{grid-column:1/8}
+  .wall-grid .w2{grid-column:8/13}
+  .wall-grid .w3{grid-column:8/12}
+}
+@media (max-width:760px){
+  .wall-grid{grid-template-columns:1fr;gap:36px}
+  .wall-grid .w1,.wall-grid .w2,.wall-grid .w3{grid-column:auto;grid-row:auto;margin-top:0}
+  .wall-grid .ph{width:min(82%,320px)}
+  .wall-grid .w1{justify-self:start}
+  .wall-grid .w2{justify-self:end}
+  .wall-grid .w3{justify-self:center}
+  .ticket{flex-direction:column;transform:rotate(-.6deg);margin:0 6px}
+  .ticket-stub{border-left:none;border-top:3px dashed rgba(246,238,226,.7)}
+  .ticket-stub::before,.ticket-stub::after{display:none}
+}
+@media (max-width:640px){
+  .strip{flex-direction:column;align-items:center;gap:34px}
+  .strip .ph{width:min(76%,280px);margin-top:0}
+  .poster-facts{flex-direction:column;gap:6px;align-items:center}
+}
+@media (max-width:480px){
+  .ph::before,.ph::after{width:52px;height:18px;top:-9px}
+  .ph::before{left:-14px}
+  .ph::after{right:-14px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- полоса улицы -->
+<div class="street">
+  <div class="street-in">
+    <span>Курск<span class="sep">·</span>ул. Радищева, 40</span>
+    <a href="tel:+79102126307">+7 910 212-63-07</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- ЗОНА 1: ПОСТЕР -->
+  <section class="poster">
+    <div class="pin" aria-hidden="true"></div>
+    <p class="poster-meta">афиша · burger bar · курск</p>
+
+    <div class="wordbox">
+      <h1 class="word">ЧОМПИ</h1>
+    </div>
+
+    <div class="plate-wrap">
+      <span class="plate">БУРГЕР-БАР</span>
+    </div>
+
+    <div class="strip">
+      <figure class="ph ph--a reveal">
+        <img src="img/facade.jpg" alt="Красная вывеска ЧОМПИ на белом фасаде на улице Радищевой, у входа девушка со скейтбордом">
+        <figcaption>фасад на радищевой</figcaption>
+      </figure>
+      <figure class="ph ph--b reveal">
+        <img src="img/cup.jpg" alt="Брендированный стакан ЧОМПИ на фоне кирпичной стены">
+        <figcaption>их стакан</figcaption>
+      </figure>
+      <figure class="ph ph--c reveal">
+        <img src="img/neon.jpg" alt="Ночная улица у входа в ЧОМПИ, девушка на ступенях ест бургер">
+        <figcaption>ночью у входа</figcaption>
+      </figure>
+    </div>
+
+    <p class="strip-cap">— всё настоящее, снято на радищевой, 40 —</p>
+
+    <p class="poster-facts">
+      <span>★ <b>4.8</b> — яндекс.карты</span>
+      <span>открыты с <b>2025</b></span>
+      <span><b>7,4k</b> — vk.com</span>
+    </p>
+  </section>
+
+  <!-- ЗОНА 2: МЕНЮ-БОРД -->
+  <section class="board">
+    <div class="board-in">
+      <p class="board-tag">приколото рядом · доска у бара</p>
+      <h2 class="board-title">МЕНЮ-БОРД</h2>
+
+      <div class="board-list">
+        <div class="brow reveal">
+          <span class="name">БУРГЕРЫ</span>
+          <span class="lead" aria-hidden="true"></span>
+          <span class="note">★4.8 в отзывах</span>
+        </div>
+        <div class="brow reveal">
+          <span class="name">СТРИТФУД</span>
+          <span class="lead" aria-hidden="true"></span>
+          <span class="note">спрашивай в зале</span>
+        </div>
+        <div class="brow reveal">
+          <span class="name">КОФЕ И ШЕЙКИ</span>
+          <span class="lead" aria-hidden="true"></span>
+          <span class="note">каждый день</span>
+        </div>
+        <div class="brow reveal">
+          <span class="name">АТМОСФЕРА 80-Х</span>
+          <span class="lead" aria-hidden="true"></span>
+          <span class="note">бесплатно</span>
+        </div>
+      </div>
+
+      <p class="board-foot">
+        актуальное меню и цены — <a href="https://vk.com/public206179082" target="_blank" rel="noopener">в группе VK ↗</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ЗОНА 3: СТЕНА ФОТО -->
+  <section class="wall">
+    <div class="wall-in">
+      <p class="tag">стена фото · наклеено вручную</p>
+      <div class="wall-grid">
+        <figure class="ph w1 reveal">
+          <img src="img/counter.jpg" alt="Оранжевая вывеска ЧОМПИ над бетонной стойкой-кассой в зале">
+          <figcaption>стойка и вывеска</figcaption>
+        </figure>
+        <figure class="ph w2 reveal">
+          <img src="img/cup.jpg" alt="Стакан ЧОМПИ крупным планом на фоне кирпичной стены">
+          <figcaption>деталь</figcaption>
+        </figure>
+        <figure class="ph w3 reveal">
+          <img src="img/neon.jpg" alt="Вечер у входа в ЧОМПИ — ступени, улица, бургер">
+          <figcaption>вечером у входа</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЗОНА 4: ТИКЕТ -->
+  <section class="ticket-zone">
+    <div class="wall-in">
+      <div class="ticket reveal">
+        <div class="ticket-main">
+          <p class="ticket-no">пропуск · № 0040</p>
+          <p class="ticket-big">ПРОХОДИ</p>
+          <p class="ticket-addr">курск, ул. радищева, <b>40</b></p>
+          <p class="ticket-hint">билет не нужен — просто зайди. место найдётся.</p>
+        </div>
+        <div class="ticket-stub">
+          <p class="stub-label">отрывная часть</p>
+          <a class="stub-tel" href="tel:+79102126307">+7 910<br>212-63-07</a>
+          <p class="stub-note">позвони — подскажем</p>
+        </div>
+      </div>
+
+      <div class="linkrow">
+        <a href="https://vk.com/public206179082" target="_blank" rel="noopener">VK ↗</a>
+        <a href="https://instagram.com/chompy_rest" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="https://yandex.ru/maps/?text=Курск, улица Радищева, 40" target="_blank" rel="noopener">Яндекс.Карты ↗</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p class="foot-in">© чомпи · burger bar · курск, радищева 40 · с 2025</p>
+</footer>
+
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced || !window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray('.reveal').forEach(function(el){
+    gsap.from(el,{
+      y:30, opacity:0, duration:.7, ease:'power2.out',
+      scrollTrigger:{trigger:el, start:'top 90%', once:true}
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

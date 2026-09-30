@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Городские лезвия — барбершоп у Беговой и в Полюстрово</title>
+<meta name="description" content="Барбершоп «Городские лезвия» в СПб: Туристская, 22 лит А (ЖК «Марсель», м. Беговая) и пр. Маршака, 2к1 (Полюстрово). Стрижка 1600 ₽, первая — 1200 ₽. Ежедневно 11:00–22:00. Яндекс 4.9.">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root{
+    --asphalt:#101012;   /* фон-город */
+    --paper:#EDEAE4;     /* бумага афиши */
+    --signal:#FF4B1F;   /* сигнальный оранж */
+    --paper-70:rgba(237,234,228,.7);
+    --paper-45:rgba(237,234,228,.45);
+    --mono:'JetBrains Mono',monospace;
+    --text:'Rubik',sans-serif;
+    --bebas:'Bebas Neue','Rubik',sans-serif; /* только цифры/латиница: кириллица падёт в Rubik */
+    --torn1:polygon(0 24px,5% 6px,11% 20px,17% 2px,24% 16px,31% 4px,38% 22px,46% 8px,53% 18px,60% 2px,67% 14px,74% 24px,81% 6px,88% 18px,94% 4px,100% 14px,100% 100%,0 100%);
+    --torn2:polygon(0 10px,7% 24px,14% 8px,21% 20px,29% 2px,36% 16px,44% 22px,51% 6px,58% 18px,66% 4px,73% 22px,80% 8px,87% 20px,93% 2px,100% 18px,100% 100%,0 100%);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--asphalt);
+    color:var(--paper);
+    font-family:var(--text);
+    font-size:17px;
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--signal);color:var(--asphalt)}
+  a{color:inherit;text-decoration:none}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  .container{max-width:1280px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px)}
+  .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;font-size:13px}
+  .bebas{font-family:var(--bebas);font-weight:400}
+  a:focus-visible{outline:3px solid var(--signal);outline-offset:3px}
+
+  /* ---------- кнопки: одна высота везде ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    height:52px;padding:0 28px;
+    font-family:var(--text);font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:.08em;
+    border:2px solid transparent;cursor:pointer;white-space:nowrap;
+    transition:background .2s,color .2s,border-color .2s,transform .2s;
+  }
+  .btn-solid{background:var(--signal);border-color:var(--signal);color:var(--asphalt)}
+  .btn-solid:hover{background:#E8430F;border-color:#E8430F;transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--paper);border-color:rgba(237,234,228,.55)}
+  .btn-ghost:hover{background:var(--paper);border-color:var(--paper);color:var(--asphalt)}
+
+  /* ---------- шапка: тёмная сигнальная лента ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(16,16,18,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:2px solid var(--signal);
+  }
+  .header-in{display:flex;align-items:center;justify-content:space-between;height:64px;gap:24px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+  .logo i{display:inline-block;width:12px;height:12px;background:var(--signal);flex:none}
+  nav{display:flex;gap:28px}
+  nav a{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper-70)}
+  nav a:hover{color:var(--paper)}
+  .header-phone{font-family:var(--mono);font-size:13px;letter-spacing:.04em;white-space:nowrap;color:var(--paper)}
+  .header-phone:hover{color:var(--signal)}
+
+  /* ---------- HERO: уличная афиша на тёмном фото ---------- */
+  .hero{position:relative;overflow:hidden;min-height:calc(100vh - 64px);min-height:calc(100svh - 64px);display:flex;padding:0}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg img{filter:grayscale(.9) contrast(1.06) brightness(.62)}
+  .hero-bg::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(16,16,18,.66) 0%,rgba(16,16,18,.34) 42%,rgba(16,16,18,.9) 100%);
+  }
+  .hero-in{
+    position:relative;z-index:1;width:100%;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding-top:clamp(48px,7vh,88px);
+    padding-bottom:clamp(36px,5vh,60px);
+  }
+  .eyebrow{display:flex;align-items:center;gap:10px;color:var(--paper-70);margin-bottom:clamp(18px,3vh,32px)}
+  .eyebrow i{display:inline-block;width:10px;height:10px;background:var(--signal);flex:none}
+  h1{
+    font-weight:700;
+    font-size:clamp(44px,9.6vw,144px);
+    line-height:.94;letter-spacing:-.02em;text-transform:uppercase;
+    color:var(--paper);
+  }
+  h1 .l1,h1 .l2,h1 .l3{display:block}
+  h1 .hl{
+    background:var(--signal);color:var(--asphalt);
+    padding:0 .12em .02em;
+    box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  }
+  .hero-sub{margin-top:26px;max-width:560px;font-size:clamp(16px,1.4vw,19px);line-height:1.55;color:rgba(237,234,228,.92)}
+  .hero-sub mark{
+    background:var(--signal);color:var(--asphalt);
+    padding:.02em .22em;font-weight:500;
+    box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  }
+  .cta-row{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .hero-meta{
+    margin-top:clamp(36px,6vh,64px);padding-top:18px;
+    border-top:1px solid rgba(237,234,228,.22);
+    display:flex;gap:12px 36px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper-70);
+  }
+  /* стикер-афиша: бумага + оранжевая жёсткая тень */
+  .sticker{
+    position:absolute;right:clamp(20px,4vw,48px);bottom:clamp(150px,24vh,250px);z-index:2;
+    background:var(--paper);color:var(--asphalt);
+    border:2px solid var(--asphalt);
+    box-shadow:10px 10px 0 var(--signal);
+    padding:16px 22px 12px;transform:rotate(-5deg);
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .sticker .s-top{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+  .sticker .s-price{font-family:var(--bebas);font-size:clamp(40px,4vw,56px);line-height:1;margin-top:4px}
+
+  /* ---------- ДВЕ ВСТРЕЧНЫЕ ЛЕНТЫ РАЙОНОВ ---------- */
+  .ribbon{overflow:hidden;padding:13px 0}
+  .track{display:flex;width:max-content;will-change:transform}
+  .track > span{
+    white-space:nowrap;flex:none;
+    font-family:var(--text);font-weight:700;
+    font-size:clamp(30px,4.6vw,58px);line-height:1.12;
+    text-transform:uppercase;letter-spacing:.01em;
+  }
+  .track b{font-weight:700;color:var(--signal);padding:0 .35em}
+  .r-fill{background:var(--paper);color:var(--asphalt)}
+  .r-stroke{background:var(--asphalt);color:transparent;-webkit-text-stroke:2px var(--signal)}
+  @supports not (-webkit-text-stroke:1px #000){.r-stroke{color:var(--signal)}}
+  .t-left{animation:mqL 26s linear infinite}
+  .t-right{animation:mqR 34s linear infinite}
+  @keyframes mqL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes mqR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+  /* ---------- бумажный блок (рваный край №1) ---------- */
+  .paper-torn{
+    position:relative;z-index:1;margin-top:-24px;
+    background:var(--paper);color:var(--asphalt);
+    clip-path:var(--torn1);
+  }
+  section{padding:clamp(72px,9vw,116px) 0}
+  section[id],footer[id]{scroll-margin-top:80px}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+  .sec-label i{display:inline-block;width:10px;height:10px;background:var(--signal);flex:none}
+  .paper-torn > section:first-child{padding-top:clamp(96px,11vw,144px)}
+  h2{
+    font-weight:700;font-size:clamp(34px,5vw,64px);
+    line-height:.96;letter-spacing:-.02em;text-transform:uppercase;
+    margin-bottom:clamp(36px,5vw,64px);
+  }
+
+  /* ---------- ФИЛИАЛЫ: две афиши с контурными номерами ---------- */
+  .branches-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,2.5vw,28px)}
+  .branch{
+    background:var(--asphalt);color:var(--paper);
+    padding:clamp(24px,3vw,40px);
+    display:flex;flex-direction:column;min-height:420px;
+    transition:transform .25s,box-shadow .25s;
+  }
+  .branch:hover{transform:translate(-5px,-5px);box-shadow:9px 9px 0 var(--signal)}
+  .b-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+  .b-num{
+    font-family:var(--bebas);font-size:clamp(88px,10vw,150px);line-height:.82;
+    color:transparent;-webkit-text-stroke:3px var(--signal);
+  }
+  @supports not (-webkit-text-stroke:1px #000){.b-num{color:var(--signal)}}
+  .b-tag{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);text-align:right;padding-top:10px}
+  .b-name{font-weight:700;font-size:clamp(24px,2.6vw,36px);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;margin-top:26px}
+  .b-lines{margin-top:18px;display:flex;flex-direction:column;gap:9px}
+  .b-lines span{font-family:var(--mono);font-size:13px;letter-spacing:.05em;color:rgba(237,234,228,.75)}
+  .b-find{margin-top:auto;padding-top:26px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(237,234,228,.75)}
+  .b-find b{font-weight:400;color:var(--signal)}
+  .branch .btn{margin-top:18px;align-self:flex-start}
+
+  /* ---------- ЦЕНЫ: плакат ---------- */
+  .price-list{border-top:2px solid var(--asphalt)}
+  .price-row{
+    display:flex;justify-content:space-between;align-items:center;gap:24px;
+    padding:clamp(20px,2.4vw,30px) 0;border-bottom:2px solid var(--asphalt);
+  }
+  .p-name{font-weight:700;font-size:clamp(19px,2vw,26px);text-transform:uppercase;letter-spacing:-.005em}
+  .p-note{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(16,16,18,.6);margin-top:6px}
+  .p-val{font-family:var(--bebas);font-size:clamp(36px,4.4vw,64px);line-height:1;white-space:nowrap}
+  .p-hot{background:var(--signal);color:var(--asphalt);padding:.06em .18em .02em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .prices-after{margin-top:26px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:rgba(16,16,18,.72)}
+  .prices-after a{color:var(--asphalt);border-bottom:3px solid var(--signal);font-weight:700}
+  .prices-after a:hover{background:var(--signal)}
+
+  /* ---------- ВНУТРИ: фото + плитка-факт ---------- */
+  .gallery{display:grid;grid-template-columns:7fr 5fr;gap:clamp(16px,2vw,22px)}
+  .g-lg{aspect-ratio:16/11;overflow:hidden;border:2px solid var(--asphalt)}
+  .g-col{display:flex;flex-direction:column;gap:clamp(16px,2vw,22px)}
+  .g-col > *{flex:1;min-height:0}
+  .g-sm{overflow:hidden;border:2px solid var(--asphalt);min-height:200px}
+  .gallery img{filter:grayscale(1) contrast(1.08) brightness(.94)}
+  .g-tile{
+    background:var(--asphalt);color:var(--paper);
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:clamp(20px,2.4vw,32px);min-height:200px;
+  }
+  .g-tile .t-num{font-family:var(--bebas);font-size:clamp(72px,8vw,120px);line-height:.9;color:var(--signal)}
+  .g-tile .t-cap{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(237,234,228,.75)}
+
+  /* ---------- финал (рваный край №2): тёмный, оранж только в кнопках/словах ---------- */
+  .dark-torn{
+    position:relative;z-index:1;margin-top:-22px;
+    background:var(--asphalt);color:var(--paper);
+    clip-path:var(--torn2);
+    padding:clamp(88px,10vw,132px) 0 44px;
+  }
+  .dark-torn h2 .hl{
+    background:var(--signal);color:var(--asphalt);
+    padding:0 .12em .02em;
+    box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  }
+  .foot-phone{
+    display:block;font-family:var(--bebas);
+    font-size:clamp(44px,7vw,104px);line-height:1;letter-spacing:.02em;
+    margin-top:8px;
+  }
+  .foot-phone:hover{color:var(--signal)}
+  .foot-btns{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap}
+  .foot-online{margin-top:30px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--paper-70)}
+  .foot-online a{color:var(--signal);border-bottom:2px solid rgba(255,75,31,.4)}
+  .foot-online a:hover{border-bottom-color:var(--signal)}
+  .foot-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:36px;
+    margin-top:clamp(48px,6vw,80px);padding-top:34px;
+    border-top:1px solid rgba(237,234,228,.22);
+  }
+  .foot-grid .mono{font-size:11px;color:var(--paper-45);margin-bottom:12px;letter-spacing:.14em}
+  .foot-grid p,.foot-grid a{font-size:14px;color:rgba(237,234,228,.85);line-height:1.75}
+  .foot-grid a{display:block}
+  .foot-grid a:hover{color:var(--paper)}
+  .foot-bottom{margin-top:44px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-45)}
+
+  /* ---------- адаптив ---------- */
+  @media (min-width:1025px){
+    h1 .l1,h1 .l2{display:inline} /* «СТРИЖЁМ В ТВОЁМ» одной строкой, «РАЙОНЕ» — второй */
+  }
+  @media (max-width:1024px){
+    nav{display:none}
+    .branches-grid{grid-template-columns:1fr}
+    .branch{min-height:0}
+    .gallery{grid-template-columns:1fr}
+    .g-lg{aspect-ratio:16/10}
+    .g-col{flex-direction:row}
+    .g-col > *{flex:1;min-height:220px}
+    .foot-grid{grid-template-columns:1fr;gap:28px}
+  }
+  @media (max-width:640px){
+    .logo{font-size:13px}
+    .header-phone{font-size:12px}
+    .sticker{
+      position:static;margin-top:30px;align-self:flex-start;
+      transform:rotate(-4deg);display:inline-flex;flex-direction:column;align-items:center;
+    }
+    .hero-in{justify-content:flex-start}
+    .cta-row .btn{flex:1;min-width:0}
+    .price-row{flex-direction:column;align-items:flex-start;gap:10px}
+    .g-col{flex-direction:column}
+    .g-col > *{min-height:0}
+    .g-sm{aspect-ratio:16/10;flex:none}
+    .g-tile{flex:none}
+    .foot-btns .btn{flex:1;min-width:0}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .t-left,.t-right{animation:none}
+    html{scroll-behavior:auto}
+    .branch,.btn-solid{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-in">
+    <a class="logo" href="#top"><i></i>Городские лезвия</a>
+    <nav>
+      <a href="#branches">Филиалы</a>
+      <a href="#price">Цены</a>
+      <a href="#inside">Внутри</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="header-phone" href="tel:+79643718101">+7 964 371-81-01</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="img/real-neon.jpg" alt="Зал «Городских лезвий»: неоновые линии по потолку, зеркала, кресла">
+    </div>
+    <div class="container hero-in">
+      <p class="eyebrow mono"><i></i>Барбершоп · два района · СПб</p>
+      <h1>
+        <span class="l1">СТРИЖЁМ </span><span class="l2">В ТВОЁМ </span><span class="l3"><span class="hl">РАЙОНЕ</span></span>
+      </h1>
+      <p class="hero-sub">Две точки у дома: Туристская, 22 лит А — ЖК «Марсель», м. Беговая, и пр. Маршака, 2к1 — Полюстрово. Стрижка 1600 ₽, <mark>первая — 1200 ₽</mark>.</p>
+      <div class="cta-row">
+        <a class="btn btn-solid" href="#branches">Записаться онлайн</a>
+        <a class="btn btn-ghost" href="tel:+79643718101">+7 964 371-81-01</a>
+      </div>
+      <div class="sticker">
+        <span class="s-top">Первая стрижка</span>
+        <span class="s-price">1200 ₽</span>
+      </div>
+      <div class="hero-meta">
+        <span>Ежедневно 11:00–22:00</span>
+        <span>Яндекс 4.9 · 32 отзыва</span>
+        <span>Туристская 22 · Маршака 2к1</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ДВЕ ВСТРЕЧНЫЕ ЛЕНТЫ РАЙОНОВ -->
+  <div aria-hidden="true">
+    <div class="ribbon r-fill">
+      <div class="track t-left">
+        <span>Беговая <b>·</b> ЖК Марсель <b>·</b> Акварель <b>·</b> Якорь <b>·</b> Полюстрово <b>·</b> Маршака 2к1 <b>·</b> Беговая <b>·</b> ЖК Марсель <b>·</b> Акварель <b>·</b> Якорь <b>·</b> Полюстрово <b>·</b> Маршака 2к1 <b>·</b> Беговая <b>·</b> ЖК Марсель <b>·</b> Акварель <b>·</b> Якорь <b>·</b> Полюстрово <b>·</b> Маршака 2к1 <b>·</b> </span>
+        <span>Беговая <b>·</b> ЖК Марсель <b>·</b> Акварель <b>·</b> Якорь <b>·</b> Полюстрово <b>·</b> Маршака 2к1 <b>·</b> Беговая <b>·</b> ЖК Марсель <b>·</b> Акварель <b>·</b> Якорь <b>·</b> Полюстрово <b>·</b> Маршака 2к1 <b>·</b> Беговая <b>·</b> ЖК Марсель <b>·</b> Акварель <b>·</b> Якорь <b>·</b> Полюстрово <b>·</b> Маршака 2к1 <b>·</b> </span>
+      </div>
+    </div>
+    <div class="ribbon r-stroke">
+      <div class="track t-right">
+        <span>Беговая · ЖК Марсель · Акварель · Якорь · Полюстрово · Маршака 2к1 · Беговая · ЖК Марсель · Акварель · Якорь · Полюстрово · Маршака 2к1 · Беговая · ЖК Марсель · Акварель · Якорь · Полюстрово · Маршака 2к1 · </span>
+        <span>Беговая · ЖК Марсель · Акварель · Якорь · Полюстрово · Маршака 2к1 · Беговая · ЖК Марсель · Акварель · Якорь · Полюстрово · Маршака 2к1 · Беговая · ЖК Марсель · Акварель · Якорь · Полюстрово · Маршака 2к1 · </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- БУМАГА: филиалы → цены → внутри -->
+  <div class="paper-torn">
+
+    <!-- ФИЛИАЛЫ -->
+    <section id="branches">
+      <div class="container">
+        <p class="sec-label"><i></i>Филиалы</p>
+        <h2>Две точки у дома</h2>
+        <div class="branches-grid">
+          <article class="branch" data-reveal>
+            <div class="b-top">
+              <span class="b-num">01</span>
+              <span class="b-tag">м. Беговая<br>Приморский район</span>
+            </div>
+            <h3 class="b-name">Туристская, 22 лит А</h3>
+            <div class="b-lines">
+              <span>ЖК «Марсель»</span>
+              <span>Ежедневно 11:00–22:00</span>
+            </div>
+            <p class="b-find">Как найти: <b>ЖК «Марсель», у м. Беговой</b></p>
+            <a class="btn btn-solid" href="https://n2131698.yclients.com/" target="_blank" rel="noopener">Записаться онлайн</a>
+          </article>
+          <article class="branch" data-reveal>
+            <div class="b-top">
+              <span class="b-num">02</span>
+              <span class="b-tag">Полюстрово<br>Новый филиал</span>
+            </div>
+            <h3 class="b-name">пр. Маршака, 2к1</h3>
+            <div class="b-lines">
+              <span>Рядом с ветклиникой</span>
+              <span>Ежедневно 11:00–22:00</span>
+            </div>
+            <p class="b-find">Как найти: <b>серая дверь у ветклиники</b></p>
+            <a class="btn btn-solid" href="https://n1721439.yclients.com/" target="_blank" rel="noopener">Записаться онлайн</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ЦЕНЫ -->
+    <section id="price">
+      <div class="container">
+        <p class="sec-label"><i></i>Цены</p>
+        <h2>Сколько стоит</h2>
+        <div class="price-list">
+          <div class="price-row" data-reveal>
+            <div>
+              <div class="p-name">Мужская стрижка</div>
+              <div class="p-note">Основная услуга</div>
+            </div>
+            <div class="p-val">1600 ₽</div>
+          </div>
+          <div class="price-row" data-reveal>
+            <div>
+              <div class="p-name">Первая стрижка</div>
+              <div class="p-note">Для новых гостей</div>
+            </div>
+            <div class="p-val"><span class="p-hot">1200 ₽</span></div>
+          </div>
+          <div class="price-row" data-reveal>
+            <div>
+              <div class="p-name">Королевское бритьё головы</div>
+            </div>
+            <div class="p-val">1500 ₽</div>
+          </div>
+          <div class="price-row" data-reveal>
+            <div>
+              <div class="p-name">Камуфляж седины</div>
+            </div>
+            <div class="p-val">1600 ₽</div>
+          </div>
+        </div>
+        <p class="prices-after" data-reveal>Полный список услуг и свободные окна — в онлайн-записи: <a href="https://n2131698.yclients.com/" target="_blank" rel="noopener">Туристская</a> · <a href="https://n1721439.yclients.com/" target="_blank" rel="noopener">Маршака</a></p>
+      </div>
+    </section>
+
+    <!-- ВНУТРИ -->
+    <section id="inside">
+      <div class="container">
+        <p class="sec-label"><i></i>Внутри</p>
+        <h2>Стиль рядом с домом</h2>
+        <div class="gallery">
+          <figure class="g-lg" data-reveal>
+            <img src="img/real-cut.jpg" alt="Барбер за стрижкой в зале «Городских лезвий»">
+          </figure>
+          <div class="g-col">
+            <figure class="g-sm" data-reveal>
+              <img src="img/real-towel.jpg" alt="Клиент в кресле под горячим полотенцем">
+            </figure>
+            <div class="g-tile" data-reveal>
+              <span class="t-cap">Яндекс Карты</span>
+              <span class="t-num">4.9</span>
+              <span class="t-cap">32 отзыва</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ФИНАЛ: тёмный, оранж только в кнопках/словах -->
+  <footer class="dark-torn" id="contacts">
+    <div class="container">
+      <p class="sec-label"><i></i>Запись</p>
+      <h2>Запишись <span class="hl">у дома</span></h2>
+      <a class="foot-phone" href="tel:+79643718101">+7 964 371-81-01</a>
+      <div class="foot-btns">
+        <a class="btn btn-solid" href="https://wa.me/79643718101" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-ghost" href="https://t.me/mlpolmj" target="_blank" rel="noopener">Telegram</a>
+        <a class="btn btn-ghost" href="https://vk.com/club233038500" target="_blank" rel="noopener">VK</a>
+      </div>
+      <p class="foot-online">Онлайн-запись: <a href="https://n2131698.yclients.com/" target="_blank" rel="noopener">Туристская 22 → n2131698.yclients.com</a> · <a href="https://n1721439.yclients.com/" target="_blank" rel="noopener">Маршака 2к1 → n1721439.yclients.com</a></p>
+      <div class="foot-grid">
+        <div>
+          <p class="mono">Точка 01</p>
+          <p>Туристская ул., 22 лит А<br>ЖК «Марсель» · м. Беговая</p>
+        </div>
+        <div>
+          <p class="mono">Точка 02</p>
+          <p>пр. Маршака, 2к1<br>Полюстрово · серая дверь у ветклиники</p>
+        </div>
+        <div>
+          <p class="mono">Часы</p>
+          <p>Ежедневно 11:00–22:00<br><a href="https://t.me/mlpolmj" target="_blank" rel="noopener">TG @mlpolmj</a><a href="https://vk.com/club233038500" target="_blank" rel="noopener">vk.com/club233038500</a></p>
+        </div>
+      </div>
+      <p class="foot-bottom">© Городские лезвия · Санкт-Петербург · 2026</p>
+    </div>
+  </footer>
+
+</main>
+
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (window.gsap && window.ScrollTrigger && !reduced) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('[data-reveal]').forEach(function(el){
+      gsap.from(el, {
+        y: 26,
+        opacity: 0,
+        duration: .8,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>

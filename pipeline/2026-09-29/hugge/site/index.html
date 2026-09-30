@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ХюГГе — студия керамики в Краснодаре · мастер-классы, свидания за гончарным кругом</title>
+<meta name="description" content="Студия керамики «ХюГГе» в Краснодаре, Митрофана Седина 164. Гончарный круг, лепка, роспись и винил: детские мастер-классы от 2 200 ₽, свидания за кругом 3 200 ₽, девичники, курс «База». Приходи в гости — уйдёшь с вещью, которую сделал сам.">
+<meta name="theme-color" content="#F3ECDF">
+<meta property="og:title" content="ХюГГе — студия керамики в Краснодаре">
+<meta property="og:description" content="Гончарный круг, чай, печеньки и винил. Запись по телефону +7 961 857-73-33 и в ВК vk.com/hugge.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="img/08_wall.jpg">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="preload" href="fonts/f71.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/f31.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/f10.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/f41.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* ============ БАЗА ============ */
+:root{
+  --bg:#F3ECDF;        /* черепок */
+  --bg2:#EFE6D8;
+  --ink:#2C1D12;
+  --ink60:rgba(44,29,18,.6);
+  --ink30:rgba(44,29,18,.3);
+  --terra:#A4491F;
+  --terra2:#C4571E;
+  --terra-l:#D4693B;   /* терракота на тёмном */
+  --glaze:#3E5A5E;
+  --kiln:#241812;
+  --heat:#E8B06B;
+  --paper:#FBF5E9;
+  --wood:#7A4E2C;
+  --railw:160px;       /* ширина колонки-рейки нити */
+  --padx:clamp(18px,3vw,40px); /* боковой отступ секций — ось нити считается от него */
+  --sp:clamp(60px,9vw,120px);
+  --f-d:'Vollkorn',Georgia,serif;
+  --f-m:'IBM Plex Mono','Courier New',monospace;
+  --f-b:'Fira Sans',Arial,sans-serif;
+  --f-h:'Caveat',cursive;
+}
+@media (max-width:860px){:root{--railw:92px}}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font:400 17px/1.6 var(--f-b);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* зернистость глины — след материала, ≤6% */
+body::after{
+  content:"";position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='170' height='170' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img{display:block;max-width:100%;height:auto}
+img.treat{filter:sepia(.14) saturate(1.05) contrast(1.08)}        /* час до заката в мастерской */
+img.treat-dim{filter:sepia(.18) saturate(1.02) contrast(1.1) brightness(.92)}
+a{color:var(--glaze)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--terra);outline-offset:3px;border-radius:2px}
+::selection{background:var(--terra);color:var(--bg)}
+
+.mono{font-family:var(--f-m)}
+.over{font:500 12px/1.4 var(--f-m);letter-spacing:.16em;text-transform:uppercase}
+
+/* ============ НИТЬ ПУТИ ============ */
+/* вертикальная рисованная линия с петлями у штампов */
+svg.seg{position:absolute;top:0;bottom:0;height:100%;width:80px;overflow:visible;pointer-events:none}
+svg.seg .draw{
+  fill:none;stroke:var(--terra);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
+}
+html.js .seg .draw{stroke-dasharray:1;stroke-dashoffset:1}
+html.js .seg.lit .draw{stroke-dashoffset:0;transition:stroke-dashoffset 1.5s cubic-bezier(.45,.05,.25,1)}
+html.js .seg.lit .draw.delay{transition-delay:.45s}
+
+/* нить в «плоских» секциях (hero, хозяйка, дом, футер) — та же ось, что и в станциях */
+.rail-line{left:calc(var(--padx) + var(--railw)/2);transform:translateX(-50%)}
+.dark .draw{stroke:var(--terra-l)}
+
+/* шнурок бирки — нить проходит через отверстие */
+svg.cord{display:block;width:calc(var(--railw)/2);height:40px;flex:0 0 calc(var(--railw)/2);overflow:visible}
+svg.cord path{fill:none;stroke:var(--terra);stroke-width:1.8;stroke-linecap:round}
+
+/* ============ ШТАМП-МАРКА СТАНЦИИ ============ */
+.stampw{position:relative;width:120px;margin:0 auto}
+@media (max-width:860px){.stampw{width:86px}}
+.stampw svg.knot{
+  position:absolute;left:50%;top:-37px;transform:translateX(-50%);
+  width:150px;height:auto;overflow:visible;z-index:0;
+}
+@media (max-width:860px){.stampw svg.knot{width:112px;top:-29px}}
+.stamp{
+  position:relative;z-index:1;
+  width:120px;height:120px;border-radius:50%;
+  border:2.4px solid var(--terra);
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  font:500 12px/1.2 var(--f-m);letter-spacing:.14em;text-transform:uppercase;color:var(--terra);
+  box-shadow:0 1px 0 rgba(44,29,18,.25), inset 0 0 0 5px var(--bg), inset 0 0 0 6.4px rgba(164,73,31,.45);
+}
+.stamp b{font:700 clamp(15px,1.35vw,19px)/1.1 var(--f-d);letter-spacing:.02em;text-transform:uppercase;color:var(--ink)}
+@media (max-width:860px){
+  .stamp{width:86px;height:86px;font-size:9.5px}
+  .stamp b{font-size:13px}
+}
+/* вдавливание штампа при появлении станции */
+html.js .press:not(.lit){transform:scale(1.06) rotate(-1.6deg);opacity:.75}
+html.js .press{transition:transform .5s cubic-bezier(.2,.9,.3,1.25),opacity .35s ease}
+
+/* ============ КНОПКИ — одна высота по сайту ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:52px;padding:0 24px;
+  border-radius:6px;border:1.6px solid var(--terra);
+  background:var(--terra);color:var(--bg);
+  font:500 15px/1 var(--f-b);text-decoration:none;white-space:nowrap;
+  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+.btn:hover{background:#8E3D18;border-color:#8E3D18;transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--bg)}
+.btn.dark-b{background:var(--terra-l);border-color:var(--terra-l)}
+.btn.dark-b:hover{background:#BE5A2E;border-color:#BE5A2E}
+
+/* ============ HERO / ПОРОГ ============ */
+.hero{position:relative;min-height:clamp(540px,88vh,760px);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--kiln)}
+.hero-media{position:absolute;inset:0}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;filter:sepia(.12) saturate(1.06) contrast(1.06)}
+.hero-media::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(36,24,18,.18) 0%,rgba(36,24,18,.1) 34%,rgba(36,24,18,.52) 72%,rgba(36,24,18,.82) 100%);}
+.hero .rail-line .draw{stroke:var(--heat);stroke-width:2.2;opacity:.9}
+.hero svg.seg{top:36%;bottom:auto;height:64%} /* нить рисуется от заголовка вниз */
+.hero-in{position:relative;z-index:2;padding:0 clamp(20px,5vw,72px) clamp(36px,5vw,64px) calc(var(--padx) + var(--railw) + clamp(10px,2vw,24px))}
+@media (max-width:560px){.hero-in{padding-left:calc(var(--padx) + var(--railw)/2 + 14px)}}
+.hero-kicker{color:var(--heat);margin-bottom:10px}
+.hero h1{
+  font:700 clamp(56px,10.5vw,140px)/0.94 var(--f-d);
+  letter-spacing:.01em;color:var(--bg);
+  text-shadow:0 2px 24px rgba(36,24,18,.45);
+}
+.hero h1 .row{display:block}
+.hero-sub{max-width:34ch;margin-top:14px;color:#F8F1E4;font-size:clamp(16px,1.6vw,20px)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero-meta{margin-top:18px;color:#EADCC6;font:400 13.5px/1.7 var(--f-m)}
+.hero-meta b{color:#fff;font-weight:500}
+.logo-stamp{
+  position:absolute;z-index:3;top:clamp(16px,3vw,36px);right:clamp(16px,4vw,48px);
+  width:clamp(104px,11vw,150px);height:auto;border-radius:50%;
+  transform:rotate(-6deg);
+  box-shadow:0 6px 20px rgba(36,24,18,.5);
+  --p1:rotate(-6deg);
+}
+html.js .press.logo-stamp:not(.lit){transform:scale(1.08) rotate(-8deg);opacity:.8}
+/* тёплые точки стеклянной гирлянды — реальный свет студии */
+.lights{position:absolute;top:0;left:0;right:0;height:110px;z-index:1;pointer-events:none}
+.lights::before{
+  content:"";position:absolute;top:26px;left:12%;width:7px;height:7px;border-radius:50%;
+  background:var(--heat);box-shadow:0 0 12px 4px rgba(232,176,107,.55);
+  box-shadow:
+    0 0 10px 3px rgba(232,176,107,.6),
+    90px 14px 0 -1px var(--heat),90px 14px 10px -1px rgba(232,176,107,.7),
+    190px 4px 0 -2px var(--heat),190px 4px 9px -2px rgba(232,176,107,.7),
+    300px 20px 0 -1px var(--heat),300px 20px 11px -1px rgba(232,176,107,.65),
+    420px 6px 0 -2px var(--heat),420px 6px 9px -2px rgba(232,176,107,.7),
+    540px 16px 0 -1px var(--heat),540px 16px 10px -1px rgba(232,176,107,.65),
+    660px 4px 0 -2px var(--heat),660px 4px 9px -2px rgba(232,176,107,.7),
+    780px 18px 0 -1px var(--heat),780px 18px 10px -1px rgba(232,176,107,.65);
+}
+@media (max-width:760px){.lights::before{left:18%}}
+
+/* ============ ПОЛОСА-ХОЗЯЙКА ============ */
+.host{position:relative;background:var(--bg2);border-top:1px solid var(--ink30);border-bottom:1px solid var(--ink30)}
+.host-in{position:relative;z-index:1;padding:var(--sp) clamp(20px,5vw,72px) var(--sp) calc(var(--padx) + var(--railw) + clamp(8px,1.2vw,20px))}
+.host-grid{display:grid;grid-template-columns:minmax(0,58ch) minmax(240px,1fr);gap:clamp(28px,5vw,72px);align-items:start}
+@media (max-width:860px){.host-grid{grid-template-columns:1fr}}
+.host h2{font:700 clamp(28px,3.6vw,44px)/1.15 var(--f-d);margin:.4em 0 .7em}
+.host p{max-width:62ch;margin-bottom:1em}
+.host p:last-child{margin-bottom:0}
+.host .facts{display:flex;flex-direction:column;gap:12px;font:400 13.5px/1.5 var(--f-m);color:var(--ink60)}
+.host .facts li{list-style:none;padding-left:14px;border-left:2px solid var(--terra);color:var(--ink)}
+.sign{font:600 clamp(30px,3.4vw,42px)/1 var(--f-h);color:var(--terra);margin-top:.4em;display:block}
+.hand-note{font:600 clamp(26px,3vw,38px)/1.05 var(--f-h);color:var(--glaze);display:inline-block}
+
+/* ============ СТАНЦИИ ============ */
+.station{
+  position:relative;display:grid;
+  grid-template-columns:var(--railw) minmax(0,1fr);
+  padding:var(--sp) clamp(18px,4vw,56px) var(--sp) var(--padx);
+}
+.station .rail{position:relative}
+.station .rail svg.thread{position:absolute;top:0;bottom:0;height:100%;width:80px;left:50%;transform:translateX(-50%)}
+.station .rail .stampw{margin-top:0}
+.body{min-width:0;padding-left:0}
+.body-grid{display:grid;grid-template-columns:minmax(300px,440px) minmax(0,1fr);gap:clamp(24px,4vw,60px);align-items:start}
+@media (max-width:960px){.body-grid{grid-template-columns:1fr}}
+.col-main{display:flex;flex-direction:column;gap:16px;min-width:0}
+.col-media{display:flex;flex-direction:column;gap:14px;min-width:0}
+
+.st-title{font:700 clamp(30px,4.4vw,58px)/1.05 var(--f-d);margin:2px 0 6px}
+.st-sub{max-width:52ch;color:var(--ink)}
+.note{font:400 14px/1.55 var(--f-b);color:var(--ink60);max-width:48ch}
+.note .mono{font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+
+/* фото-слоты */
+.phw,.phv{position:relative;border-radius:4px;overflow:hidden;
+  box-shadow:0 2px 0 rgba(44,29,18,.12),0 14px 30px -18px rgba(44,29,18,.5)}
+.phw img,.phv img{width:100%;height:100%;object-fit:cover}
+.phw{aspect-ratio:3/2}
+.phv{aspect-ratio:3/4;max-width:340px}
+.phv.narrow{max-width:320px}
+.cap{font:400 12.5px/1.45 var(--f-m);color:var(--ink60);margin-top:8px}
+/* деревянная кромка-полка под вертикалями */
+.on-shelf{position:relative;padding-bottom:14px}
+.on-shelf::after{content:"";position:absolute;left:-7px;right:-7px;bottom:0;height:8px;border-radius:2px;
+  background:linear-gradient(180deg,#9A6A3F 0%,#6F4726 100%);
+  box-shadow:0 6px 10px -4px rgba(44,29,18,.45)}
+/* стык станций: подушка перед «Кругом» под нависающую бирку */
+.s1{padding-bottom:calc(var(--sp) + 86px)}
+@media (max-width:860px){.s1{padding-bottom:calc(var(--sp) + 56px)}}
+
+/* ============ БИРКИ-ЦЕННИКИ ============ */
+.tags{display:flex;flex-direction:column;gap:18px}
+.tagrow{display:flex;align-items:center;margin-left:calc(var(--railw)/-2)}
+.birka{
+  position:relative;flex:1;max-width:400px;
+  background:var(--paper);
+  border:1.4px solid var(--ink30);
+  border-left-width:2px;
+  border-radius:4px;
+  padding:16px 18px 18px 36px;
+  box-shadow:0 1px 0 rgba(44,29,18,.15),0 10px 22px -16px rgba(44,29,18,.55);
+}
+.birka::before{ /* проколотое отверстие для нити */
+  content:"";position:absolute;left:13px;top:50%;transform:translateY(-50%);
+  width:11px;height:11px;border-radius:50%;
+  background:var(--bg);border:1.6px solid var(--ink30);
+  box-shadow:inset 0 1px 2px rgba(44,29,18,.4);
+}
+.birka .tag{display:inline-block;font:500 11px/1 var(--f-m);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--glaze);margin-bottom:6px}
+.birka h3{font:700 clamp(19px,1.7vw,23px)/1.15 var(--f-d);margin-bottom:2px}
+.birka .price{font:500 clamp(24px,2.2vw,32px)/1.1 var(--f-m);color:var(--terra);margin:4px 0 2px}
+.birka .price s{font-size:.55em;color:var(--ink60);margin-left:8px}
+.birka .meta{font:400 13px/1.5 var(--f-m);color:var(--ink60);margin-bottom:12px}
+.birka .btn{width:100%}
+.birka.featured{border:2px solid var(--terra);box-shadow:0 2px 0 rgba(44,29,18,.2),0 16px 30px -16px rgba(164,73,31,.55)}
+/* якорная бирка «Свидание за кругом» нависает над стыком СТ.01/СТ.02 */
+.tagrow.star{margin-top:calc(-1 * var(--sp) - 26px);position:relative;z-index:5}
+.birka.star{transform:rotate(-3deg)}
+@media (max-width:860px){.tagrow.star{margin-top:calc(-1 * var(--sp) - 18px)} .birka.star{transform:rotate(-2.4deg)}}
+.birka.big .price{font-size:clamp(38px,5vw,64px);letter-spacing:-.02em}
+
+/* чипы-образцы глазурей */
+.chips{display:flex;align-items:center;gap:12px;margin:4px 0 2px;flex-wrap:wrap}
+.chips .chip{width:32px;height:32px;border-radius:50%;flex:0 0 32px;
+  box-shadow:inset -3px -5px 7px rgba(0,0,0,.28),inset 2px 3px 5px rgba(255,255,255,.35),0 1px 3px rgba(44,29,18,.35)}
+.chips .lab{font:400 12px/1.4 var(--f-m);color:var(--ink60)}
+
+/* глиф виниловой пластинки — ambient, проигрыватель в студии */
+.vinyl{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+svg.disc{width:118px;height:118px;flex:0 0 118px}
+html.js svg.disc.spin g.spin-g,html:not(.js) svg.disc.armed g.spin-g{animation:vinyl 18s linear infinite;transform-origin:60px 60px}
+@keyframes vinyl{to{transform:rotate(360deg)}}
+.vinyl p{font:400 13.5px/1.5 var(--f-m);color:var(--ink60);max-width:22ch}
+
+/* ============ ТЁМНАЯ ЗОНА — ОБЖИГ ============ */
+.dark{background:var(--kiln);color:var(--bg)}
+.dark .stamp{background:var(--kiln);border-color:var(--terra-l);color:var(--terra-l);
+  box-shadow:0 1px 0 rgba(0,0,0,.4),inset 0 0 0 5px var(--kiln),inset 0 0 0 6.4px rgba(196,87,30,.5)}
+.dark .stamp b{color:var(--bg)}
+.dark .note,.dark .cap{color:#CBBBA6}
+.dark .st-title{color:var(--bg)}
+.dark .st-sub{color:#EADCC6}
+/* точки жара — только точечно */
+.heat{position:relative}
+.heat i{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--terra2);
+  box-shadow:0 0 12px 3px rgba(196,87,30,.55)}
+/* фото 17 уходит в тёмную зону */
+.dive{position:relative;z-index:3;margin-bottom:-112px}
+@media (max-width:960px){.dive{margin-bottom:-64px}}
+.s4{padding-top:calc(var(--sp) + 112px)}
+@media (max-width:960px){.s4{padding-top:calc(var(--sp) + 64px)}}
+.dark .dim-photo{max-width:360px}
+.dark .dim-photo .phv{max-width:360px;aspect-ratio:3/2;box-shadow:0 14px 30px -14px rgba(0,0,0,.7)}
+
+/* ============ ПОЛКА / ДОМ / ФУТЕР ============ */
+.s5{border-top:1px solid var(--ink30)}
+.s6{position:relative;background:var(--bg2);border-top:1px solid var(--ink30);
+  padding:var(--sp) clamp(20px,5vw,72px) var(--sp) calc(var(--padx) + var(--railw) + clamp(8px,1.2vw,20px))}
+/* штамп станции «Дом» — на оси нити, как у остальных станций */
+.rail-abs{position:absolute;left:var(--padx);top:var(--sp);width:var(--railw);display:flex;justify-content:center;z-index:2}
+.quote{max-width:64ch}
+.quote blockquote{font:italic 400 clamp(21px,2.4vw,30px)/1.4 var(--f-d);margin:.5em 0 .6em}
+.quote blockquote::before{content:"«"}
+.quote blockquote::after{content:"»"}
+.quote .who{font:400 13px/1.5 var(--f-m);color:var(--ink60)}
+.final{margin-top:clamp(30px,4vw,52px);max-width:720px}
+.final h2{font:700 clamp(32px,4.6vw,60px)/1.05 var(--f-d);margin-bottom:10px}
+.final .warm{font-size:clamp(17px,1.6vw,20px);margin-bottom:24px}
+.final-cta{display:flex;flex-wrap:wrap;gap:12px}
+.final .addr{margin-top:20px;font:400 13.5px/1.7 var(--f-m);color:var(--ink60)}
+.footer{position:relative;background:var(--bg);border-top:1px solid var(--ink30);
+  padding:clamp(40px,6vw,72px) clamp(20px,5vw,72px) clamp(36px,5vw,60px) calc(var(--padx) + var(--railw) + clamp(8px,1.2vw,20px))}
+.footer-grid{display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,56px);align-items:flex-start}
+.footer img{width:96px;height:96px;border-radius:50%;box-shadow:0 4px 14px rgba(44,29,18,.35)}
+.footer .f-meta{font:400 13.5px/1.8 var(--f-m);color:var(--ink)}
+.footer .f-meta a{color:var(--ink);text-decoration-color:var(--terra);display:inline-block;padding:6px 2px;margin:-6px -2px}
+.footer .f-note{margin-top:8px;font:400 13px/1.6 var(--f-b);color:var(--ink60);max-width:46ch}
+.footer .sign-f{font:700 15px/1.4 var(--f-d)}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html.js .seg .draw{stroke-dashoffset:0}
+  html.js .press:not(.lit){transform:none;opacity:1}
+  html.js .press.logo-stamp:not(.lit){transform:rotate(-6deg)}
+  svg.disc g.spin-g{animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= Z0 · ПОРОГ ================= -->
+<header class="hero">
+  <div class="hero-media">
+    <img src="img/08_wall.jpg" alt="Пара в фартуках лицом к лицу держит сырую глиняную чашу — свидание за гончарным кругом в «ХюГГе»" fetchpriority="high">
+  </div>
+  <div class="lights" aria-hidden="true"></div>
+  <!-- нить пути начинается здесь и тянется через всю страницу -->
+  <svg class="rail-line seg" viewBox="0 0 80 100" preserveAspectRatio="none" aria-hidden="true">
+    <path class="draw" pathLength="1" d="M40,0 C44,12 35,24 41,38 C46,52 34,66 40,80 C43,88 38,94 40,100"/>
+  </svg>
+  <img class="logo-stamp press" src="img/04_wall.jpg" alt="Круглый штамп-логотип «ХюГГе — студия керамики, философия домашнего уюта»" width="150" height="150">
+  <div class="hero-in">
+    <p class="over hero-kicker">студия керамики · краснодар</p>
+    <h1><span class="row">ХЮГГЕ</span></h1>
+    <p class="hero-sub">Философия домашнего уюта: гончарный круг, чай, печеньки и винил. Лепишь и расписываешь ты — обжигаем мы. Уходишь со своей вещью.</p>
+    <div class="hero-cta">
+      <a class="btn dark-b" href="tel:+79618577333">Позвонить +7 961 857-73-33</a>
+      <a class="btn ghost" style="color:var(--bg);border-color:var(--bg)" href="https://vk.com/hugge" target="_blank" rel="noopener">Написать в ВК</a>
+    </div>
+    <p class="hero-meta"><b>Митрофана Седина, 164 · 2 этаж</b> · вход под вывеской «оригами», рядом детская площадка · запись по телефону и в ВК</p>
+  </div>
+</header>
+
+<!-- ================= Z0.5 · ХОЗЯЙКА ================= -->
+<section class="host">
+  <svg class="rail-line seg" viewBox="0 0 80 100" preserveAspectRatio="none" aria-hidden="true">
+    <path class="draw" pathLength="1" d="M40,0 C36,14 45,28 39,44 C34,58 44,72 39,86 C37,92 41,96 40,100"/>
+  </svg>
+  <div class="host-in">
+    <p class="over">кто встречает у порога</p>
+    <div class="host-grid">
+      <div>
+        <h2>Дом, который придумала Ксения</h2>
+        <p>Хозяйка студии — Ксения Копарник, краснодарка с красноярскими корнями. В пандемию она потеряла родителей и пересмотрела профессию: полгода провела в коммуне ремесленников — гончары, мыловары, роспись по дереву.</p>
+        <p>Так появилась мастерская «ХюГГе»: первые гости пришли в феврале 2024, а уже через месяц поток был такой, что пришлось искать место побольше. С мая 2024 студия живёт на Седина, 164 — и Ксения окончательно уволилась из клиники, где работала раньше.</p>
+        <p>В марте 2026-го позвонили из министерства экономики края: студию внесли в Реестр креативных индустрий. А ещё здесь случаются благотворительные мастер-классы — например, в поддержку птиц мазутного побережья Анапы.</p>
+        <span class="sign">— Ксения</span>
+      </div>
+      <div>
+        <p class="hand-note">у нас — гости,<br>а не клиенты</p>
+        <ul class="facts" style="margin-top:26px">
+          <li>первые гости — февраль 2024</li>
+          <li>Седина, 164 — с мая 2024</li>
+          <li>реестр креативных индустрий Краснодарского края — 2026</li>
+          <li>статья «Керамическая карма» — ВК Пресс</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Z1 · СТ.01 ГЛИНА ================= -->
+<section class="station s1" id="glina">
+  <div class="rail seg">
+    <svg class="thread" viewBox="0 0 80 100" preserveAspectRatio="none" aria-hidden="true">
+      <path class="draw" pathLength="1" d="M40,0 C43,16 33,30 42,46 C48,58 36,74 41,88 C43,94 39,97 40,100"/>
+    </svg>
+    <div class="stampw">
+      <svg class="knot" viewBox="0 0 124 172" aria-hidden="true">
+        <path class="draw delay" pathLength="1" d="M62,-6 C62,10 62,20 62,30 C34,34 14,54 14,80 C14,112 40,134 66,132 C94,129 110,104 106,76 C102,52 82,38 62,40 C50,41 42,50 43,62 M66,132 C68,146 62,158 62,172"/>
+      </svg>
+      <div class="stamp press">СТ. 01<b>Глина</b></div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="body-grid">
+      <div class="col-main">
+        <div>
+          <p class="over">лепка руками</p>
+          <h2 class="st-title">Всё начинается с комка</h2>
+          <p class="st-sub">Ничего не нужно уметь — мастер покажет, как посадить глину и что делать руками. В детский формат включено: лепка небольшого изделия + декор и роспись ангобами.</p>
+        </div>
+        <div class="tags">
+          <div class="tagrow">
+            <svg class="cord" viewBox="0 0 90 40" preserveAspectRatio="none" aria-hidden="true"><path d="M1,4 C28,26 56,34 88,22"/></svg>
+            <article class="birka">
+              <span class="tag">для ребёнка</span>
+              <h3>Детский мастер-класс</h3>
+              <p class="price">2 200 ₽</p>
+              <p class="meta">1,5 ч · лепка + роспись ангобами</p>
+              <a class="btn" href="tel:+79618577333">Записаться</a>
+            </article>
+          </div>
+          <div class="tagrow">
+            <svg class="cord" viewBox="0 0 90 40" preserveAspectRatio="none" aria-hidden="true"><path d="M1,4 C28,26 56,34 88,22"/></svg>
+            <article class="birka">
+              <span class="tag">для ребёнка</span>
+              <h3>Детский расширенный</h3>
+              <p class="price">2 400 ₽</p>
+              <p class="meta">3 ч · когда хочется зависнуть подольше</p>
+              <a class="btn" href="tel:+79618577333">Записаться</a>
+            </article>
+          </div>
+          <div class="tagrow">
+            <svg class="cord" viewBox="0 0 90 40" preserveAspectRatio="none" aria-hidden="true"><path d="M1,4 C28,26 56,34 88,22"/></svg>
+            <article class="birka">
+              <span class="tag">один на один</span>
+              <h3>Индивидуальное занятие</h3>
+              <p class="price">3 000 ₽</p>
+              <p class="meta">детям до 11 лет · только ты и мастер</p>
+              <a class="btn" href="tel:+79618577333">Записаться</a>
+            </article>
+          </div>
+          <div class="tagrow">
+            <svg class="cord" viewBox="0 0 90 40" preserveAspectRatio="none" aria-hidden="true"><path d="M1,4 C28,26 56,34 88,22"/></svg>
+            <article class="birka">
+              <span class="tag">для двоих</span>
+              <h3>«Дофаминовое свидание»</h3>
+              <p class="price">2 500 ₽</p>
+              <p class="meta">1,5 ч · лепка руками, без круга — чистое удовольствие</p>
+              <a class="btn" href="tel:+79618577333">Записаться</a>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="col-media">
+        <div class="phw"><img class="treat" src="img/11_wall.jpg" alt="Руки инструктора поверх рук ученика формуют чашу на гончарном круге" loading="lazy"></div>
+        <p class="cap">руки на круге — так выглядит процесс</p>
+        <div class="phw"><img class="treat" src="img/12_wall.jpg" alt="Инструктор помогает девочке за гончарным кругом, светлая студия" loading="lazy"></div>
+        <p class="cap">детский мастер-класс за кругом</p>
+        <div class="phv narrow on-shelf"><img class="treat" src="img/18_wall.jpg" alt="Инструктор обнимает и направляет девочку у гончарного круга, обе улыбаются" loading="lazy"></div>
+        <p class="cap">инструктор и юный гость</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Z2 · СТ.02 КРУГ ================= -->
+<section class="station s2" id="krug">
+  <div class="rail seg">
+    <svg class="thread" viewBox="0 0 80 100" preserveAspectRatio="none" aria-hidden="true">
+      <path class="draw" pathLength="1" d="M40,0 C44,12 35,24 41,38 C46,52 34,66 40,80 C43,88 38,94 40,100"/>
+    </svg>
+    <div class="stampw">
+      <svg class="knot" viewBox="0 0 124 172" aria-hidden="true">
+        <path class="draw delay" pathLength="1" d="M62,-6 C62,10 62,20 62,30 C34,34 14,54 14,80 C14,112 40,134 66,132 C94,129 110,104 106,76 C102,52 82,38 62,40 C50,41 42,50 43,62 M66,132 C68,146 62,158 62,172"/>
+      </svg>
+      <div class="stamp press">СТ. 02<b>Круг</b></div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="body-grid">
+      <div class="col-main">
+        <div class="tags">
+          <div class="tagrow star">
+            <svg class="cord" viewBox="0 0 90 40" preserveAspectRatio="none" aria-hidden="true"><path d="M1,4 C28,26 56,34 88,22"/></svg>
+            <!-- якорный формат: бирка нависает над стыком станций -->
+            <article class="birka featured star">
+              <span class="tag">якорный формат · самое хюгге</span>
+              <h3>Свидание за гончарным кругом</h3>
+              <p class="price">3 200 ₽</p>
+              <p class="meta">2 ч · вдвоём за одним кругом + чай и печеньки</p>
+              <a class="btn" href="tel:+79618577333">Записаться</a>
+            </article>
+          </div>
+        </div>
+        <div>
+          <p class="over">гончарный круг</p>
+          <h2 class="st-title">Круг крутит —<br>ты держишь центр</h2>
+          <p class="st-sub">Круглый диск, мокрая глина и руки мастера поверх твоих. Самое романтичное, что можно сделать с грязными руками.</p>
+        </div>
+        <div class="tags">
+          <div class="tagrow">
+            <svg class="cord" viewBox="0 0 90 40" preserveAspectRatio="none" aria-hidden="true"><path d="M1,4 C28,26 56,34 88,22"/></svg>
+            <article class="birka big">
+              <span class="tag">всерьёз · серия занятий</span>
+              <h3>Курс «База» — обучение гончарному делу</h3>
+              <p class="price">25 500 ₽</p>
+              <p class="meta">круг, лепка, роспись — от комка до своей посуды</p>
+              <a class="btn" href="tel:+79618577333">Спросить о курсе</a>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="col-media">
+        <div class="phv on-shelf"><img class="treat" src="img/14_wall.jpg" alt="Девушка в фартуке лепит высокую вазу из тёмной глины на круге" loading="lazy"></div>
+        <p class="cap">лепка вазы на круге — взрослый процесс</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Z3 · СТ.03 РОСПИСЬ ================= -->
+<section class="station s3" id="rospis">
+  <div class="rail seg">
+    <svg class="thread" viewBox="0 0 80 100" preserveAspectRatio="none" aria-hidden="true">
+      <path class="draw" pathLength="1" d="M40,0 C36,14 45,28 39,44 C34,58 44,72 39,86 C37,92 41,96 40,100"/>
+    </svg>
+    <div class="stampw">
+      <svg class="knot" viewBox="0 0 124 172" aria-hidden="true">
+        <path class="draw delay" pathLength="1" d="M62,-6 C62,10 62,20 62,30 C34,34 14,54 14,80 C14,112 40,134 66,132 C94,129 110,104 106,76 C102,52 82,38 62,40 C50,41 42,50 43,62 M66,132 C68,146 62,158 62,172"/>
+      </svg>
+      <div class="stamp press">СТ. 03<b>Роспись</b></div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="body-grid">
+      <div class="col-main">
+        <div>
+          <p class="over">ангобы · глазури · винил</p>
+          <h2 class="st-title">Здесь изделие<br>получает характер</h2>
+          <div class="chips" aria-hidden="true">
+            <span class="chip" style="background:#3E5A5E"></span>
+            <span class="chip" style="background:#A4491F"></span>
+            <span class="chip" style="background:#C9A24B"></span>
+            <span class="chip" style="background:#6B7A4F"></span>
+            <span class="chip" style="background:#B76E4B"></span>
+            <span class="lab">образцы со стола мастера</span>
+          </div>
+        </div>
+        <div class="vinyl">
+          <svg class="disc" viewBox="0 0 120 120" aria-hidden="true">
+            <g class="spin-g">
+              <circle cx="60" cy="60" r="56" fill="#241812"/>
+              <circle cx="60" cy="60" r="48" fill="none" stroke="#3E5A5E" stroke-width="1"/>
+              <circle cx="60" cy="60" r="40" fill="none" stroke="#3E5A5E" stroke-width=".8"/>
+              <circle cx="60" cy="60" r="33" fill="none" stroke="#3E5A5E" stroke-width=".8"/>
+              <circle cx="60" cy="60" r="26" fill="none" stroke="#3E5A5E" stroke-width=".7"/>
+              <circle cx="60" cy="60" r="18" fill="#A4491F"/>
+              <circle cx="60" cy="60" r="3" fill="#F3ECDF"/>
+              <rect x="59" y="4" width="2" height="10" fill="#E8B06B" opacity=".7"/>
+            </g>
+          </svg>
+          <p>в студии играет проигрыватель — а пластинки мы ещё и расписываем</p>
+        </div>
+        <div class="tags">
+          <div class="tagrow">
+            <svg class="cord" viewBox="0 0 90 40" preserveAspectRatio="none" aria-hidden="true"><path d="M1,4 C28,26 56,34 88,22"/></svg>
+            <article class="birka featured">
+              <span class="tag">первыми в городе</span>
+              <h3>Роспись виниловой пластинки</h3>
+              <p class="price">1 800 ₽<s>2 000 ₽</s></p>
+              <p class="meta">~2,5–3 ч · пластинку забираешь сразу — вешаешь на стену</p>
+              <a class="btn" href="tel:+79618577333">Записаться</a>
+            </article>
+          </div>
+          <div class="tagrow">
+            <svg class="cord" viewBox="0 0 90 40" preserveAspectRatio="none" aria-hidden="true"><path d="M1,4 C28,26 56,34 88,22"/></svg>
+            <article class="birka">
+              <span class="tag">компания</span>
+              <h3>Девичник в гончарной студии</h3>
+              <p class="price">2 400 ₽<span class="meta" style="display:inline;font-size:.45em"> /чел</span></p>
+              <p class="meta">2 ч · гирлянда, винил и ваши тарелки</p>
+              <a class="btn" href="tel:+79618577333">Записаться</a>
+            </article>
+          </div>
+          <div class="tagrow">
+            <svg class="cord" viewBox="0 0 90 40" preserveAspectRatio="none" aria-hidden="true"><path d="M1,4 C28,26 56,34 88,22"/></svg>
+            <article class="birka">
+              <span class="tag">компания · на двоих</span>
+              <h3>Девичник «Лучшая подруга»</h3>
+              <p class="price">2 500 ₽</p>
+              <p class="meta">2 ч · вдвоём с той самой</p>
+              <a class="btn" href="tel:+79618577333">Записаться</a>
+            </article>
+          </div>
+          <div class="tagrow">
+            <svg class="cord" viewBox="0 0 90 40" preserveAspectRatio="none" aria-hidden="true"><path d="M1,4 C28,26 56,34 88,22"/></svg>
+            <article class="birka">
+              <span class="tag">другой материал</span>
+              <h3>Свидание «Эпоксидная смола»</h3>
+              <p class="price">5 000 ₽</p>
+              <p class="meta">не глина, а смола — другое волшебство</p>
+              <a class="btn" href="tel:+79618577333">Записаться</a>
+            </article>
+          </div>
+        </div>
+        <p class="note"><span class="mono">а ещё:</span> дни рождения и корпоративы — обсуждаем по телефону.</p>
+      </div>
+      <div class="col-media">
+        <div class="phv on-shelf"><img class="treat" src="img/09_wall.jpg" alt="Девушка перебирает виниловые пластинки у деревянного стеллажа в студии" loading="lazy"></div>
+        <p class="cap">виниловая зона: пластинки на стеллаже</p>
+        <div class="phv on-shelf" style="max-width:360px"><img class="treat-dim" src="img/13_wall.jpg" alt="Три девушки в фартуках фотографируются в зеркало, обвешанное гирляндой" loading="lazy"></div>
+        <p class="cap">девичник у зеркала с гирляндой — вечерний режим</p>
+        <p class="cap" style="margin-bottom:10px">стол мастера: глазури и готовые кружки — а дальше всё это уходит в печь ↓</p>
+        <div class="phv dive" style="max-width:400px"><img class="treat" src="img/17_wall.jpg" alt="Рабочий стол мастерской: расписанные кружки, палитра с образцами глазурей, инструменты" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Z4 · СТ.04 ОБЖИГ ================= -->
+<section class="station dark s4" id="obzhig">
+  <div class="rail seg">
+    <svg class="thread" viewBox="0 0 80 100" preserveAspectRatio="none" aria-hidden="true">
+      <path class="draw" pathLength="1" d="M40,0 C43,16 33,30 42,46 C48,58 36,74 41,88 C43,94 39,97 40,100"/>
+    </svg>
+    <div class="stampw">
+      <svg class="knot" viewBox="0 0 124 172" aria-hidden="true">
+        <path class="draw delay" pathLength="1" d="M62,-6 C62,10 62,20 62,30 C34,34 14,54 14,80 C14,112 40,134 66,132 C94,129 110,104 106,76 C102,52 82,38 62,40 C50,41 42,50 43,62 M66,132 C68,146 62,158 62,172"/>
+      </svg>
+      <div class="stamp press">СТ. 04<b>Обжиг</b></div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="body-grid heat">
+      <i style="top:62%;left:48%"></i>
+      <i style="top:74%;left:54%;width:5px;height:5px"></i>
+      <i style="top:58%;left:57%;width:4px;height:4px"></i>
+      <div class="col-main">
+        <div>
+          <p class="over" style="color:var(--heat)">тихая станция</p>
+          <h2 class="st-title">Всё слепленное<br>остаётся у нас</h2>
+          <p class="st-sub">Изделие сохнет, уходит в печь, получает глазурь — тихая работа, которой не видно. Ты уходишь домой налегке, а мы доводим вещь до готовности.</p>
+        </div>
+        <p class="note">Когда всё будет готово — забираешь свою вещь домой. Сроки зависят от изделия: точное скажет мастер при записи.</p>
+      </div>
+      <div class="col-media">
+        <div class="dim-photo"><div class="phw"><img class="treat-dim" src="img/19_wall.jpg" alt="Дети за гончарным кругом в полуподвальной мастерской: полки, инструменты, тёплый вечерний свет" loading="lazy"></div>
+        <p class="cap">полки, инструменты и вечерний свет мастерской</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Z5 · СТ.05 ПОЛКА ================= -->
+<section class="station s5" id="polka">
+  <div class="rail seg">
+    <svg class="thread" viewBox="0 0 80 100" preserveAspectRatio="none" aria-hidden="true">
+      <path class="draw" pathLength="1" d="M40,0 C44,12 35,24 41,38 C46,52 34,66 40,80 C43,88 38,94 40,100"/>
+    </svg>
+    <div class="stampw">
+      <svg class="knot" viewBox="0 0 124 172" aria-hidden="true">
+        <path class="draw delay" pathLength="1" d="M62,-6 C62,10 62,20 62,30 C34,34 14,54 14,80 C14,112 40,134 66,132 C94,129 110,104 106,76 C102,52 82,38 62,40 C50,41 42,50 43,62 M66,132 C68,146 62,158 62,172"/>
+      </svg>
+      <div class="stamp press">СТ. 05<b>Полка</b></div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="body-grid">
+      <div class="col-main">
+        <div>
+          <p class="over">в наличии и на заказ</p>
+          <h2 class="st-title">Всё, что вышло из печи,<br>живёт на полках вдоль стен</h2>
+          <p class="st-sub">Керамические чашки и кружки, расписные тарелки, лепные фигурки — то, что сделали гости и мастера. Что-то можно купить сразу, что-то заказать.</p>
+        </div>
+        <div class="tags">
+          <div class="tagrow">
+            <svg class="cord" viewBox="0 0 90 40" preserveAspectRatio="none" aria-hidden="true"><path d="M1,4 C28,26 56,34 88,22"/></svg>
+            <article class="birka">
+              <span class="tag">чашки · тарелки · фигурки</span>
+              <h3>Изделия в наличии и на заказ</h3>
+              <p class="price">по запросу</p>
+              <p class="meta">цены — в ВК-маркете и по телефону, честно</p>
+              <a class="btn ghost" href="https://vk.com/hugge" target="_blank" rel="noopener">Смотреть ВК-маркет</a>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="col-media">
+        <div class="phv on-shelf" style="max-width:380px"><img class="treat" src="img/01_wall.jpg" alt="Интерьер студии: полки с керамикой, гирлянда под потолком, гости в фартуках пьют из кружек" loading="lazy"></div>
+        <p class="cap">полки вдоль стен и гирлянда под потолком — так выглядит дом</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Z6 · СТ.06 ДОМ ================= -->
+<section class="station s6" id="dom" style="display:block">
+  <svg class="rail-line seg" viewBox="0 0 80 100" preserveAspectRatio="none" aria-hidden="true">
+    <path class="draw" pathLength="1" d="M40,0 C36,14 45,28 39,44 C34,58 44,72 39,86 C37,92 41,96 40,100"/>
+  </svg>
+  <div class="lights" aria-hidden="true" style="opacity:.8"></div>
+  <div class="rail-abs">
+    <div class="stampw seg">
+      <svg class="knot" viewBox="0 0 124 172" aria-hidden="true">
+        <path class="draw delay" pathLength="1" d="M62,-6 C62,10 62,20 62,30 C34,34 14,54 14,80 C14,112 40,134 66,132 C94,129 110,104 106,76 C102,52 82,38 62,40 C50,41 42,50 43,62 M66,132 C68,146 62,158 62,172"/>
+      </svg>
+      <div class="stamp press">СТ. 06<b>Дом</b></div>
+    </div>
+  </div>
+  <div class="quote">
+    <p class="over">гости говорят</p>
+    <blockquote>Сегодня у нас с мужем годовщина свадьбы. Посетили студию керамики ХюГГе. До сегодняшнего дня никогда не были в таком месте. Получили нереальный восторг. Эмоции переполняют. Было тепло, уютно, романтично</blockquote>
+    <p class="who">Ирина С. — гончарное свидание, отзыв на Яндекс.Картах</p>
+  </div>
+  <div class="final">
+    <h2>Приходи в гости —<br>уйдёшь со своей чашкой</h2>
+    <p class="warm">Чай, печеньки и угощение — как всегда. Записываем по телефону, в WhatsApp и в сообщениях ВК.</p>
+    <div class="final-cta">
+      <a class="btn" href="tel:+79618577333">Позвонить +7 961 857-73-33</a>
+      <a class="btn ghost" href="https://wa.me/79618577333" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn ghost" href="https://vk.com/hugge" target="_blank" rel="noopener">Написать в ВК</a>
+    </div>
+    <p class="addr">Краснодар · ул. Митрофана Седина, 164 · 2 этаж<br>вход под вывеской «оригами», рядом детская площадка · запись по телефону и в ВК</p>
+  </div>
+</section>
+
+<!-- ================= Z7 · ФУТЕР ================= -->
+<footer class="footer">
+  <svg class="rail-line seg" viewBox="0 0 80 100" preserveAspectRatio="none" aria-hidden="true">
+    <path class="draw" pathLength="1" d="M40,0 C43,16 33,30 42,46 C48,58 36,74 41,88 C43,94 39,97 40,100"/>
+  </svg>
+  <div class="footer-grid">
+    <img src="img/04_wall.jpg" alt="Штамп-логотип студии «ХюГГе»" width="96" height="96" loading="lazy">
+    <div class="f-meta">
+      <p class="sign-f">ХюГГе — студия керамики</p>
+      <p>ул. Митрофана Седина, 164, 2 этаж, Краснодар<br>
+      <a href="tel:+79618577333">+7 961 857-73-33</a> ·
+      <a href="https://wa.me/79618577333" target="_blank" rel="noopener">WhatsApp</a> ·
+      <a href="https://vk.com/hugge" target="_blank" rel="noopener">vk.com/hugge</a></p>
+      <p class="f-note">Хюгге — это уют, покой, тёплая компания и вкусная выпечка. Запись по телефону и в ВК — формы и календаря тут нет, мы же дом, а не колл-центр.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Motion storyboard: M01 нить рисуется в hero, M02 сегменты дорисовываются по скроллу,
+   M03 штампы вдавливаются, M04 винил-глиф вращается в viewport. Всё Tier 0, без библиотек.
+   Без JS / при prefers-reduced-motion — все финальные состояния видны сразу. */
+(function(){
+  var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (rm || !('IntersectionObserver' in window)) {
+    // статичный режим: контент и нить полностью видимы
+    var d = document.querySelector('svg.disc'); if (d) d.classList.add('armed');
+    return;
+  }
+  document.documentElement.classList.add('js');
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('lit'); io.unobserve(e.target); }
+    });
+  }, { threshold: .08, rootMargin: '0px 0px -6% 0px' });
+
+  document.querySelectorAll('.seg, .press').forEach(function(el){ io.observe(el); });
+
+  var disc = document.querySelector('svg.disc');
+  if (disc) {
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ disc.classList.toggle('spin', e.isIntersecting); });
+    }, { threshold: .25 }).observe(disc);
+  }
+})();
+</script>
+</body>
+</html>

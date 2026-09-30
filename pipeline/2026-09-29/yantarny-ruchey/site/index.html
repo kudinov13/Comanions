@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Янтарный ручей — рыболовный клуб и глэмпинг в Богдашкино | Маршрутный лист</title>
+<meta name="description" content="Форелевая рыбалка в 50 км от Ульяновска: пруды «Янтарный» и «Серебряный», сафари-тенты от 5 000 ₽/сутки, кафе «Рыбные истории», рыбная лавка. Вход 200 ₽, улов 650–800 ₽/кг. Тел. +7 927 804-72-41">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+/* ============================= МАРШРУТНЫЙ ЛИСТ ============================= */
+:root{
+  --paper:#F2EAD8;
+  --paper2:#EDE4CF;
+  --ink:#22302A;
+  --water:#2E5A54;
+  --amber:#D98A2B;
+  --night:#152322;
+  --tin:#F8F5EC;
+  --rcpt:#FBF9F2;
+  --tag:#1C2A25;
+  --rail:clamp(86px,9vw,130px);
+  --garamond:'EB Garamond',Georgia,'Times New Roman',serif;
+  --mono:'PT Mono','Courier New',monospace;
+  --hand:'Caveat','Segoe Script',cursive;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--garamond);
+  font-size:18px;
+  line-height:1.55;
+  color:var(--ink);
+  background-color:var(--paper);
+  background-image:
+    radial-gradient(1100px 700px at 88% -4%, rgba(255,252,240,.55), transparent 70%),
+    radial-gradient(900px 760px at -12% 34%, rgba(214,199,164,.35), transparent 70%),
+    radial-gradient(1000px 800px at 55% 108%, rgba(226,213,184,.4), transparent 70%);
+  overflow-x:clip;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+
+/* зерно бумаги — один слой поверх светлых зон */
+body::after{
+  content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.map{position:relative;padding-left:var(--rail)}
+/* сгиб-линия полей маршрутного листа */
+.map::before{
+  content:"";position:absolute;top:0;bottom:0;left:var(--rail);width:1px;
+  background:rgba(34,48,42,.13);z-index:1;pointer-events:none;
+}
+
+/* ---------- пунктирная линия маршрута ---------- */
+.route{position:absolute;top:0;left:0;bottom:0;width:var(--rail);height:100%;z-index:80;pointer-events:none}
+.route .casing{fill:none;stroke:var(--paper);stroke-width:7}
+.route .ink{fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:9 9}
+.route .rguide{fill:none;stroke:#fff;stroke-width:16;vector-effect:non-scaling-stroke}
+.route .wavy{display:block}
+.route .straight{display:none}
+
+/* ---------- зоны ---------- */
+.zone{position:relative;scroll-margin-top:24px}
+.zone-inner{max-width:1180px;margin:0 auto;padding:clamp(58px,8.5vw,112px) clamp(20px,4.5vw,46px)}
+
+.zhead{position:relative;margin-bottom:clamp(26px,3.5vw,44px)}
+.zidx{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--water);margin-bottom:12px}
+.night .zidx{color:#9FBFB4}
+.sign{
+  display:inline-block;position:relative;
+  font-family:var(--mono);font-size:clamp(15px,1.8vw,21px);
+  letter-spacing:.16em;text-transform:uppercase;
+  background:var(--tin);border:1.5px solid var(--ink);
+  padding:.72em 1.05em .72em 1.7em;
+  box-shadow:2px 2px 0 rgba(34,48,42,.18);
+}
+.sign::after{content:"";position:absolute;top:.55em;left:.55em;width:6px;height:6px;background:var(--ink)}
+.zname{font-size:clamp(26px,3.5vw,50px);line-height:1.15;font-weight:400;margin-bottom:clamp(20px,3vw,34px)}
+.zname em{font-style:italic}
+
+/* маркеры-флажки на линии */
+.marker{
+  position:absolute;top:50%;left:calc(var(--rail)/-2 - 22px);
+  width:44px;height:44px;transform:translateY(-50%);
+  display:grid;place-items:center;text-decoration:none;z-index:90;
+}
+.pin{
+  width:30px;height:30px;border-radius:50%;
+  border:1.5px solid var(--ink);background:var(--paper);
+  display:grid;place-items:center;
+  font-family:var(--mono);font-size:12.5px;color:var(--ink);
+  transition:transform .45s cubic-bezier(.2,.8,.3,1.35),opacity .3s,background .35s,color .35s;
+}
+.js .marker.pre .pin{transform:translateY(-9px) scale(.55);opacity:0}
+.marker:not(.pre):hover .pin{transform:scale(1.14)}
+.marker.on .pin{background:var(--ink);color:var(--paper)}
+.night .marker.on .pin{background:var(--paper);color:var(--ink)}
+.marker.fin .pin{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+
+/* ---------- типовые блоки ---------- */
+.mono{font-family:var(--mono)}
+.lead{font-size:clamp(19px,2.1vw,23px);line-height:1.5;max-width:58ch}
+.lead+.lead{margin-top:.8em}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4.5vw,60px);align-items:start}
+
+.note{font-family:var(--hand);font-size:clamp(20px,2.2vw,24px);color:var(--ink);line-height:1.25}
+.note.rot{transform:rotate(-1.5deg);display:inline-block}
+.note::before{content:"— "}
+.night .note{color:#E8DEC2}
+
+.fieldq{
+  border-left:2px solid var(--amber);padding-left:18px;max-width:46ch;
+  font-style:italic;font-size:clamp(19px,2.2vw,26px);line-height:1.4;
+}
+.fieldq .qsrc{display:block;margin-top:10px;font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:rgba(34,48,42,.65)}
+.night .fieldq .qsrc{color:#9FBFB4}
+
+.mlist{list-style:none;font-family:var(--mono);font-size:13.5px;line-height:1.5}
+.mlist li{padding:9px 0;border-bottom:1px dashed rgba(34,48,42,.35);display:flex;align-items:baseline;gap:10px}
+.mlist li:last-child{border-bottom:0}
+.mlist .d{flex:1;border-bottom:1.5px dotted rgba(34,48,42,.4);margin:0 2px 4px;min-width:14px}
+.mlist .v{white-space:nowrap}
+.night .mlist li{border-color:rgba(232,222,194,.3)}
+.night .mlist .d{border-color:rgba(232,222,194,.4)}
+
+.mlabel{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;color:var(--water);margin-bottom:12px;text-transform:uppercase}
+.night .mlabel{color:#9FBFB4}
+
+/* фото-окна */
+.ph{background:var(--tin);border:1px solid var(--ink);padding:7px;position:relative}
+.ph .phimg{overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;filter:saturate(.88) contrast(1.03) sepia(.09)}
+.ph figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:rgba(34,48,42,.72);padding-top:8px}
+.c68{object-position:50% 68%}.c72{object-position:50% 72%}
+.c76{object-position:50% 76%}.c80{object-position:50% 80%}.c60{object-position:50% 60%}
+
+.ph.bleed{width:100vw;margin-left:calc(-1*var(--rail));border-left:0;border-right:0;padding:0}
+.ph.bleed .phimg{height:clamp(230px,37vw,520px)}
+.hero .ph.bleed{margin-bottom:calc(-1*clamp(40px,5vw,64px));position:relative;z-index:4}
+.ph.bleed figcaption{padding:8px 20px 8px calc(var(--rail) + 24px)}
+
+/* квитанция / чек */
+.receipt{
+  --hole:var(--paper);
+  background:var(--rcpt);position:relative;
+  padding:clamp(20px,3vw,30px) clamp(18px,2.6vw,28px);
+  box-shadow:0 2px 0 rgba(34,48,42,.22);
+  font-family:var(--mono);
+}
+.receipt::before,.receipt::after{
+  content:"";position:absolute;left:-2px;right:-2px;height:12px;
+  background-image:radial-gradient(circle at 8px 6px,var(--hole) 5.5px,transparent 6.2px);
+  background-size:16px 12px;
+}
+.receipt::before{top:-6px}
+.receipt::after{bottom:-6px}
+.rhead{font-size:12px;letter-spacing:.18em;text-align:center;border-bottom:1.5px dashed rgba(34,48,42,.45);padding-bottom:12px;margin-bottom:8px}
+.rl{display:flex;align-items:flex-end;font-size:13.5px;padding:6px 0}
+.rl .n{white-space:normal}
+.rl .d{flex:1;border-bottom:1.5px dotted rgba(34,48,42,.4);margin:0 8px 4px;min-width:14px}
+.rl .v{white-space:nowrap}
+.rsum{border-top:1.5px dashed rgba(34,48,42,.45);margin-top:10px;padding-top:12px}
+.rsum .v{color:var(--amber);font-size:15px}
+.rfoot{text-align:center;font-size:11px;letter-spacing:.14em;color:rgba(34,48,42,.6);margin-top:14px}
+
+/* билеты-маршруты */
+.tickets{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,28px);margin-top:clamp(26px,3.5vw,40px)}
+.ticket{background:var(--tin);border:1.5px solid var(--ink);display:grid;grid-template-columns:58px 1fr;box-shadow:2px 2px 0 rgba(34,48,42,.14)}
+.tstub{border-right:1.5px dashed rgba(34,48,42,.4);display:flex;align-items:center;justify-content:center}
+.tstub b{font-family:var(--mono);font-weight:400;font-size:32px;color:var(--amber)}
+.tbody{padding:clamp(16px,2vw,22px) clamp(16px,2vw,22px) clamp(18px,2.2vw,24px)}
+.tkick{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--water)}
+.ttitle{font-size:clamp(21px,2.2vw,26px);line-height:1.15;margin:6px 0 12px;font-weight:500}
+.tsteps{list-style:none;font-family:var(--mono);font-size:12px;line-height:1.45}
+.tsteps li{padding:6px 0;border-bottom:1px dashed rgba(34,48,42,.28)}
+.tsteps li:last-child{border-bottom:0}
+.tsteps li::before{content:"→ ";color:var(--water)}
+.tprice{font-family:var(--mono);font-size:clamp(15px,1.6vw,17px);letter-spacing:.03em;color:var(--amber);margin-top:14px}
+.tnote{font-size:14.5px;font-style:italic;margin-top:8px;color:rgba(34,48,42,.8)}
+
+/* чёрные ценники лавки */
+.tags{display:flex;flex-wrap:wrap;gap:10px}
+.tag{background:var(--tag);color:#F4EFE2;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;padding:9px 14px;white-space:nowrap}
+
+/* кнопки */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:54px;padding:0 28px;
+  font-family:var(--mono);font-size:14px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
+  border:1.5px solid var(--ink);transition:background .25s,color .25s;
+}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn.solid:hover,.btn.solid:focus-visible{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover,.btn.ghost:focus-visible{background:var(--ink);color:var(--paper)}
+.btn:focus-visible{outline:2px dashed var(--amber);outline-offset:3px}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+
+/* штамп путёвки — единственный повёрнутый объект */
+.stamp{
+  display:inline-block;border:2.5px dashed var(--amber);color:var(--amber);
+  font-family:var(--mono);letter-spacing:.14em;text-align:center;
+  padding:12px 18px;transform:rotate(-6deg);
+  font-size:clamp(14px,1.7vw,19px);line-height:1.35;
+}
+.stamp small{display:block;font-size:.62em;letter-spacing:.2em}
+.js .stamp{transition:transform .5s cubic-bezier(.25,.8,.3,1.35),opacity .35s ease}
+.js .stamp.pre{transform:rotate(-6deg) scale(1.3);opacity:0}
+
+/* пар над столом кафе */
+.steamb{position:relative}
+.steams{position:absolute;top:7px;left:7px;right:7px;bottom:32px;overflow:hidden;pointer-events:none}
+.steams i{
+  position:absolute;bottom:6%;width:10%;height:52%;border-radius:50%;
+  background:linear-gradient(to top,rgba(255,255,255,0),rgba(255,255,255,.42) 45%,rgba(255,255,255,0));
+  filter:blur(8px);opacity:0;
+  animation:steam 5.6s ease-in-out infinite;animation-play-state:paused;
+}
+.steams i:nth-child(1){left:32%}
+.steams i:nth-child(2){left:52%;animation-delay:1.9s;animation-duration:6.4s}
+.steams i:nth-child(3){left:68%;animation-delay:3.4s;animation-duration:5s}
+.steam-on .steams i{animation-play-state:running}
+@keyframes steam{
+  0%{transform:translateY(22%) translateX(0) scaleX(.8);opacity:0}
+  35%{opacity:.55}
+  100%{transform:translateY(-58%) translateX(10px) scaleX(1.3);opacity:0}
+}
+
+/* ============================= ТОЧКИ ============================= */
+
+/* ---- Т.00 въезд ---- */
+.hero .ztop{
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:rgba(34,48,42,.6);
+  border-bottom:1.5px dashed rgba(34,48,42,.35);padding-bottom:12px;margin-bottom:clamp(26px,3.5vw,44px);
+}
+.chip{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;border:1px dashed var(--ink);padding:5px 10px;color:var(--ink)}
+.hero h1{font-weight:500;font-size:clamp(56px,9.4vw,132px);line-height:.94;letter-spacing:.01em}
+.hero h1 .row{display:block}
+.hero h1 .row.it{font-style:italic;font-weight:400}
+.hero-main{display:grid;grid-template-columns:1fr auto;gap:clamp(24px,4vw,56px);align-items:end}
+.heroside{display:flex;flex-direction:column;align-items:flex-end;gap:26px;padding-bottom:8px}
+.mark{width:clamp(72px,7.5vw,100px);height:auto;border-radius:50%;border:1.5px solid var(--ink)}
+.hero-sub{font-size:clamp(20px,2.3vw,27px);font-style:italic;margin-top:clamp(20px,2.6vw,30px);max-width:34ch}
+.hero-sub .mono{font-style:normal;font-size:.82em;letter-spacing:.04em}
+.hero .cta-row{margin-top:clamp(18px,2.4vw,26px)}
+.routes-label{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;color:var(--water);margin-top:clamp(34px,4.5vw,56px)}
+
+/* ---- Т.01 пруды ---- */
+.phgrid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(14px,2vw,24px);margin-top:clamp(28px,4vw,44px)}
+.phgrid .stack{display:flex;flex-direction:column;gap:clamp(14px,2vw,24px)}
+.a43{aspect-ratio:4/3}.a45{aspect-ratio:4/5}.a32{aspect-ratio:3/2}.a169{aspect-ratio:16/9}.a11{aspect-ratio:1/1}
+
+.t01-note{margin-top:clamp(22px,3vw,32px)}
+
+/* ---- Т.02 домик рыбака ---- */
+.quiet .zone-inner{padding-top:clamp(46px,6vw,80px);padding-bottom:clamp(46px,6vw,80px)}
+.branch{margin-top:clamp(18px,2.5vw,26px);padding:14px 16px;border:1.5px dashed rgba(34,48,42,.45);font-family:var(--mono);font-size:13px;line-height:1.5}
+.branch b{font-weight:400;color:var(--water)}
+.creek{max-width:300px;margin-top:clamp(24px,3vw,36px)}
+
+/* ---- Т.03 ночная зона ---- */
+.night{
+  width:100vw;margin-left:calc(-1*var(--rail));padding-left:var(--rail);
+  background:var(--night);color:#EDE4CF;position:relative;z-index:70;
+}
+.night .ph{background:#1B2B29;border-color:#3A4B44}
+.night .ph figcaption{color:rgba(237,228,207,.75)}
+.night .ph img{filter:saturate(.9) contrast(1.05) sepia(.05) brightness(.95)}
+.night .lead{color:#DCD2B8}
+.placard{
+  border:2px solid var(--amber);padding:clamp(20px,3vw,34px);
+  text-align:center;font-family:var(--mono);
+}
+.placard .big{font-size:clamp(34px,4.6vw,58px);color:var(--amber);letter-spacing:.02em;line-height:1.05}
+.placard .sub{font-size:13px;letter-spacing:.2em;color:#EDE4CF;margin-top:10px}
+.placard .tiny{font-size:11px;letter-spacing:.12em;color:#9FBFB4;margin-top:14px}
+.duo{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(14px,2vw,24px);margin-top:clamp(28px,4vw,44px)}
+
+/* ---- Т.04 костровая ---- */
+.koster-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(14px,2vw,24px);margin-top:clamp(28px,4vw,44px);align-items:start}
+.koster-q{margin-top:clamp(30px,4vw,48px)}
+
+/* ---- Т.05 кафе ---- */
+.cafe-grid{display:grid;grid-template-columns:1.4fr .6fr;gap:clamp(14px,2vw,24px);margin-top:clamp(28px,4vw,44px);align-items:start}
+.hits{list-style:none;font-family:var(--mono);font-size:14px}
+.hits li{padding:10px 0;border-bottom:1px dashed rgba(34,48,42,.35);display:flex;align-items:baseline;gap:10px}
+.hits li:last-child{border-bottom:0}
+.hits li::before{content:"· ";color:var(--amber);font-size:1.4em;line-height:0}
+
+/* ---- Т.06 лавка ---- */
+.shop-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(14px,2vw,24px);margin-top:clamp(28px,4vw,44px);align-items:start}
+.shop-addr{margin-top:clamp(24px,3vw,34px)}
+
+/* ---- ФИНИШ ---- */
+.fin-receipt{max-width:560px;margin-top:calc(-1*clamp(60px,7vw,96px));position:relative;z-index:5}
+.finish .zone-inner{padding-top:0}
+.telplacard{
+  display:block;font-family:var(--mono);text-decoration:none;
+  font-size:clamp(26px,5.4vw,58px);letter-spacing:.02em;line-height:1.1;
+  border:2px solid var(--ink);background:var(--tin);
+  padding:clamp(18px,3vw,30px) clamp(18px,3vw,34px);
+  margin:clamp(30px,4vw,48px) 0 0;transition:background .25s,color .25s;
+}
+.telplacard:hover,.telplacard:focus-visible{background:var(--ink);color:var(--paper)}
+.telplacard small{display:block;font-size:12px;letter-spacing:.2em;color:var(--water);margin-bottom:8px}
+.howto{margin-top:clamp(30px,4vw,46px)}
+footer.zone-inner{padding-top:clamp(30px,4vw,44px);padding-bottom:clamp(36px,5vw,56px)}
+.footline{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:rgba(34,48,42,.55);border-top:1.5px dashed rgba(34,48,42,.3);padding-top:16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* ============================= RESPONSIVE ============================= */
+@media (max-width:1023px){
+  :root{--rail:76px}
+  .tickets{grid-template-columns:1fr;max-width:620px}
+}
+@media (max-width:880px){
+  .cols{grid-template-columns:1fr}
+  .hero-main{grid-template-columns:1fr}
+  .heroside{flex-direction:row;align-items:center;justify-content:flex-start}
+  .phgrid{grid-template-columns:1fr}
+  .duo{grid-template-columns:1fr}
+  .koster-grid{grid-template-columns:1fr}
+  .cafe-grid{grid-template-columns:1fr}
+  .shop-grid{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  :root{--rail:46px}
+  body{font-size:17px}
+  .route .wavy{display:none}
+  .route .straight{display:block}
+  .zone-inner{padding-left:16px;padding-right:16px}
+  .hero h1{font-size:clamp(38px,12.5vw,58px)}
+  .marker{left:calc(var(--rail)/-2 - 22px)}
+  .fin-receipt{margin-top:-46px}
+  .sign{padding:.68em .9em .68em 1.55em}
+}
+
+/* ============================= REDUCED MOTION ============================= */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .stamp.pre,.js .stamp{transform:rotate(-6deg);opacity:1;transition:none}
+  .js .marker.pre .pin,.js .marker .pin{transform:none;opacity:1;transition:none}
+  .marker.on .pin{background:var(--ink);color:var(--paper)}
+  .steams{display:none}
+  .btn,.telplacard{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="map">
+
+  <!-- пунктирная линия маршрута: две геометрии (desktop — извилистая у края, mobile — строгая вертикаль) -->
+  <svg class="route" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <mask id="rmW" maskUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="100" height="1000" fill="#000"/>
+        <path class="rdraw rguide" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"
+          d="M50 0 C62 30 62 60 50 100 C38 140 38 170 50 200 C62 230 62 260 50 300 C38 340 38 370 50 400 C62 430 62 460 50 500 C38 540 38 570 50 600 C62 630 62 660 50 700 C38 740 38 770 50 800 C62 830 62 860 50 900 C38 940 38 970 50 1000"/>
+      </mask>
+      <mask id="rmS" maskUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="100" height="1000" fill="#000"/>
+        <path class="rdraw rguide" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"
+          d="M50 0 L50 1000"/>
+      </mask>
+    </defs>
+    <g class="wavy" mask="url(#rmW)">
+      <path class="casing" vector-effect="non-scaling-stroke"
+        d="M50 0 C62 30 62 60 50 100 C38 140 38 170 50 200 C62 230 62 260 50 300 C38 340 38 370 50 400 C62 430 62 460 50 500 C38 540 38 570 50 600 C62 630 62 660 50 700 C38 740 38 770 50 800 C62 830 62 860 50 900 C38 940 38 970 50 1000"/>
+      <path class="ink" vector-effect="non-scaling-stroke"
+        d="M50 0 C62 30 62 60 50 100 C38 140 38 170 50 200 C62 230 62 260 50 300 C38 340 38 370 50 400 C62 430 62 460 50 500 C38 540 38 570 50 600 C62 630 62 660 50 700 C38 740 38 770 50 800 C62 830 62 860 50 900 C38 940 38 970 50 1000"/>
+    </g>
+    <g class="straight" mask="url(#rmS)">
+      <path class="casing" vector-effect="non-scaling-stroke" d="M50 0 L50 1000"/>
+      <path class="ink" vector-effect="non-scaling-stroke" d="M50 0 L50 1000"/>
+    </g>
+  </svg>
+
+  <!-- ===================== Т.00 ВЪЕЗД ===================== -->
+  <section class="zone hero" id="t00">
+    <div class="zone-inner">
+      <div class="ztop">
+        <span>РЫБОЛОВНЫЙ КЛУБ · ГЛЭМПИНГ · КАФЕ</span>
+        <span>МАРШРУТНЫЙ ЛИСТ · ВЫДАН У ШЛАГБАУМА</span>
+      </div>
+
+      <header class="zhead">
+        <a class="marker" href="#t01" aria-label="К точке Т.01 — пруды"><span class="pin">00</span></a>
+        <span class="chip">ВЫ ЗДЕСЬ · Т.00 · ВЪЕЗД</span>
+      </header>
+
+      <div class="hero-main">
+        <h1><span class="row">ЯНТАРНЫЙ</span><span class="row it">ручей</span></h1>
+        <div class="heroside">
+          <img class="mark" src="img/03_wall.jpg" alt="Круглый знак рыболовного клуба «Янтарный ручей»">
+          <span class="stamp">ВХОД 200 ₽<small>ШТАМП НА ПУТЁВКЕ</small></span>
+        </div>
+      </div>
+
+      <p class="hero-sub">рыболовный клуб и глэмпинг · с.&nbsp;Богдашкино <span class="mono">· ~50 КМ ОТ УЛЬЯНОВСКА · КРУГЛЫЙ ГОД</span></p>
+
+      <div class="cta-row">
+        <a class="btn solid" href="tel:+79278047241">+7 927 804-72-41</a>
+        <a class="btn ghost" href="https://vk.com/club222122282" target="_blank" rel="noopener">Группа ВКонтакте</a>
+      </div>
+
+      <p class="routes-label">ТРИ ГОТОВЫХ МАРШРУТА — ИЛИ ИДИТЕ ПО ЛИНИИ САМИ</p>
+
+      <div class="tickets">
+        <article class="ticket">
+          <div class="tstub"><b>А</b></div>
+          <div class="tbody">
+            <p class="tkick">МАРШРУТ А</p>
+            <h3 class="ttitle">Рыбак на день</h3>
+            <ul class="tsteps">
+              <li>ВЪЕЗД — путёвка у шлагбаума</li>
+              <li>Т.02 ДОМИК — снасти и садок</li>
+              <li>Т.01 ПРУД — с инструктором</li>
+              <li>ВЗВЕШИВАНИЕ — улов по весу</li>
+              <li>Т.04 ГРИЛЬ — жарим сами</li>
+            </ul>
+            <p class="tprice">ВХОД 200 ₽ / СО СНАСТЯМИ 1 000 ₽</p>
+            <p class="tnote">Ориентир чека дня: ~7–8 тыс ₽ с уловом.</p>
+          </div>
+        </article>
+
+        <article class="ticket">
+          <div class="tstub"><b>Б</b></div>
+          <div class="tbody">
+            <p class="tkick">МАРШРУТ Б</p>
+            <h3 class="ttitle">Семья с ночёвкой</h3>
+            <ul class="tsteps">
+              <li>Т.03 САФАРИ-ТЕНТ — 24 м² + веранда</li>
+              <li>ЗАВТРАК В КАФЕ — включён</li>
+              <li>Т.01 ПРУД — первая рыба ребёнка</li>
+              <li>ПЛОЩАДКА · КОСТЁР ВЕЧЕРОМ</li>
+            </ul>
+            <p class="tprice">ТЕНТ ОТ 5 000 ₽/СУТКИ · 4+2 МЕСТА</p>
+            <p class="tnote">Днём в тенте помещается до 6 гостей.</p>
+          </div>
+        </article>
+
+        <article class="ticket">
+          <div class="tstub"><b>В</b></div>
+          <div class="tbody">
+            <p class="tkick">МАРШРУТ В</p>
+            <h3 class="ttitle">Компания и экскурсия</h3>
+            <ul class="tsteps">
+              <li>РЫБХОЗ — экскурсия с дегустацией</li>
+              <li>КОМАНДНАЯ РЫБАЛКА</li>
+              <li>Т.05 КАФЕ — до 45 мест</li>
+              <li>Т.04 КОСТРОВАЯ ЗОНА</li>
+            </ul>
+            <p class="tprice">ПРОГРАММА И ЦЕНА — ПО ТЕЛЕФОНУ</p>
+            <p class="tnote">Место трезвое: без алкоголя — подходит для корпоративов.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <figure class="ph bleed">
+      <div class="phimg"><img class="c60" src="img/20_wall.jpg" alt="Семья с удочками на галечном берегу пруда, широкий план"></div>
+      <figcaption>Т.00 · БЕРЕГ У ПРУДА — МАРШРУТ НАЧИНАЕТСЯ ОТ ВОДЫ</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== Т.01 ПРУДЫ ===================== -->
+  <section class="zone" id="t01">
+    <div class="zone-inner">
+      <header class="zhead">
+        <a class="marker" href="#t02" aria-label="К точке Т.02 — домик рыбака"><span class="pin">01</span></a>
+        <span class="zidx">Т.01 · ПЕРВАЯ ОСТАНОВКА ПО ЛИНИИ</span>
+        <h2 class="sign">Пруды</h2>
+      </header>
+
+      <p class="zname"><em>«Янтарный» и «Серебряный»</em></p>
+
+      <div class="cols">
+        <div>
+          <p class="lead">Два рабочих пруда, в которых водятся радужная форель и кумжа. Ловят круглый год: летом — с берега, зимой — с организованного выхода на лёд.</p>
+          <p class="lead">Улов взвешивают на выезде и оплачивают по весу — забираете домой или готовите на мангале сами. Логика цены такая:</p>
+
+          <blockquote class="fieldq" style="margin-top:clamp(26px,3.5vw,40px)">
+            «Инструктор Денис, просто красавец. Благодаря ему мы с уловом. 9 килограмм за полтора часа. Эмоции зашкаливают».
+            <span class="qsrc">— ЗАПИСЬ В ПОЛЯХ · ОТЗЫВ GLAMPRUSSIA</span>
+          </blockquote>
+
+          <p class="note rot t01-note">на креветку — спрашивайте в домике рыбака</p>
+        </div>
+
+        <div class="receipt" aria-label="Квитанция взвешивания улова">
+          <p class="rhead">КВИТАНЦИЯ ВЗВЕШИВАНИЯ · РК «ЯНТАРНЫЙ РУЧЕЙ»</p>
+          <div class="rl"><span class="n">УЛОВ · РЫБА ≥ 800 Г</span><span class="d"></span><span class="v">800 ₽/КГ</span></div>
+          <div class="rl"><span class="n">УЛОВ · МЕЛКАЯ РЫБА</span><span class="d"></span><span class="v">650 ₽/КГ</span></div>
+          <div class="rl"><span class="n">ВХОД НА ТЕРРИТОРИЮ</span><span class="d"></span><span class="v">200 ₽</span></div>
+          <div class="rl"><span class="n">ПУТЁВКА СО СНАСТЯМИ</span><span class="d"></span><span class="v">1 000 ₽</span></div>
+          <div class="rsum">
+            <div class="rl"><span class="n">ВЗВЕШИВАЕМ И СЧИТАЕМ</span><span class="d"></span><span class="v">НА ВЫЕЗДЕ</span></div>
+          </div>
+          <p class="rfoot">ЧЕК ВЫДАЮТ ВМЕСТЕ С УЛОВОМ</p>
+        </div>
+      </div>
+
+      <div class="phgrid">
+        <figure class="ph">
+          <div class="phimg a43"><img src="img/33_wall.jpg" alt="Пожилой мужчина учит девочку ловить на спиннинг у берега пруда"></div>
+          <figcaption>Т.01 · УРОК НА «ЯНТАРНОМ» — ПЕРВАЯ СНАСТЬ</figcaption>
+        </figure>
+        <div class="stack">
+          <figure class="ph">
+            <div class="phimg a45"><img src="img/09_wall.jpg" alt="Мужчина держит садок с пойманными форелями у берега"></div>
+            <figcaption>Т.01 · САДОК С ФОРЕЛЬЮ</figcaption>
+          </figure>
+          <figure class="ph">
+            <div class="phimg a43"><img class="c72" src="img/29_wall.jpg" alt="Солнечная дорожка на воде пруда"></div>
+            <figcaption>Т.01 · ТИШИНА НА ВОДЕ</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Т.02 ДОМИК РЫБАКА ===================== -->
+  <section class="zone quiet" id="t02">
+    <div class="zone-inner">
+      <header class="zhead">
+        <a class="marker" href="#t03" aria-label="К точке Т.03 — сафари-тенты"><span class="pin">02</span></a>
+        <span class="zidx">Т.02 · СНАСТИ И ИНСТРУКТОР</span>
+        <h2 class="sign">Домик рыбака</h2>
+      </header>
+
+      <div class="cols">
+        <div>
+          <p class="lead">Стартовая точка рыбалки: здесь выдают всё «под ключ», подсказывают, где клюёт, и встречают инструктора. Рядом — фотозона для снимка с уловом.</p>
+
+          <ul class="mlist" style="margin-top:clamp(20px,3vw,30px)">
+            <li><span>УДОЧКИ · СПИННИНГИ</span><span class="d"></span><span class="v">В ПУТЁВКЕ 1 000 ₽</span></li>
+            <li><span>САЧОК · САДОК</span><span class="d"></span><span class="v">ПРОКАТ</span></li>
+            <li><span>ЗИМОЙ: БУР И ВЕДРО</span><span class="d"></span><span class="v">ПРОКАТ</span></li>
+            <li><span>НАСАДКИ: КРЕВЕТКА · ПРИКОРМКА</span><span class="d"></span><span class="v">В ДОМИКЕ</span></li>
+          </ul>
+
+          <p class="note" style="margin-top:clamp(18px,2.5vw,26px)">инструктор Денис выводит на рыбу — даже тех, кто «ничего не поймает»</p>
+
+          <div class="branch">
+            <b>ОТВЕТВЛЕНИЕ МАРШРУТА →</b> экскурсия по действующему рыбхозу с дегустацией. Программа и цена не публикуются — только по телефону <a href="tel:+79278047241">+7&nbsp;927&nbsp;804-72-41</a>.
+          </div>
+
+          <figure class="ph creek">
+            <div class="phimg a43"><img src="img/21_wall.jpg" alt="Небольшой ручей перекатывается через камни и гальку"></div>
+            <figcaption>ПОЛЯ ЛИСТА · САМ ЯНТАРНЫЙ РУЧЕЙ — ОРИГИНАЛ НАЗВАНИЯ</figcaption>
+          </figure>
+        </div>
+
+        <figure class="ph">
+          <div class="phimg a43"><img class="c80" src="img/40_wall.jpg" alt="Форель выпрыгивает из воды за наживкой рядом с подсаком"></div>
+          <figcaption>Т.02 · ТРОФЕЙ: ФОРЕЛЬ ИДЁТ ЗА НАЖИВКОЙ</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Т.03 САФАРИ-ТЕНТЫ (НОЧНАЯ ЗОНА) ===================== -->
+  <section class="zone night" id="t03">
+    <div class="zone-inner">
+      <header class="zhead">
+        <a class="marker" href="#t04" aria-label="К точке Т.04 — костровая зона"><span class="pin">03</span></a>
+        <span class="zidx">Т.03 · ЕДИНСТВЕННАЯ НОЧНАЯ ТОЧКА</span>
+        <h2 class="sign">Сафари-тенты</h2>
+      </header>
+
+      <p class="zname"><em>ночь у воды, с завтраком в кафе</em></p>
+    </div>
+
+    <figure class="ph bleed">
+      <div class="phimg"><img class="c76" src="img/08_wall.jpg" alt="Ночь: сафари-тенты глэмпинга с гирляндами, звёздное небо"></div>
+      <figcaption>Т.03 · НОЧЬ: ТЕНТЫ И ГИРЛЯНДЫ</figcaption>
+    </figure>
+
+    <div class="zone-inner">
+      <div class="cols">
+        <div>
+          <p class="lead">Пять тентов на территории клуба — для тех, кто хочет остаться у пруда до утра и выйти к воде с рассветом.</p>
+          <ul class="mlist" style="margin-top:clamp(20px,3vw,30px)">
+            <li><span>КОМНАТА / ВЕРАНДА</span><span class="d"></span><span class="v">24 М² / 8 М²</span></li>
+            <li><span>С НОЧЁВКОЙ</span><span class="d"></span><span class="v">4+2 МЕСТА</span></li>
+            <li><span>ГОСТЕЙ ДНЁМ</span><span class="d"></span><span class="v">ДО 6 ЧЕЛ.</span></li>
+            <li><span>ВНУТРИ</span><span class="d"></span><span class="v">3 ДИВАНА · СТОЛ · ШКАФ</span></li>
+            <li><span>ЕЩЁ</span><span class="d"></span><span class="v">ХОЛОДИЛЬНИК · ЧАЙНИК · ПОСУДА · ОБОГРЕВАТЕЛЬ</span></li>
+            <li><span>ЗАВТРАК В КАФЕ</span><span class="d"></span><span class="v">ВКЛЮЧЁН В СУТКИ</span></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="placard">
+            <p class="big">ОТ 5 000 ₽</p>
+            <p class="sub">ЗА СУТКИ · САФАРИ-ТЕНТ</p>
+            <p class="tiny">ЕДИНСТВЕННАЯ ПУБЛИЧНАЯ ЦЕНА — ТАРИФ И ДАТЫ УТОЧНЯЙТЕ ПО ТЕЛЕФОНУ</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="duo">
+        <figure class="ph">
+          <div class="phimg a32"><img class="c76" src="img/23_wall.jpg" alt="Закат: стол с едой на веранде тента, ящик с выжженным «Янтарный ручей»"></div>
+          <figcaption>Т.03 · ВЕРАНДА И ЯЩИК С ВЫЖЖЕННЫМ ЗНАКОМ</figcaption>
+        </figure>
+        <figure class="ph">
+          <div class="phimg a45"><img src="img/13_wall.jpg" alt="Гравийная дорожка с гирляндами к куполам глэмпинга, таблички территории"></div>
+          <figcaption>Т.03 · ДОРОЖКА К ТЕНТАМ, ДНЁМ</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Т.04 КОСТРОВАЯ И ГРИЛЬ-ЗОНЫ ===================== -->
+  <section class="zone quiet" id="t04">
+    <div class="zone-inner">
+      <header class="zhead">
+        <a class="marker" href="#t05" aria-label="К точке Т.05 — кафе"><span class="pin">04</span></a>
+        <span class="zidx">Т.04 · ВЕЧЕРНИЙ ПРИВАЛ</span>
+        <h2 class="sign">Костровая и гриль-зоны</h2>
+      </header>
+
+      <p class="lead">Улов не обязан ехать домой сырым: гриль-зоны с рукомойниками — чтобы разделать и приготовить рыбу на мангале самим, а костровая чаша — для «песен у костра под гитару».</p>
+
+      <div class="koster-grid">
+        <figure class="ph">
+          <div class="phimg a169"><img class="c80" src="img/36_wall.jpg" alt="Ночь: компания у костровой чаши, за спинами подсвеченные тенты"></div>
+          <figcaption>Т.04 · КОСТРОВАЯ ЧАША ПОСЛЕ ЗАКАТА</figcaption>
+        </figure>
+        <figure class="ph">
+          <div class="phimg a43"><img style="object-position:50% 38%" src="img/16_wall.jpg" alt="Мужчина держит пойманную форель на лугу у пруда"></div>
+          <figcaption>Т.04 · СВЕЖИЙ УЛОВ</figcaption>
+        </figure>
+      </div>
+
+      <blockquote class="fieldq koster-q">
+        «Интересное место для отдыха и рыбалки всей семьёй круглый год… место без наркотиков и алкоголя».
+        <span class="qsrc">— ЗАПИСЬ В ПОЛЯХ · ОТЗЫВ GLAMPRUSSIA</span>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ===================== Т.05 КАФЕ ===================== -->
+  <section class="zone" id="t05">
+    <div class="zone-inner">
+      <header class="zhead">
+        <a class="marker" href="#t06" aria-label="К точке Т.06 — рыбная лавка"><span class="pin">05</span></a>
+        <span class="zidx">Т.05 · ЕДА У ПРУДА «ЗОЛОТАЯ РЫБКА»</span>
+        <h2 class="sign">Кафе «Рыбные истории»</h2>
+      </header>
+
+      <div class="cols">
+        <div>
+          <p class="lead">Гастро-зал и летняя веранда у декоративного пруда — до 45 мест, блюда разных стран, еда навынос. Сюда приходят греться после ловли и отмечать трофей.</p>
+          <p class="mlabel" style="margin-top:clamp(20px,3vw,28px)">ХИТЫ ИЗ ОТЗЫВОВ</p>
+          <ul class="hits">
+            <li>ЧЕБУРЕКИ С ФОРЕЛЬЮ</li>
+            <li>ПЕЛЬМЕНИ ИЗ ФОРЕЛИ</li>
+            <li>БРУСКЕТТЫ С ФОРЕЛЬЮ</li>
+            <li>ОБЛЕПИХОВЫЙ ЧАЙ · КАПУЧИНО</li>
+          </ul>
+          <p class="note" style="margin-top:clamp(16px,2.4vw,24px)">зимой — бесплатный глинтвейн</p>
+        </div>
+
+        <div>
+          <figure class="ph steamb">
+            <div class="phimg a43"><img class="c76" src="img/25_wall.jpg" alt="Тосты с малосольной форелью и короб с логотипом «Рыбные истории»"></div>
+            <div class="steams" aria-hidden="true"><i></i><i></i><i></i></div>
+            <figcaption>Т.05 · ФИРМЕННЫЕ ТОСТЫ «РЫБНЫЕ ИСТОРИИ»</figcaption>
+          </figure>
+          <blockquote class="fieldq" style="margin-top:clamp(24px,3vw,34px)">
+            «Чебуреки с форелью — просто восторг!» — и ещё: «Пельмешки из форели просто бомба!!!»
+            <span class="qsrc">— ЗАПИСЬ В ПОЛЯХ · ОТЗЫВЫ GLAMPRUSSIA</span>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="cafe-grid">
+        <figure class="ph">
+          <div class="phimg a169"><img class="c72" src="img/27_wall.jpg" alt="Аэратор-фонтан в центре рыболовного пруда"></div>
+          <figcaption>Т.05 · ПРУД У КАФЕ</figcaption>
+        </figure>
+        <figure class="ph">
+          <div class="phimg a45"><img class="c60" src="img/26_wall.jpg" alt="Девочка на деревянном мостике над декоративным прудиком с золотыми рыбками"></div>
+          <figcaption>Т.05 · МОСТИК У «ЗОЛОТОЙ РЫБКИ»</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Т.06 РЫБНАЯ ЛАВКА ===================== -->
+  <section class="zone" id="t06">
+    <div class="zone-inner" style="padding-bottom:clamp(100px,12vw,150px)">
+      <header class="zhead">
+        <a class="marker" href="#fin" aria-label="К финишу — выезд и чек"><span class="pin">06</span></a>
+        <span class="zidx">Т.06 · ПОЛКА ПЕРЕД ВЫЕЗДОМ</span>
+        <h2 class="sign">Рыбная лавка</h2>
+      </header>
+
+      <div class="cols">
+        <div>
+          <p class="lead">Рыба с собственной фермы в 50 км от города — рыбоводческий комплекс полного цикла, от икры до товарной навески. Охлаждёнка, копчёности и полуфабрикаты — чтобы увезти «Янтарный ручей» домой.</p>
+          <p class="mlabel" style="margin-top:clamp(20px,3vw,28px)">ЦЕННИКИ С ВИТРИНЫ</p>
+          <div class="tags">
+            <span class="tag">СТЕЙК С/М</span>
+            <span class="tag">ФИЛЕ СЛАБОСОЛ.</span>
+            <span class="tag">ПЕЛЬМЕНИ ФОРЕЛЬ+ЛОСОСЬ 400 Г</span>
+            <span class="tag">Г/К</span>
+            <span class="tag">Х/К</span>
+            <span class="tag">ВЯЛЕНАЯ</span>
+            <span class="tag">ФАРШ 0,5 КГ</span>
+            <span class="tag">ОХЛАЖД. ПОТРОШЁНАЯ 0,8–1,3 КГ</span>
+          </div>
+
+          <div class="shop-addr">
+            <ul class="mlist">
+              <li><span>ЛАВКА НА ТЕРРИТОРИИ</span><span class="d"></span><span class="v">ПОЛЕВАЯ, 4</span></li>
+              <li><span>ЛАВКА В УЛЬЯНОВСКЕ</span><span class="d"></span><span class="v">УЛЬЯНОВСКИЙ ПР-Т 12Е</span></li>
+              <li><span>ЧАСЫ</span><span class="d"></span><span class="v">09:00–19:00 ЕЖЕДН.</span></li>
+              <li><span>ТЕЛЕФОН ЛАВКИ</span><span class="d"></span><span class="v"><a href="tel:+79279840005">+7 927 984-00-05</a></span></li>
+            </ul>
+          </div>
+        </div>
+
+        <figure class="ph">
+          <div class="phimg a43"><img class="c76" src="img/28_wall.jpg" alt="Витрина лавки крупным планом: подносы с копчёной форелью и филе"></div>
+          <figcaption>Т.06 · ВИТРИНА С КОПЧЁНОЙ ФОРЕЛЬЮ</figcaption>
+        </figure>
+      </div>
+
+      <div class="shop-grid">
+        <figure class="ph">
+          <div class="phimg a32"><img src="img/19_wall.jpg" alt="Копчёная форель на витрине, ценник «Форель г/к 980/кг»"></div>
+          <figcaption>Т.06 · ЦЕННИК «ФОРЕЛЬ Г/К»</figcaption>
+        </figure>
+        <figure class="ph">
+          <div class="phimg a32"><img src="img/12_wall.jpg" alt="Купольные сферы глэмпинга, у строения жестяные вывески «Рыбная лавка» и «Туалет-WC»"></div>
+          <figcaption>Т.06 · ВЫВЕСКА «РЫБНАЯ ЛАВКА»</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ФИНИШ — ВЫЕЗД/ЧЕК ===================== -->
+  <section class="zone finish" id="fin">
+    <div class="zone-inner">
+      <div class="receipt fin-receipt" aria-label="Чек маршрута">
+        <p class="rhead">ЧЕК МАРШРУТА · РК «ЯНТАРНЫЙ РУЧЕЙ»</p>
+        <div class="rl"><span class="n">ВХОД НА ТЕРРИТОРИЮ</span><span class="d"></span><span class="v">200 ₽</span></div>
+        <div class="rl"><span class="n">ПУТЁВКА СО СНАСТЯМИ</span><span class="d"></span><span class="v">1 000 ₽</span></div>
+        <div class="rl"><span class="n">УЛОВ · РЫБА ≥ 800 Г</span><span class="d"></span><span class="v">800 ₽/КГ</span></div>
+        <div class="rl"><span class="n">УЛОВ · МЕЛКАЯ</span><span class="d"></span><span class="v">650 ₽/КГ</span></div>
+        <div class="rl"><span class="n">САФАРИ-ТЕНТ</span><span class="d"></span><span class="v">ОТ 5 000 ₽/СУТ</span></div>
+        <div class="rl"><span class="n">ЭКСКУРСИЯ С ДЕГУСТАЦИЕЙ</span><span class="d"></span><span class="v">ПО ТЕЛЕФОНУ</span></div>
+        <div class="rsum">
+          <div class="rl"><span class="n">ОРИЕНТИР: ЧЕК РЫБАЛКИ</span><span class="d"></span><span class="v">≈ 7–8 ТЫС ₽</span></div>
+        </div>
+        <p class="rfoot">ЦЕНЫ — ИЗ ОТКРЫТЫХ ДАННЫХ, УТОЧНЯЙТЕ · СПАСИБО, ЖДЁМ НА РЫБАЛКУ</p>
+      </div>
+
+      <header class="zhead" style="margin-top:clamp(40px,5vw,64px)">
+        <span class="marker fin" aria-hidden="true"><span class="pin">Ф</span></span>
+        <span class="zidx">ФИНИШ · ВЫЕЗД И КАССА</span>
+        <h2 class="sign">Собрать свой маршрут</h2>
+      </header>
+
+      <p class="lead">Один звонок — и лист превращается в путёвку: забронируют тент, расскажут про клёв и встретят у шлагбаума.</p>
+
+      <a class="telplacard" href="tel:+79278047241"><small>БРОНЬ · РЫБАЛКА · ЭКСКУРСИИ · ГЛЭМПИНГ</small>+7 927 804-72-41</a>
+
+      <div class="cta-row" style="margin-top:clamp(18px,2.5vw,28px)">
+        <a class="btn solid" href="tel:+79278047241">Позвонить в клуб</a>
+        <a class="btn ghost" href="https://vk.com/club222122282" target="_blank" rel="noopener">vk.com/club222122282</a>
+        <a class="btn ghost" href="https://yandex.ru/maps/?text=%D0%AF%D0%BD%D1%82%D0%B0%D1%80%D0%BD%D1%8B%D0%B9%20%D1%80%D1%83%D1%87%D0%B5%D0%B9%20%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D1%88%D0%BA%D0%B8%D0%BD%D0%BE" target="_blank" rel="noopener">Открыть карту</a>
+      </div>
+
+      <div class="howto cols">
+        <div>
+          <p class="mlabel">КАК ДОЕХАТЬ</p>
+          <ul class="mlist">
+            <li><span>НА АВТО</span><span class="d"></span><span class="v">~50 КМ ОТ УЛЬЯНОВСКА И ДИМИТРОВГРАДА</span></li>
+            <li><span>АВТОБУС №419</span><span class="d"></span><span class="v">ЦАВ → БОГДАШКИНО</span></li>
+            <li><span>ХОДИТ</span><span class="d"></span><span class="v">~6:00–22:00 · УТОЧНЯЙТЕ</span></li>
+            <li><span>АДРЕС</span><span class="d"></span><span class="v">С. БОГДАШКИНО, УЛ. ПОЛЕВАЯ, 4</span></li>
+          </ul>
+        </div>
+        <div>
+          <p class="mlabel">ПРИЁМ ГЛЭМПИНГА</p>
+          <ul class="mlist">
+            <li><span>ДНИ ПРИЁМА</span><span class="d"></span><span class="v">ЧТ–ВС</span></li>
+            <li><span>ЧАСЫ</span><span class="d"></span><span class="v">09:00–17:00</span></li>
+            <li><span>РЫБАЛКА</span><span class="d"></span><span class="v">КРУГЛЫЙ ГОД</span></li>
+          </ul>
+          <blockquote class="fieldq" style="margin-top:clamp(20px,3vw,30px)">
+            «Место действительно приятное, всё как-то сделано аккуратно, чистенько».
+            <span class="qsrc">— ЗАПИСЬ В ПОЛЯХ · ОТЗЫВ ULFISHING</span>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="zone-inner">
+    <p class="footline">
+      <span>МАРШРУТНЫЙ ЛИСТ · РК «ЯНТАРНЫЙ РУЧЕЙ» · КФХ ДУДКО О.А.</span>
+      <span>КОНЦЕПТ-САЙТ ПО ОТКРЫТЫМ ДАННЫМ</span>
+    </p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var d=document, de=d.documentElement;
+  var reduced=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO='IntersectionObserver' in window;
+  if(hasIO) de.classList.add('js');
+
+  /* M01 — линия маршрута дорисовывается за скроллом */
+  var paths=d.querySelectorAll('.rdraw'), cur=-1, ticking=false;
+  function target(){
+    var m=de.scrollHeight-de.clientHeight;
+    return m>0?Math.min(1,Math.max(0,de.scrollTop/m)):1;
+  }
+  function paint(v){
+    var off=reduced?0:(1-v);
+    for(var i=0;i<paths.length;i++){paths[i].style.strokeDashoffset=off;}
+  }
+  function tick(){
+    ticking=false;
+    var t=target();
+    if(cur<0) cur=t;
+    cur+=(t-cur)*0.15;
+    if(Math.abs(t-cur)<0.002) cur=t;
+    paint(Math.max(cur,0.03));
+    if(cur!==t && !reduced){ticking=true;requestAnimationFrame(tick);}
+  }
+  function ask(){ if(!ticking){ticking=true;requestAnimationFrame(tick);} }
+  if(!reduced){
+    window.addEventListener('scroll',ask,{passive:true});
+    window.addEventListener('resize',ask);
+  } else {
+    paint(1);
+  }
+  ask();
+
+  /* M02 штамп + M03 маркеры — «втыкаются» при входе в зону (once) */
+  if(hasIO && !reduced){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('on');
+          e.target.classList.remove('pre');
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.35});
+    d.querySelectorAll('.marker,.stamp').forEach(function(el){
+      el.classList.add('pre');
+      io.observe(el);
+    });
+
+    /* M04 — пар над столом: loop только в viewport */
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){ e.target.classList.toggle('steam-on',e.isIntersecting); });
+    },{threshold:.3});
+    d.querySelectorAll('.steamb').forEach(function(el){ io2.observe(el); });
+  }else if(!reduced){
+    d.querySelectorAll('.steamb').forEach(function(el){ el.classList.add('steam-on'); });
+  }
+})();
+</script>
+</body>
+</html>
